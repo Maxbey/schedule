@@ -17,7 +17,7 @@ class CreateTeachersTable extends Migration
             $table->string('firstname', 100);
             $table->string('lastname', 100);
             $table->string('middlename', 100);
-            $table->string('military_rank');
+            $table->string('military_rank', 100);
 
             $table->mediumInteger('work_hours_limit');
 

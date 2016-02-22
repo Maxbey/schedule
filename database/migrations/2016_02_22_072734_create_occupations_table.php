@@ -19,6 +19,7 @@ class CreateOccupationsTable extends Migration
             $table->smallInteger('troop_id')->unsigned()->index();
             $table->integer('theme_id')->unsigned()->index();
             $table->smallInteger('discipline_id')->unsigned()->index();
+            $table->unsignedTinyInteger('audience_id')->index();
 
             $table->timestamps();
             $table->softDeletes();
@@ -41,6 +42,11 @@ class CreateOccupationsTable extends Migration
             $table->foreign('theme_id')
                 ->references('id')
                 ->on('themes')
+                ->onDelete('cascade');
+
+            $table->foreign('audience_id')
+                ->references('id')
+                ->on('audiences')
                 ->onDelete('cascade');
         });
     }

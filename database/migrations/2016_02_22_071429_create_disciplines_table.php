@@ -14,7 +14,8 @@ class CreateDisciplinesTable extends Migration
     {
         Schema::create('disciplines', function (Blueprint $table) {
             $table->smallIncrements('id');
-            $table->string('name', 100);
+            $table->string('full_name', 255);
+            $table->string('short_name', 100);
 
             $table->timestamps();
             $table->softDeletes();

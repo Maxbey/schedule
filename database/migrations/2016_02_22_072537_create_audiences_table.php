@@ -15,7 +15,8 @@ class CreateAudiencesTable extends Migration
         Schema::create('audiences', function (Blueprint $table) {
             $table->smallIncrements('id');
             $table->string('name');
-            $table->string('location');
+            $table->smallInteger('building');
+            $table->smallInteger('number');
 
             $table->timestamps();
             $table->softDeletes();
