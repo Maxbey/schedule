@@ -157,7 +157,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
-        Cviebrock\EloquentSluggable\SluggableServiceProvider::class
+        Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class
 
 
     ],

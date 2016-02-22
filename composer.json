@@ -17,7 +17,9 @@
         "barryvdh/laravel-debugbar": "*",
         "prettus/l5-repository": "*",
         "league/fractal": "*",
-        "cviebrock/eloquent-sluggable": "3.1.4"
+        "cviebrock/eloquent-sluggable": "3.1.4",
+        "spatie/laravel-authorize": "*",
+        "spatie/laravel-permission": "*"
     },
     "autoload": {
         "classmap": [
