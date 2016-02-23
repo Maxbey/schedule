@@ -25,7 +25,37 @@ class ServicesServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             'SpecialtyService',
-            'App\\Services\\SpecialtyService'
+            'App\Services\SpecialtyService'
+        );
+
+        $this->app->bind(
+            'TroopService',
+            'App\Services\TroopService'
+        );
+
+        $this->app->bind(
+            'TeacherService',
+            'App\Services\TeacherService'
+        );
+
+        $this->app->bind(
+            'DisciplineService',
+            'App\Services\DisciplineService'
+        );
+
+        $this->app->bind(
+            'ThemeService',
+            'App\Services\ThemeService'
+        );
+
+        $this->app->bind(
+            'OccupationService',
+            'App\Services\OccupationService'
+        );
+
+        $this->app->bind(
+            'AudienceService',
+            'App\Services\AudienceService'
         );
     }
 }

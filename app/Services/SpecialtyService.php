@@ -17,7 +17,7 @@ class SpecialtyService
         $this->specialtiesRepository = $specialtiesRepository;
     }
 
-    public function getSpecialty($specialtyId)
+    public function getById($specialtyId)
     {
         return $this->specialtiesRepository->find($specialtyId);
     }
@@ -27,16 +27,9 @@ class SpecialtyService
         return $this->specialtiesRepository->create($attributes);
     }
 
-    public function attachTroops($specialtyId, array $troops)
-    {
-        return $this->getSpecialty($specialtyId)
-            ->troops()
-            ->saveMany($troops);
-    }
-
     public function attachDisciplines($specialtyId, array $disciplines)
     {
-        return $this->getSpecialty($specialtyId)
+        return $this->getById($specialtyId)
             ->disciplines()
             ->sync($disciplines);
     }
