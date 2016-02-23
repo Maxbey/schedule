@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Repositories\Additions\Restore;
+use App\Repositories\Additions\RestoreFunctionality;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\TeachersRepository;
@@ -11,8 +13,10 @@ use App\Entities\Teacher;
  * Class TeachersRepositoryEloquent
  * @package namespace App\Repositories;
  */
-class TeachersRepositoryEloquent extends BaseRepository implements TeachersRepository
+class TeachersRepositoryEloquent extends BaseRepository implements TeachersRepository, Restore
 {
+    use RestoreFunctionality;
+
     /**
      * Specify Model class name
      *

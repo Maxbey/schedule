@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Repositories\Additions\Restore;
+use App\Repositories\Additions\RestoreFunctionality;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\OccupationsRepository;
@@ -11,8 +13,10 @@ use App\Entities\Occupation;
  * Class OccupationsRepositoryEloquent
  * @package namespace App\Repositories;
  */
-class OccupationsRepositoryEloquent extends BaseRepository implements OccupationsRepository
+class OccupationsRepositoryEloquent extends BaseRepository implements OccupationsRepository, Restore
 {
+    use RestoreFunctionality;
+
     /**
      * Specify Model class name
      *

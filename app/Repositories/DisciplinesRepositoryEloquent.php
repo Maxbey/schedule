@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Repositories\Additions\Restore;
+use App\Repositories\Additions\RestoreFunctionality;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\DisciplinesRepository;
@@ -11,8 +13,10 @@ use App\Entities\Discipline;
  * Class DisciplinesRepositoryEloquent
  * @package namespace App\Repositories;
  */
-class DisciplinesRepositoryEloquent extends BaseRepository implements DisciplinesRepository
+class DisciplinesRepositoryEloquent extends BaseRepository implements DisciplinesRepository, Restore
 {
+    use RestoreFunctionality;
+
     /**
      * Specify Model class name
      *

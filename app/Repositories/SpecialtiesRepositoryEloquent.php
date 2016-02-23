@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Repositories\Additions\Restore;
+use App\Repositories\Additions\RestoreFunctionality;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\SpecialtiesRepository;
@@ -11,8 +13,10 @@ use App\Entities\Specialty;
  * Class SpecialtiesRepositoryEloquent
  * @package namespace App\Repositories;
  */
-class SpecialtiesRepositoryEloquent extends BaseRepository implements SpecialtiesRepository
+class SpecialtiesRepositoryEloquent extends BaseRepository implements SpecialtiesRepository, Restore
 {
+    use RestoreFunctionality;
+
     /**
      * Specify Model class name
      *

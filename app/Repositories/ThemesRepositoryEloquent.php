@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Repositories\Additions\Restore;
+use App\Repositories\Additions\RestoreFunctionality;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\ThemesRepository;
@@ -11,8 +13,10 @@ use App\Entities\Theme;
  * Class ThemesRepositoryEloquent
  * @package namespace App\Repositories;
  */
-class ThemesRepositoryEloquent extends BaseRepository implements ThemesRepository
+class ThemesRepositoryEloquent extends BaseRepository implements ThemesRepository, Restore
 {
+    use RestoreFunctionality;
+
     /**
      * Specify Model class name
      *

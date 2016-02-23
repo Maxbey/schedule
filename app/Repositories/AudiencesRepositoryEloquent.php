@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Repositories\Additions\Restore;
+use App\Repositories\Additions\RestoreFunctionality;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\AudiencesRepository;
@@ -11,8 +13,10 @@ use App\Entities\Audience;
  * Class AudiencesRepositoryEloquent
  * @package namespace App\Repositories;
  */
-class AudiencesRepositoryEloquent extends BaseRepository implements AudiencesRepository
+class AudiencesRepositoryEloquent extends BaseRepository implements AudiencesRepository, Restore
 {
+    use RestoreFunctionality;
+
     /**
      * Specify Model class name
      *
