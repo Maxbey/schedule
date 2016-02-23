@@ -64,7 +64,7 @@ $factory->define(App\Entities\Audience::class, function(Faker\Generator $faker){
     return [
         'name' => $faker->title,
         'building' => $faker->numberBetween(0, 100),
-        'number' => $faker->numberBetween(0, 700)
+        'number' => $faker->numberBetween(0, 100)
     ];
 });
 
