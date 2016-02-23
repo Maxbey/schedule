@@ -17,6 +17,7 @@ class CreateDisciplinesTable extends Migration
             $table->string('full_name', 255);
             $table->string('short_name', 100);
 
+            $table->string('slug')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

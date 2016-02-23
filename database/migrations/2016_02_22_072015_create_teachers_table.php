@@ -18,6 +18,7 @@ class CreateTeachersTable extends Migration
             $table->string('lastname', 100);
             $table->string('middlename', 100);
             $table->string('military_rank', 100);
+            $table->string('slug')->nullable();
 
             $table->mediumInteger('work_hours_limit');
 

@@ -16,7 +16,7 @@ class CreateSpecialtiesTable extends Migration
             $table->smallIncrements('id');
             $table->string('name', 100);
             $table->string('code', 100);
-
+            $table->string('slug')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

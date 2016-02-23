@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
-class Theme extends Model implements Transformable, SluggableInterface
+class Theme extends Model implements Transformable
 {
     use TransformableTrait;
     use SluggableTrait;
@@ -18,11 +18,6 @@ class Theme extends Model implements Transformable, SluggableInterface
     protected $table = 'themes';
 
     protected $fillable = ['name', 'term'];
-
-    protected $sluggable = [
-        'build_from' => 'short_name',
-        'save_to' => 'slug'
-    ];
 
     public function discipline()
     {
