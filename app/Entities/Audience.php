@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
-class Audience extends Model implements Transformable
+class Audience extends Model
 {
-    use TransformableTrait;
     use SoftDeletes;
 
     protected $table = 'audiences';
@@ -28,6 +27,11 @@ class Audience extends Model implements Transformable
     public function occupations()
     {
         return $this->hasMany(Occupation::class);
+    }
+
+    public function getLocationAttribute()
+    {
+        return $this->building . '-' . $this->number;
     }
 
 }

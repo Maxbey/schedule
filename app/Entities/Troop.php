@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
-class Troop extends Model implements Transformable
+class Troop extends Model
 {
-    use TransformableTrait;
     use SoftDeletes;
 
     protected $table = 'troops';
@@ -24,6 +23,11 @@ class Troop extends Model implements Transformable
     public function occupations()
     {
         return $this->hasMany(Occupation::class);
+    }
+
+    public function getSpecialtyNameAttribute()
+    {
+        return $this->specialty->name;
     }
 
 }

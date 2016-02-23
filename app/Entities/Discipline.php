@@ -9,9 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
-class Discipline extends Model implements Transformable, SluggableInterface
+class Discipline extends Model implements SluggableInterface
 {
-    use TransformableTrait;
     use SluggableTrait;
     use SoftDeletes;
 

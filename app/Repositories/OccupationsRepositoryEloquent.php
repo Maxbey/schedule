@@ -31,6 +31,16 @@ class OccupationsRepositoryEloquent extends BaseRepository implements Occupation
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
+    /**
+     * Set the presenter
+     *
+     * @return string
+     */
+    public function presenter()
+    {
+        return 'App\Presenters\OccupationPresenter';
+    }
+
     public function findByDate($date)
     {
         return $this->findByField('date_of', $date);

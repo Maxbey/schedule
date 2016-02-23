@@ -9,9 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
-class Theme extends Model implements Transformable
+class Theme extends Model
 {
-    use TransformableTrait;
     use SluggableTrait;
     use SoftDeletes;
 
@@ -37,6 +36,11 @@ class Theme extends Model implements Transformable
     public function occupations()
     {
         return $this->hasMany(Occupation::class);
+    }
+
+    public function getDisciplineNameAttribute()
+    {
+        return $this->discipline->full_name;
     }
 
 }

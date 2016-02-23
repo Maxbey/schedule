@@ -9,9 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
-class Teacher extends Model implements Transformable, SluggableInterface
+class Teacher extends Model implements SluggableInterface
 {
-    use TransformableTrait;
     use SluggableTrait;
     use SoftDeletes;
 
@@ -38,6 +37,11 @@ class Teacher extends Model implements Transformable, SluggableInterface
     public function occupations()
     {
         return $this->hasMany(Occupation::class);
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->lastname . ' ' . $this->firstname . ' ' . $this->middlename;
     }
 
 }

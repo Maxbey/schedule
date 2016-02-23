@@ -31,6 +31,16 @@ class ThemesRepositoryEloquent extends BaseRepository implements ThemesRepositor
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
+    /**
+     * Set the presenter
+     *
+     * @return string
+     */
+    public function presenter()
+    {
+        return 'App\Presenters\ThemePresenter';
+    }
+
     public function findByTerm($termNumber)
     {
         return $this->findByField('term', $termNumber);

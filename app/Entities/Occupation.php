@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
-class Occupation extends Model implements Transformable
+class Occupation extends Model
 {
-    use TransformableTrait;
     use SoftDeletes;
 
     protected $table = 'occupations';

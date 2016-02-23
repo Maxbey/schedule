@@ -31,6 +31,16 @@ class AudiencesRepositoryEloquent extends BaseRepository implements AudiencesRep
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
+    /**
+     * Set the presenter
+     *
+     * @return string
+     */
+    public function presenter()
+    {
+        return 'App\Presenters\AudiencePresenter';
+    }
+
     public function findByBuilding($building)
     {
         return $this->findByField('building', $building);

@@ -31,6 +31,16 @@ class TroopsRepositoryEloquent extends BaseRepository implements TroopsRepositor
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
+    /**
+     * Set the presenter
+     *
+     * @return string
+     */
+    public function presenter()
+    {
+        return 'App\Presenters\TroopPresenter';
+    }
+
     public function findByCode($code)
     {
         return $this->findByField('code', $code);

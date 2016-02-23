@@ -31,6 +31,16 @@ class DisciplinesRepositoryEloquent extends BaseRepository implements Discipline
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
+    /**
+     * Set the presenter
+     *
+     * @return string
+     */
+    public function presenter()
+    {
+        return 'App\Presenters\DisciplinePresenter';
+    }
+
     public function findByFullName($fullName)
     {
         return $this->findByField('full_name', $fullName);

@@ -31,6 +31,16 @@ class TeachersRepositoryEloquent extends BaseRepository implements TeachersRepos
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
+    /**
+     * Set the presenter
+     *
+     * @return string
+     */
+    public function presenter()
+    {
+        return 'App\Presenters\TeacherPresenter';
+    }
+
     public function findByLastName($lastName)
     {
         return $this->findByField('lastname', $lastName);

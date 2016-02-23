@@ -31,6 +31,16 @@ class SpecialtiesRepositoryEloquent extends BaseRepository implements Specialtie
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
+    /**
+     * Set the presenter
+     *
+     * @return string
+     */
+    public function presenter()
+    {
+        return 'App\Presenters\SpecialtyPresenter';
+    }
+
     public function findByName($name)
     {
         return $this->findByField('name', $name);
