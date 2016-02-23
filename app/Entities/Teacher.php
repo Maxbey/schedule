@@ -21,7 +21,8 @@ class Teacher extends Model implements Transformable, SluggableInterface
         'firstname',
         'lastname',
         'middlename',
-        'work_hours_limit'
+        'work_hours_limit',
+        'military_rank'
     ];
 
     protected $sluggable = [

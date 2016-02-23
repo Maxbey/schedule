@@ -158,8 +158,8 @@ return [
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
-        Spatie\Permission\PermissionServiceProvider::class
-
+        Spatie\Permission\PermissionServiceProvider::class,
+        App\Providers\RepositoriesServiceProvider::class,
 
     ],
 
