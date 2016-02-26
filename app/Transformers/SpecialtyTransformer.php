@@ -11,7 +11,6 @@ use App\Entities\Specialty;
  */
 class SpecialtyTransformer extends TransformerAbstract
 {
-
     /**
      * Transform the \Specialty entity
      * @param Specialty $model
@@ -21,8 +20,34 @@ class SpecialtyTransformer extends TransformerAbstract
     public function transform(Specialty $model)
     {
         return [
+            'id' => $model->id,
             'name' => $model->name,
-            'code' => $model->code
+            'code' => $model->code,
+            'links' => [
+                'show' => action('SpecialtiesController@show', ['id' => $model->id]) . '?include=troops,disciplines',
+                'delete' => action('SpecialtiesController@destroy', ['id' => $model->id])
+            ]
         ];
     }
+
+    protected $availableIncludes = [
+        'troops',
+        'disciplines'
+    ];
+
+    public function includeTroops(Specialty $model)
+    {
+        $troops = $model->troops;
+
+        return $this->collection($troops, new TroopTransformer);
+    }
+
+    public function includeDisciplines(Specialty $model)
+    {
+        $disciplines = $model->disciplines;
+
+        return $this->collection($disciplines, new DisciplineTransformer);
+    }
+
+
 }
