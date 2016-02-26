@@ -10,18 +10,11 @@ use App\Entities\Theme;
 use App\Entities\Troop;
 use App\Repositories\OccupationsRepository;
 
-class OccupationService
+class OccupationService extends EntityService
 {
-    protected $occupationsRepository;
-
-    public function __construct(OccupationsRepository $occupationsRepository)
+    protected function repository()
     {
-        $this->occupationsRepository = $occupationsRepository;
-    }
-
-    public function getById($id)
-    {
-        return $this->occupationsRepository->find($id);
+        return 'App\Repositories\OccupationsRepository';
     }
 
     public function create
@@ -47,16 +40,6 @@ class OccupationService
             ->save();
 
         return $occupation;
-    }
-
-    public function delete($id)
-    {
-        $this->occupationsRepository->delete($id);
-    }
-
-    public function restore($id)
-    {
-        $this->occupationsRepository->restore($id);
     }
 
 }

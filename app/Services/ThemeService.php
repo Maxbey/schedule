@@ -5,14 +5,13 @@ namespace App\Services;
 
 use App\Entities\Discipline;
 use App\Repositories\ThemesRepository;
+use Illuminate\Database\Eloquent\Collection;
 
-class ThemeService
+class ThemeService extends EntityService
 {
-    protected $themesRepository;
-
-    public function __construct(ThemesRepository $themesRepository)
+    protected function repository()
     {
-        $this->themesRepository = $themesRepository;
+        return 'App\Repositories\ThemesRepository';
     }
 
     public function create(Discipline $discipline, array $attributes)
@@ -20,37 +19,17 @@ class ThemeService
         return $discipline->themes()->create($attributes);
     }
 
-    public function delete($themeId)
-    {
-        $this->themesRepository->delete($themeId);
-    }
-
-    public function restore($themeId)
-    {
-        $this->themesRepository->restore($themeId);
-    }
-
-    public function attachTeachers($themeId, array $teachers)
+    public function attachTeachers($themeId, Collection $teachers)
     {
         return $this->getById($themeId)
             ->teachers()
             ->sync($teachers);
     }
 
-    public function attachAudiences($audienceId, array $audiences)
+    public function attachAudiences($audienceId, Collection $audiences)
     {
         return $this->getById($audienceId)
             ->audiences()
             ->sync($audiences);
-    }
-
-    public function getById($id)
-    {
-        return $this->themesRepository->find($id);
-    }
-
-    public function getByIds(array $ids)
-    {
-        return $this->themesRepository->findWhereIn('id', $ids);
     }
 }

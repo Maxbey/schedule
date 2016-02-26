@@ -5,28 +5,16 @@ namespace App\Services;
 use App\Repositories\SpecialtiesRepository;
 use Illuminate\Database\Eloquent\Collection;
 
-class SpecialtyService
+class SpecialtyService extends EntityService
 {
-    protected $specialtiesRepository;
-
-    public function __construct(SpecialtiesRepository $specialtiesRepository)
+    protected function repository()
     {
-        $this->specialtiesRepository = $specialtiesRepository;
-    }
-
-    public function getById($specialtyId)
-    {
-        return $this->specialtiesRepository->find($specialtyId);
-    }
-
-    public function getByIds(array $ids)
-    {
-        return $this->specialtiesRepository->findByIds($ids);
+        return 'App\Repositories\SpecialtiesRepository';
     }
 
     public function create(array $attributes)
     {
-        return $this->specialtiesRepository->create($attributes);
+        return $this->repository->create($attributes);
     }
 
     public function syncDisciplines($specialtyId, Collection $disciplines)
@@ -35,15 +23,4 @@ class SpecialtyService
             ->disciplines()
             ->sync($disciplines);
     }
-
-    public function delete($specialtyId)
-    {
-        return $this->specialtiesRepository->delete($specialtyId);
-    }
-
-    public function restore($specialtyId)
-    {
-        return $this->specialtiesRepository->restore($specialtyId);
-    }
-
 }

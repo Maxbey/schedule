@@ -4,14 +4,13 @@ namespace App\Services;
 
 
 use App\Repositories\TeachersRepository;
+use Illuminate\Database\Eloquent\Collection;
 
-class TeacherService
+class TeacherService extends EntityService
 {
-    protected $teachersRepository;
-
-    public function __construct(TeachersRepository $teachersRepository)
+    protected function repository()
     {
-        $this->teachersRepository = $teachersRepository;
+        return 'App\Repositories\TeachersRepository';
     }
 
     public function create(array $attributes)
@@ -19,27 +18,7 @@ class TeacherService
         return $this->teachersRepository->create($attributes);
     }
 
-    public function delete($id)
-    {
-        return $this->teachersRepository->delete($id);
-    }
-
-    public function restore($id)
-    {
-        return $this->teachersRepository->restore($id);
-    }
-
-    public function getByIds(array $ids)
-    {
-        return $this->teachersRepository->findWhereIn('id', $ids);
-    }
-
-    public function getById($id)
-    {
-        return $this->teachersRepository->find($id);
-    }
-
-    public function attachThemes($teacherId, array $themes)
+    public function attachThemes($teacherId, Collection $themes)
     {
         return $this->getById($teacherId)->themes()->sync($themes);
     }

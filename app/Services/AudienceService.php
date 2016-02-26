@@ -10,46 +10,24 @@ namespace App\Services;
 
 
 use App\Repositories\AudiencesRepository;
+use Illuminate\Database\Eloquent\Collection;
 
-class AudienceService
+class AudienceService extends EntityService
 {
-    protected $audiencesRepository;
-
-    public function __construct(AudiencesRepository $audiencesRepository)
+    protected function repository()
     {
-        $this->audiencesRepository = $audiencesRepository;
-    }
-
-    public function getById($id)
-    {
-        return $this->audiencesRepository->find($id);
-    }
-
-    public function getByIds(array $ids)
-    {
-        return $this->audiencesRepository->findWhereIn('id', $ids);
+        return 'App\Repositories\AudiencesRepository';
     }
 
     public function create(array $attributes)
     {
-        return $this->audiencesRepository->create($attributes);
+        return $this->repository->create($attributes);
     }
 
-    public function delete($id)
-    {
-        return $this->audiencesRepository->delete($id);
-    }
-
-    public function restore($id)
-    {
-        return $this->audiencesRepository->restore($id);
-    }
-
-    public function attachThemes($audienceId, array $themes)
+    public function attachThemes($audienceId, Collection $themes)
     {
         return $this->getById($audienceId)
             ->themes()
             ->sync($themes);
     }
-
 }

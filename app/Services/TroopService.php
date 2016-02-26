@@ -6,28 +6,16 @@ namespace App\Services;
 use App\Entities\Specialty;
 use App\Repositories\TroopsRepository;
 
-class TroopService
+class TroopService extends EntityService
 {
-    protected $troopsRepository;
-
-    public function __construct(TroopsRepository $troopsRepository)
+    protected function repository()
     {
-        $this->troopsRepository = $troopsRepository;
+        return 'App\Repositories\TroopsRepository';
     }
 
     public function create(Specialty $specialty, array $attributes)
     {
         return $specialty->troops()->create($attributes);
-    }
-
-    public function delete($troopId)
-    {
-        return $this->troopsRepository->delete($troopId);
-    }
-
-    public function restore($troopId)
-    {
-        return $this->troopsRepository->restore($troopId);
     }
 
 }
