@@ -22,11 +22,6 @@ class AudienceServiceTest extends ServiceTestCase
 
     public function testSyncThemesMethod()
     {
-        $audience_id = factory(App\Entities\Audience::class)->create()->id;
-        $themes = factory(App\Entities\Theme::class, 3)->create();
-
-        $changes = $this->service->syncThemes($audience_id, $themes);
-
-        $this->assertTrue(count($changes['attached']) === 3);
+        $this->syncTest(\App\Entities\Audience::class, \App\Entities\Theme::class, 'syncThemes');
     }
 }

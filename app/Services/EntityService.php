@@ -41,6 +41,13 @@ abstract class EntityService
         return $this->repository->findWhereIn('id', $ids);
     }
 
+    public function update($id, array $attributes)
+    {
+        $entity = $this->getById($id);
+
+        return $this->repository->update($attributes, $id);
+    }
+
     public function delete($id)
     {
         return $this->repository->delete($id);

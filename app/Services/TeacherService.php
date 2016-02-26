@@ -15,10 +15,10 @@ class TeacherService extends EntityService
 
     public function create(array $attributes)
     {
-        return $this->teachersRepository->create($attributes);
+        return $this->repository->create($attributes);
     }
 
-    public function attachThemes($teacherId, Collection $themes)
+    public function syncThemes($teacherId, Collection $themes)
     {
         return $this->getById($teacherId)->themes()->sync($themes);
     }

@@ -22,12 +22,7 @@ class SpecialtyServiceTest extends ServiceTestCase
 
     public function testSyncDisciplinesMethod()
     {
-        $specialty_id = factory(App\Entities\Specialty::class)->create()->id;
-        $disciplines = factory(App\Entities\Discipline::class, 3)->create();
-
-        $changes = $this->service->syncDisciplines($specialty_id, $disciplines);
-
-        $this->assertTrue(count($changes['attached']) === 3);
+        $this->syncTest(\App\Entities\Specialty::class, \App\Entities\Discipline::class, 'syncDisciplines');
     }
 
     public function testGetByIdsMethod()

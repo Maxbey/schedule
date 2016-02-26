@@ -2,9 +2,6 @@
 
 namespace App\Services;
 
-
-use App\Repositories\DisciplinesRepository;
-
 class DisciplineService extends EntityService
 {
     protected function repository()
@@ -14,6 +11,6 @@ class DisciplineService extends EntityService
 
     public function create(array $attributes)
     {
-        return $this->disciplinesRepository->create($attributes);
+        return $this->repository->create($attributes);
     }
 }

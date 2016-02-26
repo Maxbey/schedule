@@ -19,14 +19,14 @@ class ThemeService extends EntityService
         return $discipline->themes()->create($attributes);
     }
 
-    public function attachTeachers($themeId, Collection $teachers)
+    public function syncTeachers($themeId, Collection $teachers)
     {
         return $this->getById($themeId)
             ->teachers()
             ->sync($teachers);
     }
 
-    public function attachAudiences($audienceId, Collection $audiences)
+    public function syncAudiences($audienceId, Collection $audiences)
     {
         return $this->getById($audienceId)
             ->audiences()
