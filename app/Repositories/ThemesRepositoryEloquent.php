@@ -13,7 +13,7 @@ use App\Entities\Theme;
  * Class ThemesRepositoryEloquent
  * @package namespace App\Repositories;
  */
-class ThemesRepositoryEloquent extends BaseRepository implements ThemesRepository, Restore
+class ThemesRepositoryEloquent extends Repository implements ThemesRepository, Restore
 {
     use RestoreFunctionality;
 
@@ -33,16 +33,6 @@ class ThemesRepositoryEloquent extends BaseRepository implements ThemesRepositor
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
-    }
-
-    /**
-     * Set the presenter
-     *
-     * @return string
-     */
-    public function presenter()
-    {
-        return 'App\Presenters\ThemePresenter';
     }
 
     public function findByTerm($termNumber)

@@ -2,11 +2,8 @@
 
 namespace App\Services;
 
-
-use App\Entities\Specialty;
-use App\Repositories\DisciplinesRepository;
 use App\Repositories\SpecialtiesRepository;
-use App\Repositories\TroopsRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 class SpecialtyService
 {
@@ -22,12 +19,17 @@ class SpecialtyService
         return $this->specialtiesRepository->find($specialtyId);
     }
 
+    public function getByIds(array $ids)
+    {
+        return $this->specialtiesRepository->findByIds($ids);
+    }
+
     public function create(array $attributes)
     {
         return $this->specialtiesRepository->create($attributes);
     }
 
-    public function attachDisciplines($specialtyId, array $disciplines)
+    public function syncDisciplines($specialtyId, Collection $disciplines)
     {
         return $this->getById($specialtyId)
             ->disciplines()

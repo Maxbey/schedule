@@ -13,7 +13,7 @@ use App\Entities\Discipline;
  * Class DisciplinesRepositoryEloquent
  * @package namespace App\Repositories;
  */
-class DisciplinesRepositoryEloquent extends BaseRepository implements DisciplinesRepository, Restore
+class DisciplinesRepositoryEloquent extends Repository implements DisciplinesRepository, Restore
 {
     use RestoreFunctionality;
 
@@ -33,16 +33,6 @@ class DisciplinesRepositoryEloquent extends BaseRepository implements Discipline
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
-    }
-
-    /**
-     * Set the presenter
-     *
-     * @return string
-     */
-    public function presenter()
-    {
-        return 'App\Presenters\DisciplinePresenter';
     }
 
     public function findByFullName($fullName)

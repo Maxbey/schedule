@@ -13,7 +13,7 @@ use App\Entities\Teacher;
  * Class TeachersRepositoryEloquent
  * @package namespace App\Repositories;
  */
-class TeachersRepositoryEloquent extends BaseRepository implements TeachersRepository, Restore
+class TeachersRepositoryEloquent extends Repository implements TeachersRepository, Restore
 {
     use RestoreFunctionality;
 
@@ -33,16 +33,6 @@ class TeachersRepositoryEloquent extends BaseRepository implements TeachersRepos
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
-    }
-
-    /**
-     * Set the presenter
-     *
-     * @return string
-     */
-    public function presenter()
-    {
-        return 'App\Presenters\TeacherPresenter';
     }
 
     public function findByLastName($lastName)

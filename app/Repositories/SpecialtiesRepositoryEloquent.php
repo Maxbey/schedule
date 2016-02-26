@@ -13,7 +13,7 @@ use App\Entities\Specialty;
  * Class SpecialtiesRepositoryEloquent
  * @package namespace App\Repositories;
  */
-class SpecialtiesRepositoryEloquent extends BaseRepository implements SpecialtiesRepository, Restore
+class SpecialtiesRepositoryEloquent extends Repository implements SpecialtiesRepository, Restore
 {
     use RestoreFunctionality;
 
@@ -33,16 +33,6 @@ class SpecialtiesRepositoryEloquent extends BaseRepository implements Specialtie
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
-    }
-
-    /**
-     * Set the presenter
-     *
-     * @return string
-     */
-    public function presenter()
-    {
-        return 'App\Presenters\SpecialtyPresenter';
     }
 
     public function findByName($name)

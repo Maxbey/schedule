@@ -160,6 +160,7 @@ return [
         Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         App\Providers\RepositoriesServiceProvider::class,
+        App\Providers\ServicesServiceProvider::class
 
     ],
 
@@ -206,7 +207,7 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
-
+        'SpecialtyService' => App\Services\SpecialtyServiceFacade::class,
     ],
 
 ];

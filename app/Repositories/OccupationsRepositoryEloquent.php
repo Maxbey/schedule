@@ -13,7 +13,7 @@ use App\Entities\Occupation;
  * Class OccupationsRepositoryEloquent
  * @package namespace App\Repositories;
  */
-class OccupationsRepositoryEloquent extends BaseRepository implements OccupationsRepository, Restore
+class OccupationsRepositoryEloquent extends Repository implements OccupationsRepository, Restore
 {
     use RestoreFunctionality;
 
@@ -33,16 +33,6 @@ class OccupationsRepositoryEloquent extends BaseRepository implements Occupation
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
-    }
-
-    /**
-     * Set the presenter
-     *
-     * @return string
-     */
-    public function presenter()
-    {
-        return 'App\Presenters\OccupationPresenter';
     }
 
     public function findByDate($date)

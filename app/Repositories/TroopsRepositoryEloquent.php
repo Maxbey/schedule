@@ -13,7 +13,7 @@ use App\Entities\Troop;
  * Class TroopsRepositoryEloquent
  * @package namespace App\Repositories;
  */
-class TroopsRepositoryEloquent extends BaseRepository implements TroopsRepository, Restore
+class TroopsRepositoryEloquent extends Repository implements TroopsRepository, Restore
 {
     use RestoreFunctionality;
 
@@ -33,16 +33,6 @@ class TroopsRepositoryEloquent extends BaseRepository implements TroopsRepositor
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
-    }
-
-    /**
-     * Set the presenter
-     *
-     * @return string
-     */
-    public function presenter()
-    {
-        return 'App\Presenters\TroopPresenter';
     }
 
     public function findByCode($code)

@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use Prettus\Repository\Contracts\RepositoryInterface;
+use App\Repositories\RepositoryInterface;
 
 /**
  * Interface OccupationsRepository
