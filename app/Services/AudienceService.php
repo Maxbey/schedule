@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: maxbey
- * Date: 23.02.16
- * Time: 22:24
- */
 
 namespace App\Services;
 
@@ -24,7 +18,7 @@ class AudienceService extends EntityService
         return $this->repository->create($attributes);
     }
 
-    public function attachThemes($audienceId, Collection $themes)
+    public function syncThemes($audienceId, Collection $themes)
     {
         return $this->getById($audienceId)
             ->themes()

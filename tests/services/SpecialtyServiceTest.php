@@ -1,13 +1,12 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use \App\Repositories\AudiencesRepository;
-
-class SpecialtyServiceTest extends TestCase
+class SpecialtyServiceTest extends ServiceTestCase
 {
-    use DatabaseMigrations;
+
+    protected function service()
+    {
+        return 'SpecialtyService';
+    }
 
     public function testCreateMethod()
     {
@@ -16,7 +15,7 @@ class SpecialtyServiceTest extends TestCase
             'code' => '123-300-1'
         ];
 
-        $specialty = SpecialtyService::create($attributes);
+        $specialty = $this->service->create($attributes);
 
         $this->seeInDatabase('specialties', ['id' => $specialty->id]);
     }
@@ -26,7 +25,7 @@ class SpecialtyServiceTest extends TestCase
         $specialty_id = factory(App\Entities\Specialty::class)->create()->id;
         $disciplines = factory(App\Entities\Discipline::class, 3)->create();
 
-        $changes = SpecialtyService::syncDisciplines($specialty_id, $disciplines);
+        $changes = $this->service->syncDisciplines($specialty_id, $disciplines);
 
         $this->assertTrue(count($changes['attached']) === 3);
     }
@@ -40,7 +39,7 @@ class SpecialtyServiceTest extends TestCase
                 $ids[] = $specialty->id;
             });
 
-        $collection = SpecialtyService::getByIds($ids);
+        $collection = $this->service->getByIds($ids);
 
         $this->assertTrue($collection->count() === 3);
 
