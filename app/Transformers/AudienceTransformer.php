@@ -11,6 +11,14 @@ use App\Entities\Audience;
  */
 class AudienceTransformer extends TransformerAbstract
 {
+    /**
+     * Relations
+     *
+     * @var array
+     */
+    protected $availableIncludes = [
+        'themes'
+    ];
 
     /**
      * Transform the \Audience entity
@@ -22,7 +30,25 @@ class AudienceTransformer extends TransformerAbstract
     {
         return [
             'name' => $model->name,
-            'location' => $model->location
+            'location' => $model->location,
+            'links' => [
+                'show' => route('api.audiences.show', ['id' => $model->id]) . '?include=themes',
+                'self' => route('api.audiences.show', ['id' => $model->id]),
+                'setThemes' => route('api.audiences.setThemes', ['id' => $model->id])
+            ]
         ];
+    }
+
+    /**
+     * Themes relation
+     *
+     * @param Audience $model
+     * @return \League\Fractal\Resource\Collection
+     */
+    public function includeThemes(Audience $model)
+    {
+        $themes = $model->themes;
+
+        return $this->collection($themes, new ThemeTransformer);
     }
 }

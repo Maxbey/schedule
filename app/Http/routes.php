@@ -109,4 +109,23 @@ Route::group(['prefix' => 'api'], function(){
         'uses' => 'ThemesController@setTeachers',
         'as'   => 'api.themes.setTeachers'
     ]);
+
+    /*Audiences*/
+    Route::put('audiences/{id}', [
+        'uses' => 'AudiencesController@restore',
+        'as'   => 'api.audiences.restore'
+    ]);
+
+    Route::resource('audiences', 'AudiencesController', [
+        'parameters' => [
+            'audiences' => 'id'
+        ],
+        'except' =>
+            ['create', 'edit']
+    ]);
+
+    Route::post('audiences/{id}/themes', [
+        'uses' => 'AudiencesController@setThemes',
+        'as'   => 'api.audiences.setThemes'
+    ]);
 });
