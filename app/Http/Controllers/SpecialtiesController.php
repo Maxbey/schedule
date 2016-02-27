@@ -138,5 +138,15 @@ class SpecialtiesController extends Controller
         return response('Restored', 202);
     }
 
+    /**
+     * Get trashed Specialties
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trashed()
+    {
+        return $this->specialtiesRepository->onlyTrashed();
+    }
+
 
 }

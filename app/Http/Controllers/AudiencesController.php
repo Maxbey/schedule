@@ -139,4 +139,14 @@ class AudiencesController extends Controller
 
         return response('Restored', 202);
     }
+
+    /**
+     * Get trashed Audiences
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trashed()
+    {
+        return $this->audiencesRepository->onlyTrashed();
+    }
 }

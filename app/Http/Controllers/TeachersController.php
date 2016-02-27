@@ -124,6 +124,16 @@ class TeachersController extends Controller
     }
 
     /**
+     * Get trashed Teachers
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trashed()
+    {
+        return $this->teachersRepository->onlyTrashed();
+    }
+
+    /**
      * Sync with themes.
      *
      * @param int $id

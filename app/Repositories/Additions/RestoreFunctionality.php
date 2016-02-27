@@ -23,4 +23,9 @@ trait RestoreFunctionality
 
         throw (new ModelNotFoundException)->setModel($this->model());
     }
+
+    public function onlyTrashed()
+    {
+        return $this->model->onlyTrashed()->get();
+    }
 }

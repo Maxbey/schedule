@@ -126,4 +126,14 @@ class TroopsController extends Controller
 
         return response('Restored', 202);
     }
+
+    /**
+     * Get trashed Troops
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trashed()
+    {
+        $this->troopsRepository->onlyTrashed();
+    }
 }

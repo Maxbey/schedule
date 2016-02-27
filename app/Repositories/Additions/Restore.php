@@ -8,4 +8,6 @@ interface Restore
     public function restore($id);
 
     public function findTrashed($id);
+
+    public function onlyTrashed();
 }

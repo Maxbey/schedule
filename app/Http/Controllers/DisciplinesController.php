@@ -125,6 +125,16 @@ class DisciplinesController extends Controller
     }
 
     /**
+     * Get trashed Disciplines
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trashed()
+    {
+        return $this->disciplinesRepository->onlyTrashed();
+    }
+
+    /**
      * Sync with Specialties
      *
      * @param $id

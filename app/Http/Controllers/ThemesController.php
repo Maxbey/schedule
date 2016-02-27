@@ -180,4 +180,14 @@ class ThemesController extends Controller
 
         return response('Restored', 202);
     }
+
+    /**
+     * Get trashed Themes
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trashed()
+    {
+        return $this->themesRepository->onlyTrashed();
+    }
 }

@@ -112,4 +112,14 @@ class OccupationsController extends Controller
 
         return response('Restored', 202);
     }
+
+    /**
+     * Get trashed Occupations
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trashed()
+    {
+        return $this->occupationsRepository->onlyTrashed();
+    }
 }
