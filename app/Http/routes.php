@@ -135,7 +135,7 @@ Route::group(['prefix' => 'api'], function(){
         'as'   => 'api.occupations.restore'
     ]);
 
-    Route::resource('occupations', 'AudiencesController', [
+    Route::resource('occupations', 'OccupationsController', [
         'parameters' => [
             'occupations' => 'id'
         ],
