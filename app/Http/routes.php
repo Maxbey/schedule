@@ -128,4 +128,18 @@ Route::group(['prefix' => 'api'], function(){
         'uses' => 'AudiencesController@setThemes',
         'as'   => 'api.audiences.setThemes'
     ]);
+
+    /*Occupations*/
+    Route::put('occupations/{id}', [
+        'uses' => 'OccupationsController@restore',
+        'as'   => 'api.occupations.restore'
+    ]);
+
+    Route::resource('occupations', 'AudiencesController', [
+        'parameters' => [
+            'occupations' => 'id'
+        ],
+        'except' =>
+            ['create', 'edit']
+    ]);
 });

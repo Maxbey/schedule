@@ -40,4 +40,29 @@ class Occupation extends Model
         return $this->belongsTo(Audience::class);
     }
 
+    public function getTeacherNameAttribute()
+    {
+        return $this->teacher->fullName;
+    }
+
+    public function getThemeNameAttribute()
+    {
+        return $this->theme->name;
+    }
+
+    public function getTroopCodeAttribute()
+    {
+        return $this->troop->code;
+    }
+
+    public function getDisciplineNameAttribute()
+    {
+        return $this->discipline->full_name;
+    }
+
+    public function getAudienceLocationAttribute()
+    {
+        return $this->audience->location;
+    }
+
 }
