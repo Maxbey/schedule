@@ -38,6 +38,11 @@ class Theme extends Model
         return $this->hasMany(Occupation::class);
     }
 
+    /**
+     * Get name of discipline through relation
+     *
+     * @return mixed
+     */
     public function getDisciplineNameAttribute()
     {
         return $this->discipline->full_name;

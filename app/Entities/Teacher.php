@@ -39,6 +39,11 @@ class Teacher extends Model implements SluggableInterface
         return $this->hasMany(Occupation::class);
     }
 
+    /**
+     * Get concatenated l-f-m names.
+     *
+     * @return string
+     */
     public function getFullNameAttribute()
     {
         return $this->lastname . ' ' . $this->firstname . ' ' . $this->middlename;

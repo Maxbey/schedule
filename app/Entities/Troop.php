@@ -25,6 +25,11 @@ class Troop extends Model
         return $this->hasMany(Occupation::class);
     }
 
+    /**
+     * Get name of Specialty through relation
+     *
+     * @return mixed
+     */
     public function getSpecialtyNameAttribute()
     {
         return $this->specialty->name;
