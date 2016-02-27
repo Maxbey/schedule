@@ -19,6 +19,18 @@ class ThemeService extends EntityService
         return $discipline->themes()->create($attributes);
     }
 
+    public function update($id, Discipline $discipline, array $attributes)
+    {
+        $theme = $this->getById($id)
+            ->fill($attributes);
+
+        $theme->discipline()
+            ->associate($discipline)
+            ->save();
+
+        return $theme;
+    }
+
     public function syncTeachers($themeId, Collection $teachers)
     {
         return $this->getById($themeId)
@@ -26,9 +38,9 @@ class ThemeService extends EntityService
             ->sync($teachers);
     }
 
-    public function syncAudiences($audienceId, Collection $audiences)
+    public function syncAudiences($themeId, Collection $audiences)
     {
-        return $this->getById($audienceId)
+        return $this->getById($themeId)
             ->audiences()
             ->sync($audiences);
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TroopRequest;
+use App\Repositories\SpecialtiesRepository;
 use App\Repositories\TroopsRepository;
 use App\Services\SpecialtyService;
 use App\Services\TroopService;
@@ -19,31 +20,30 @@ class TroopsController extends Controller
     protected $troopsRepository;
 
     /**
+     * @var SpecialtiesRepository
+     */
+    protected $specialtiesRepository;
+
+    /**
      * @var TroopService
      */
     protected $troopService;
 
     /**
-     * @var SpecialtyService
-     */
-    protected $specialtyService;
-
-    /**
      * TroopsController constructor.
-     *
      * @param TroopsRepository $troopsRepository
      * @param TroopService $troopService
-     * @param SpecialtyService $specialtyService
+     * @param SpecialtiesRepository $specialtiesRepository
      */
     public function __construct
     (
         TroopsRepository $troopsRepository,
         TroopService $troopService,
-        SpecialtyService $specialtyService
+        SpecialtiesRepository $specialtiesRepository
     )
     {
         $this->troopService = $troopService;
-        $this->specialtyService = $specialtyService;
+        $this->specialtiesRepository = $specialtiesRepository;
 
         $this->troopsRepository = $troopsRepository;
         $this->troopsRepository->setPresenter('App\Presenters\TroopPresenter');
@@ -67,7 +67,7 @@ class TroopsController extends Controller
      */
     public function store(TroopRequest $request)
     {
-        $specialty = $this->specialtyService->getById($request->get('specialty_id'));
+        $specialty = $this->specialtiesRepository->find($request->get('specialty_id'));
 
         $this->troopService->create($specialty, $request->all());
 
@@ -94,7 +94,7 @@ class TroopsController extends Controller
      */
     public function update(TroopRequest $request, $id)
     {
-        $specialty = $this->specialtyService->getById($request->get('specialty_id'));
+        $specialty = $this->specialtiesRepository->find($request->get('specialty_id'));
 
         $this->troopService->update($id, $specialty, $request->all());
 

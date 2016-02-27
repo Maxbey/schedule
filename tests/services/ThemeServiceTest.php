@@ -24,6 +24,16 @@ class ThemeServiceTest extends ServiceTestCase
         $this->seeInDatabase('themes', ['id' => $theme->id]);
     }
 
+    public function testUpdateMethod()
+    {
+        $discipline = factory(App\Entities\Discipline::class)->create();
+        $theme = factory(App\Entities\Theme::class)->create();
+
+        $this->service->update($theme->id, $discipline, []);
+
+        $this->seeInDatabase('themes', ['discipline_id' => $discipline->id]);
+    }
+
     public function testSyncTeachersMethod()
     {
         $this->syncTest(App\Entities\Theme::class, App\Entities\Teacher::class, 'syncTeachers');

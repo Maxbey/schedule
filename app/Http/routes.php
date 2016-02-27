@@ -65,4 +65,28 @@ Route::group(['prefix' => 'api'], function(){
     ]);
 
     Route::post('teachers/{id}/themes', 'TeachersController@updateThemes');
+
+
+    Route::put('themes/{id}', [
+        'uses' => 'ThemesController@restore',
+        'as'   => 'api.themes.restore'
+    ]);
+
+    Route::resource('themes', 'ThemesController', [
+        'parameters' => [
+            'themes' => 'id'
+        ],
+        'except' =>
+            ['create', 'edit']
+    ]);
+
+    Route::post('themes/{id}/audiences', [
+        'uses' => 'ThemesController@setAudiences',
+        'as'   => 'api.themes.setAudiences'
+    ]);
+
+    Route::post('themes/{id}/teachers', [
+        'uses' => 'ThemesController@setTeachers',
+        'as'   => 'api.themes.setTeachers'
+    ]);
 });

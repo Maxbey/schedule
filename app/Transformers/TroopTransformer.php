@@ -12,6 +12,11 @@ use App\Entities\Troop;
 class TroopTransformer extends TransformerAbstract
 {
 
+    /**
+     * Relations
+     *
+     * @var array
+     */
     protected $availableIncludes = [
         'specialty'
     ];
@@ -34,6 +39,12 @@ class TroopTransformer extends TransformerAbstract
         ];
     }
 
+    /**
+     * Specialty relation
+     *
+     * @param Troop $model
+     * @return \League\Fractal\Resource\Item
+     */
     public function includeSpecialty(Troop $model)
     {
         return $this->item($model->specialty, new SpecialtyTransformer);
