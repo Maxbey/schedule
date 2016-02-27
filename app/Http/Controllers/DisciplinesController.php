@@ -13,12 +13,28 @@ use App\Http\Controllers\Controller;
 
 class DisciplinesController extends Controller
 {
+    /**
+     * @var DisciplinesRepository
+     */
     protected $disciplinesRepository;
 
+    /**
+     * @var DisciplineService
+     */
     protected $disciplineService;
 
+    /**
+     * @var SpecialtyService
+     */
     protected $specialtyService;
 
+    /**
+     * DisciplinesController constructor.
+     *
+     * @param DisciplinesRepository $disciplinesRepository
+     * @param DisciplineService $disciplineService
+     * @param SpecialtyService $specialtyService
+     */
     public function __construct
     (
         DisciplinesRepository $disciplinesRepository,
@@ -35,7 +51,7 @@ class DisciplinesController extends Controller
 
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the disciplines.
      *
      * @return \Illuminate\Http\Response
      */
@@ -45,7 +61,7 @@ class DisciplinesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created Discipline in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -58,7 +74,7 @@ class DisciplinesController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified Discipline.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -69,7 +85,7 @@ class DisciplinesController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified Discipline in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -83,7 +99,7 @@ class DisciplinesController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified Discipline from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -95,6 +111,12 @@ class DisciplinesController extends Controller
         return response('Deleted', 202);
     }
 
+    /**
+     * Restore the specified Discipline in storage.
+     *
+     * @param int $id
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function restore($id)
     {
         $this->disciplineService->restore($id);
@@ -102,7 +124,14 @@ class DisciplinesController extends Controller
         return response('Restore', 202);
     }
 
-    public function updateSpecialties($id, Request $request)
+    /**
+     * Sync with Specialties
+     *
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function setSpecialties($id, Request $request)
     {
         $ids = $request->input('specialties');
         $specialties = $this->specialtyService->getByIds($ids);

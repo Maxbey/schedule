@@ -6,6 +6,7 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'api'], function(){
 
+    /* Specialties */
     Route::put('specialties/{id}', [
         'uses' => 'SpecialtiesController@restore',
         'as'   => 'api.specialties.restore'
@@ -19,9 +20,12 @@ Route::group(['prefix' => 'api'], function(){
             ['create', 'edit']
     ]);
 
-    Route::post('specialties/{id}/disciplines', 'SpecialtiesController@updateDisciplines');
+    Route::post('specialties/{id}/disciplines', [
+        'uses' => 'SpecialtiesController@setDisciplines',
+        'as'   => 'api.specialties.setDisciplines'
+    ]);
 
-
+    /* Disciplines */
     Route::put('disciplines/{id}', [
         'uses' => 'DisciplinesController@restore',
         'as'   => 'api.disciplines.restore'
@@ -35,14 +39,26 @@ Route::group(['prefix' => 'api'], function(){
             ['create', 'edit']
     ]);
 
-    Route::post('disciplines/{id}/specialties', 'DisciplinesController@updateSpecialties');
+    Route::post('disciplines/{id}/specialties', [
+        'uses' => 'DisciplinesController@setSpecialties',
+        'as'   => 'api.disciplines.setSpecialties'
+    ]);
 
-
+    /* Troops */
     Route::put('troops/{id}', [
         'uses' => 'TroopsController@restore',
         'as'   => 'api.troops.restore'
     ]);
 
+    Route::resource('troops', 'TroopsController', [
+        'parameters' => [
+            'troops' => 'id'
+        ],
+        'except' =>
+            ['create', 'edit']
+    ]);
+
+    /* Teachers */
     Route::resource('teachers', 'TeachersController', [
         'parameters' => [
             'teachers' => 'id'
@@ -64,9 +80,13 @@ Route::group(['prefix' => 'api'], function(){
             ['create', 'edit']
     ]);
 
-    Route::post('teachers/{id}/themes', 'TeachersController@updateThemes');
+    Route::post('teachers/{id}/themes', [
+        'uses' => 'TeachersController@setThemes',
+        'as'   => 'api.teachers.setThemes'
+    ]);
 
 
+    /* Themes */
     Route::put('themes/{id}', [
         'uses' => 'ThemesController@restore',
         'as'   => 'api.themes.restore'

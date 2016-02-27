@@ -34,7 +34,8 @@ class TeacherTransformer extends TransformerAbstract
             'work_limit' => $model->work_hours_limit,
             'links' => [
                 'show' => route('api.teachers.show', ['id' => $model->id]) . '?include=themes',
-                'self' => route('api.teachers.show', ['id' => $model->id])
+                'self' => route('api.teachers.show', ['id' => $model->id]),
+                'setThemes' => route('api.teachers.setThemes', ['id' => $model->id])
             ]
         ];
     }

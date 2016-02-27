@@ -11,7 +11,11 @@ use App\Entities\Discipline;
  */
 class DisciplineTransformer extends TransformerAbstract
 {
-
+    /**
+     * Relations
+     *
+     * @var array
+     */
     protected $availableIncludes = [
         'specialties',
         'themes'
@@ -30,11 +34,18 @@ class DisciplineTransformer extends TransformerAbstract
             'short_name' => $model->short_name,
             'links' => [
                 'show' => route('api.disciplines.show', ['id' => $model->id]) . '?include=themes,specialties',
-                'self' => route('api.disciplines.show', ['id' => $model->id])
+                'self' => route('api.disciplines.show', ['id' => $model->id]),
+                'setSpecialties' => route('api.disciplines.setSpecialties', ['id' => $model->id])
             ]
         ];
     }
 
+    /**
+     * Specialties relation
+     *
+     * @param Discipline $model
+     * @return \League\Fractal\Resource\Collection
+     */
     public function includeSpecialties(Discipline $model)
     {
         $specialties = $model->specialties;
@@ -42,6 +53,12 @@ class DisciplineTransformer extends TransformerAbstract
         return $this->collection($specialties, new SpecialtyTransformer);
     }
 
+    /**
+     * Themes relation
+     *
+     * @param Discipline $model
+     * @return \League\Fractal\Resource\Collection
+     */
     public function includeThemes(Discipline $model)
     {
         $themes = $model->themes;

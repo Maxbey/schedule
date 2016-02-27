@@ -11,6 +11,11 @@ use App\Entities\Specialty;
  */
 class SpecialtyTransformer extends TransformerAbstract
 {
+    /**
+     * Relations
+     *
+     * @var array
+     */
     protected $availableIncludes = [
         'troops',
         'disciplines'
@@ -29,11 +34,18 @@ class SpecialtyTransformer extends TransformerAbstract
             'code' => $model->code,
             'links' => [
                 'show' => route('api.specialties.show', ['id' => $model->id]) . '?include=troops,disciplines',
-                'self' => route('api.specialties.show', ['id' => $model->id])
+                'self' => route('api.specialties.show', ['id' => $model->id]),
+                'setDisciplines' => route('api.specialties.setDisciplines', ['id' => $model->id])
             ]
         ];
     }
 
+    /**
+     * Troops relation
+     *
+     * @param Specialty $model
+     * @return \League\Fractal\Resource\Collection
+     */
     public function includeTroops(Specialty $model)
     {
         $troops = $model->troops;
@@ -41,6 +53,12 @@ class SpecialtyTransformer extends TransformerAbstract
         return $this->collection($troops, new TroopTransformer);
     }
 
+    /**
+     * Disciplines relation
+     *
+     * @param Specialty $model
+     * @return \League\Fractal\Resource\Collection
+     */
     public function includeDisciplines(Specialty $model)
     {
         $disciplines = $model->disciplines;

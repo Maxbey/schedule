@@ -130,7 +130,7 @@ class TeachersController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    public function updateThemes($id, Request $request)
+    public function setThemes($id, Request $request)
     {
         $ids = $request->input('themes');
         $themes = $this->themeService->getByIds($ids);
