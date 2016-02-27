@@ -24,8 +24,8 @@ class SpecialtyTransformer extends TransformerAbstract
             'name' => $model->name,
             'code' => $model->code,
             'links' => [
-                'show' => action('SpecialtiesController@show', ['id' => $model->id]) . '?include=troops,disciplines',
-                'delete' => action('SpecialtiesController@destroy', ['id' => $model->id])
+                'show' => route('api.specialties.show', ['id' => $model->id]) . '?include=troops,disciplines',
+                'delete' => route('api.specialties.destroy', ['id' => $model->id])
             ]
         ];
     }

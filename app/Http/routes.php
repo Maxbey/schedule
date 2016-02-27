@@ -16,5 +16,18 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'api'], function(){
-    Route::resource('specialties', 'SpecialtiesController');
+    Route::resource('specialties', 'SpecialtiesController', [
+        'parameters' => [
+            'specialties' => 'id'
+        ],
+        'except' =>
+            ['create', 'edit']
+    ]);
+
+    Route::put('specialties/{id}', [
+        'uses' => 'SpecialtiesController@restore',
+        'as'   => 'api.specialties.restore'
+    ]);
+    
+    Route::post('specialties/{id}/disciplines', 'SpecialtiesController@updateDisciplines');
 });

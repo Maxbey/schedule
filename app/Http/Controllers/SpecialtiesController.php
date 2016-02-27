@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\SpecialtiesRepository;
+use App\Services\DisciplineService;
 use App\Services\SpecialtyService;
 use Illuminate\Http\Request;
 
@@ -12,13 +13,21 @@ use App\Http\Controllers\Controller;
 class SpecialtiesController extends Controller
 {
     protected $specialtiesRepository;
+
     protected $specialtyService;
 
-    public function __construct(SpecialtyService $service, SpecialtiesRepository $repository)
-    {
-        $this->specialtyService = $service;
-        $this->specialtiesRepository = $repository;
+    protected $disciplineService;
 
+    public function __construct(
+        SpecialtyService $specialtyService,
+        DisciplineService $disciplineService,
+        SpecialtiesRepository $repository
+    )
+    {
+        $this->specialtyService = $specialtyService;
+        $this->disciplineService = $disciplineService;
+
+        $this->specialtiesRepository = $repository;
         $this->specialtiesRepository->setPresenter('App\Presenters\SpecialtyPresenter');
     }
 
@@ -44,6 +53,16 @@ class SpecialtiesController extends Controller
         $specialty = $this->specialtyService->update($id, $request->all());
 
         return response('Специальность ' . $specialty->name . ' обновлена', 202);
+    }
+
+    public function updateDisciplines($id, Request $request)
+    {
+        $ids = $request->input('disciplines');
+        $disciplines = $this->disciplineService->getByIds($ids);
+
+        $this->specialtyService->syncDisciplines($id, $disciplines);
+
+        return response('Специальность обновлена', 202);
     }
 
     public function destroy($id)
