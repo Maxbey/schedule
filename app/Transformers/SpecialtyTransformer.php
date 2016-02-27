@@ -11,6 +11,11 @@ use App\Entities\Specialty;
  */
 class SpecialtyTransformer extends TransformerAbstract
 {
+    protected $availableIncludes = [
+        'troops',
+        'disciplines'
+    ];
+
     /**
      * Transform the \Specialty entity
      * @param Specialty $model
@@ -20,20 +25,14 @@ class SpecialtyTransformer extends TransformerAbstract
     public function transform(Specialty $model)
     {
         return [
-            'id' => $model->id,
             'name' => $model->name,
             'code' => $model->code,
             'links' => [
                 'show' => route('api.specialties.show', ['id' => $model->id]) . '?include=troops,disciplines',
-                'delete' => route('api.specialties.destroy', ['id' => $model->id])
+                'self' => route('api.specialties.show', ['id' => $model->id])
             ]
         ];
     }
-
-    protected $availableIncludes = [
-        'troops',
-        'disciplines'
-    ];
 
     public function includeTroops(Specialty $model)
     {

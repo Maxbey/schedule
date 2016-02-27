@@ -45,14 +45,14 @@ class SpecialtiesController extends Controller
     {
         $specialty = $this->specialtyService->create($request->all());
 
-        return response('Специальность ' . $specialty->name . ' создана', 201);
+        return response('Created', 201);
     }
 
     public function update($id, Requests\SpecialtyRequest $request)
     {
         $specialty = $this->specialtyService->update($id, $request->all());
 
-        return response('Специальность ' . $specialty->name . ' обновлена', 202);
+        return response('Updated', 202);
     }
 
     public function updateDisciplines($id, Request $request)
@@ -62,21 +62,21 @@ class SpecialtiesController extends Controller
 
         $this->specialtyService->syncDisciplines($id, $disciplines);
 
-        return response('Специальность обновлена', 202);
+        return response('Synced with disciplines', 202);
     }
 
     public function destroy($id)
     {
         $specialty = $this->specialtyService->delete($id);
 
-        return response('Специальность ' . $specialty->name . ' удалена', 202);
+        return response('Deleted', 202);
     }
 
     public function restore($id)
     {
         $specialty = $this->specialtyService->restore($id);
 
-        return response('Специальность ' . $specialty->name . ' восстановлена', 202);
+        return response('Restored', 202);
     }
 
 

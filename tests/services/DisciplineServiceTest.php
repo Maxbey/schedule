@@ -22,4 +22,9 @@ class DisciplineServiceTest extends ServiceTestCase
 
         $this->seeInDatabase('disciplines', ['id' => $discipline->id]);
     }
+
+    public function testSyncSpecialtiesMethod()
+    {
+        $this->syncTest(\App\Entities\Discipline::class, \App\Entities\Specialty::class, 'syncSpecialties');
+    }
 }
