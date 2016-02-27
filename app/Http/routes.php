@@ -43,11 +43,26 @@ Route::group(['prefix' => 'api'], function(){
         'as'   => 'api.troops.restore'
     ]);
 
-    Route::resource('troops', 'TroopsController', [
+    Route::resource('teachers', 'TeachersController', [
         'parameters' => [
-            'troops' => 'id'
+            'teachers' => 'id'
         ],
         'except' =>
             ['create', 'edit']
     ]);
+
+    Route::put('teachers/{id}', [
+        'uses' => 'TeachersController@restore',
+        'as'   => 'api.teachers.restore'
+    ]);
+
+    Route::resource('teachers', 'TeachersController', [
+        'parameters' => [
+            'teachers' => 'id'
+        ],
+        'except' =>
+            ['create', 'edit']
+    ]);
+
+    Route::post('teachers/{id}/themes', 'TeachersController@updateThemes');
 });
