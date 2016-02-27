@@ -36,4 +36,18 @@ Route::group(['prefix' => 'api'], function(){
     ]);
 
     Route::post('disciplines/{id}/specialties', 'DisciplinesController@updateSpecialties');
+
+
+    Route::put('troops/{id}', [
+        'uses' => 'TroopsController@restore',
+        'as'   => 'api.troops.restore'
+    ]);
+
+    Route::resource('troops', 'TroopsController', [
+        'parameters' => [
+            'troops' => 'id'
+        ],
+        'except' =>
+            ['create', 'edit']
+    ]);
 });

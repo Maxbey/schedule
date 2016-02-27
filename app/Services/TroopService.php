@@ -18,4 +18,16 @@ class TroopService extends EntityService
         return $specialty->troops()->create($attributes);
     }
 
+    public function update($id, Specialty $specialty, array $attributes)
+    {
+        $troop = $this->getById($id)
+            ->fill($attributes);
+
+        $troop->specialty()
+            ->associate($specialty)
+            ->save();
+
+        return $troop;
+    }
+
 }

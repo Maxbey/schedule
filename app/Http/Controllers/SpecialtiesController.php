@@ -50,7 +50,7 @@ class SpecialtiesController extends Controller
 
     public function update($id, Requests\SpecialtyRequest $request)
     {
-        $specialty = $this->specialtyService->update($id, $request->all());
+        $specialty = $this->specialtyService->attributesUpdate($id, $request->all());
 
         return response('Updated', 202);
     }

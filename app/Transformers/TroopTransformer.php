@@ -12,6 +12,10 @@ use App\Entities\Troop;
 class TroopTransformer extends TransformerAbstract
 {
 
+    protected $availableIncludes = [
+        'specialty'
+    ];
+
     /**
      * Transform the \Troop entity
      * @param Troop $model
@@ -22,7 +26,16 @@ class TroopTransformer extends TransformerAbstract
     {
         return [
             'code' => $model->code,
-            'specialty' => $model->specialtyName
+            'specialty' => $model->specialtyName,
+            'links' => [
+                'show' => route('api.troops.show', ['id' => $model->id]),
+                'self' => route('api.troops.show', ['id' => $model->id])
+            ]
         ];
+    }
+
+    public function includeSpecialty(Troop $model)
+    {
+        return $this->item($model->specialty, new SpecialtyTransformer);
     }
 }

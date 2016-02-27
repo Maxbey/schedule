@@ -23,4 +23,14 @@ class TroopServiceTest extends ServiceTestCase
 
         $this->seeInDatabase('troops', ['id' => $troop->id]);
     }
+
+    public function testUpdateMethod()
+    {
+        $troop = factory(App\Entities\Troop::class)->create();
+        $specialty = factory(App\Entities\Specialty::class)->create();
+
+        $this->service->update($troop->id, $specialty, ['code' => '132']);
+
+        $this->seeInDatabase('troops', ['specialty_id' => $specialty->id]);
+    }
 }

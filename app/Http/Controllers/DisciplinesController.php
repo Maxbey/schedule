@@ -77,7 +77,7 @@ class DisciplinesController extends Controller
      */
     public function update(DisciplineRequest $request, $id)
     {
-        $this->disciplineService->update($id, $request->all());
+        $this->disciplineService->attributesUpdate($id, $request->all());
 
         return response('Updated', 202);
     }
