@@ -1,8 +1,8 @@
 <div ng-controller="HeaderController as vm">
 	<md-toolbar>
 		<div class="md-toolbar-tools">
-			<md-button ng-click="vm.toggle()" class="md-icon-button">
-				O
+			<md-button ng-click="vm.toggle()" class="md-raised">
+				Навигация
 			</md-button>
 		</div>
 	</md-toolbar>
@@ -10,14 +10,26 @@
 	<md-sidenav md-component-id="sidebar" md-is-open="vm.sidebar_is_opened">
 		<md-toolbar>
 			<div class="md-toolbar-tools">
-				<h2 class="md-title">Schedule</h2>
+				<h2 class="md-subhead">Schedule</h2>
 
 			</div>
 		</md-toolbar>
 		<md-content>
 			<md-list>
 				<md-list-item>
-					<a href="#" class="md-button md-raised md-primary">Учебные части</a>
+					<a ng-href="management/specialties" ng-click="vm.toggle()" class="md-button md-raised md-primary">Учебные специальности</a>
+				</md-list-item>
+				<md-list-item>
+				  <a href="#" class="md-button md-raised md-primary">Учебные взводы</a>
+				</md-list-item>
+				<md-list-item>
+				  <a href="#" class="md-button md-raised md-primary">Дисциплины</a>
+				</md-list-item>
+				<md-list-item>
+				  <a href="#" class="md-button md-raised md-primary">Преподаватели</a>
+				</md-list-item>
+				<md-list-item>
+				  <a href="#" class="md-button md-raised md-primary">Аудитории</a>
 				</md-list-item>
 			</md-list>
 		</md-content>

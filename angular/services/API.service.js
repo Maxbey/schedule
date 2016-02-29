@@ -13,6 +13,11 @@
 			RestangularConfigurer
 				.setBaseUrl('/api/')
 				.setDefaultHeaders(headers)
+				.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
+					var extractedData = data.data;
+
+					return extractedData;
+				})
 				.setErrorInterceptor(function(response) {
 					if (response.status === 422) {
 						for (var error in response.data.errors) {

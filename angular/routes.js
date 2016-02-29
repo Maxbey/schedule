@@ -30,6 +30,16 @@
 						templateUrl: getView('landing')
 					}
 				}
+			})
+
+			.state('app.specialties-management', {
+				url: '/management/specialties',
+				data: {},
+				views: {
+					'main@': {
+						templateUrl: getView('specialties-management')
+					}
+				}
 			});
 
 	});
