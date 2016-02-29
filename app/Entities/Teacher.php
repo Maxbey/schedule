@@ -31,7 +31,7 @@ class Teacher extends Model implements SluggableInterface
 
     public function themes()
     {
-        return $this->belongsToMany(Theme::class);
+        return $this->belongsToMany(Theme::class)->withTimestamps();
     }
 
     public function occupations()

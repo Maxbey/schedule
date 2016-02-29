@@ -4,13 +4,11 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 abstract class ServiceTestCase extends TestCase
 {
-    use DatabaseMigrations;
-
     abstract protected function service();
 
     protected $service;
 
-    protected function setUp()
+    public function setUp()
     {
         parent::setUp();
 

@@ -30,7 +30,7 @@ class Discipline extends Model implements SluggableInterface
 
     public function specialties()
     {
-        return $this->belongsToMany(Specialty::class);
+        return $this->belongsToMany(Specialty::class)->withTimestamps();
     }
 
     public function occupations()

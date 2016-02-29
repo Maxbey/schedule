@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class OccupationModelTest extends TestCase
 {
-    use DatabaseMigrations;
     use \App\Tests\RelationsTestHelpers;
 
     public function testModelCreation()

@@ -21,7 +21,7 @@ class Audience extends Model
 
     public function themes()
     {
-        return $this->belongsToMany(Theme::class);
+        return $this->belongsToMany(Theme::class)->withTimestamps();
     }
 
     public function occupations()

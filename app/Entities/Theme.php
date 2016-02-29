@@ -25,12 +25,12 @@ class Theme extends Model
 
     public function teachers()
     {
-        return $this->belongsToMany(Teacher::class);
+        return $this->belongsToMany(Teacher::class)->withTimestamps();
     }
 
     public function audiences()
     {
-        return $this->belongsToMany(Audience::class);
+        return $this->belongsToMany(Audience::class)->withTimestamps();
     }
 
     public function occupations()
