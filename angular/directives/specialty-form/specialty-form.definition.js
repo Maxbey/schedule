@@ -10,8 +10,9 @@
           templateUrl: './views/directives/specialty-form/specialty-form.html',
           controller: 'SpecialtyFormController',
           controllerAs: 'vm',
-          scope: {},
-          bindToController: true
+          scope: {
+            specialty: "="
+          }
         };
 
     return directive;

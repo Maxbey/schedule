@@ -6,14 +6,23 @@
     });
 
     function SpecialtyService(API){
-        var resource = API.all('specialties');
+        var all = API.all('specialties');
+        var relationsQuery = '?include=troops,disciplines';
 
         this.all = function(){
-            return resource.getList();
+            return all.getList();
         };
 
         this.create = function(specialty){
-            return resource.post(angular.toJson(specialty));
+            return all.post(angular.toJson(specialty));
+        };
+
+        this.getWithRelations = function(id){
+            return API.one('specialties/' + id + relationsQuery).get();
+        };
+
+        this.get = function(id){
+            return API.one('specialties', id).get();
         };
     }
 

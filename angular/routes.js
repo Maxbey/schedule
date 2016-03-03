@@ -40,11 +40,27 @@
 					}
 				}
 			})
+			.state('app.specialty-details', {
+				url: '/specialties/{id}/show',
+				views: {
+					'main@': {
+						templateUrl: getView('specialty-details')
+					}
+				}
+			})
 			.state('app.specialty-create', {
 				url: '/specialties/create',
 				views: {
 					'main@': {
 						templateUrl: getView('specialty-create')
+					}
+				}
+			})
+			.state('app.specialty-edit', {
+				url: '/specialties/{id}/edit',
+				views: {
+					'main@': {
+						templateUrl: getView('specialty-edit')
 					}
 				}
 			});

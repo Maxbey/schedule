@@ -12,12 +12,12 @@
   </md-toolbar>
   <md-content>
     <md-list>
-      <md-list-item class="secondary-button-padding" ng-repeat="specialty in vm.specialties" ng-click="vm.details()">
+      <md-list-item class="secondary-button-padding" ng-repeat="specialty in vm.specialties" ng-click="vm.details(specialty)">
         <div class="md-list-item-text">
           <h3 class="md-subhead">{{specialty.name}}</h3>
           <h4 class="md-subhead">{{specialty.code}}</h4>
         </div>
-        <md-button class="md-secondary md-warn" ng-click="vm.remove(specialty)">Удалить</md-button>
+        <md-button class="md-secondary md-primary" ng-click="vm.edit(specialty)">Редактировать</md-button>
 
         <md-divider ng-if="!$last"></md-divider>
       </md-list-item>

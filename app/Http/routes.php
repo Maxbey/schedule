@@ -20,10 +20,10 @@ $api->group(['middleware' => 'api.auth'], function ($api) {
 Route::group(['prefix' => 'api'], function(){
 
     /* Specialties */
-    Route::put('specialties/{id}', [
+    /*Route::put('specialties/{id}', [
         'uses' => 'SpecialtiesController@restore',
         'as'   => 'api.specialties.restore'
-    ]);
+    ]);*/
 
     Route::resource('specialties', 'SpecialtiesController', [
         'parameters' => [
