@@ -30,6 +30,7 @@ class SpecialtyTransformer extends TransformerAbstract
     public function transform(Specialty $model)
     {
         return [
+            'id'   => $model->id, 
             'name' => $model->name,
             'code' => $model->code,
             'links' => [

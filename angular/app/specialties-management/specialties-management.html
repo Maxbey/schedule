@@ -2,18 +2,23 @@
   <h1 class="md-title">Администрирование учебных специальностей</h1>
 
   <md-toolbar class="md-theme-light">
-    <h2 class="md-toolbar-tools">
-      <span>Специальности</span>
-    </h2>
+    <div class="md-toolbar-tools">
+      <h2 class="md-toolbar-tools">
+        <span>Специальности</span>
+      </h2>
+      <span flex></span>
+      <md-button class="md-raised">Добавить</md-button>
+    </div>
   </md-toolbar>
   <md-content>
     <md-list>
-      <md-list-item class="md-3-line" ng-repeat="specialty in vm.specialties">
+      <md-list-item class="secondary-button-padding" ng-repeat="specialty in vm.specialties" ng-click="vm.details()">
         <div class="md-list-item-text">
-          <h3>{{specialty.name}}</h3>
-          <h4>{{specialty.code}}</h4>
+          <h3 class="md-subhead">{{specialty.name}}</h3>
+          <h4 class="md-subhead">{{specialty.code}}</h4>
         </div>
-        <md-button class="md-secondary">Просмотр</md-button>
+        <md-button class="md-secondary md-warn" ng-click="vm.remove(specialty)">Удалить</md-button>
+        
         <md-divider ng-if="!$last"></md-divider>
       </md-list-item>
     </md-list>

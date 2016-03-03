@@ -65,7 +65,7 @@ class SpecialtiesController extends Controller
      */
     public function show($id)
     {
-        return $this->specialtiesRepository->with(['troops'])->find($id);
+        return $this->specialtiesRepository->find($id);
     }
 
     /**
