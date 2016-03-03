@@ -30,8 +30,10 @@ class TroopTransformer extends TransformerAbstract
     public function transform(Troop $model)
     {
         return [
+            'id' => $model->id,
             'code' => $model->code,
             'specialty' => $model->specialtyName,
+            'specialty_id' => $model->specialty->id,
             'links' => [
                 'show' => route('api.troops.show', ['id' => $model->id]),
                 'self' => route('api.troops.show', ['id' => $model->id])

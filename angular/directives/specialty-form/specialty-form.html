@@ -1,6 +1,5 @@
-<div ng-controller="SpecialtyFormController as vm">
   <md-input-container class="md-block" flex-gt-sm>
-    <label>Название специальности {{ thing }}</label>
+    <label>Название специальности</label>
     <input ng-model="vm.specialty.name">
   </md-input-container>
   <md-input-container class="md-block" flex-gt-sm>
@@ -14,4 +13,3 @@
     <md-button class="md-raised" ng-click="vm.update()">Обновить специальность</md-button>
     <md-button class="md-raised md-warn" ng-click="vm.delete()">Удалить специальность</md-button>
   </div>
-</div>

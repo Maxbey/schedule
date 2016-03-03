@@ -63,7 +63,32 @@
 						templateUrl: getView('specialty-edit')
 					}
 				}
-			});
+			})
+			.state('app.troops-list', {
+				url: '/troops',
+				views: {
+					'main@': {
+						templateUrl: getView('troops-list')
+					}
+				}
+			})
+			.state('app.troop-create', {
+				url: '/troops/create',
+				views: {
+					'main@': {
+						templateUrl: getView('troop-create')
+					}
+				}
+			})
+			.state('app.troop-edit', {
+				url: '/troops/{id}/edit',
+				views: {
+					'main@': {
+						templateUrl: getView('troop-edit')
+					}
+				}
+			})
+			;
 
 	});
 })();

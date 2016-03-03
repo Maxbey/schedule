@@ -1,0 +1,19 @@
+<md-input-container class="md-block" flex-gt-sm>
+  <label>Номер взвода</label>
+  <input ng-model="vm.troop.code">
+</md-input-container>
+<md-input-container class="md-block" flex-gt-sm>
+  <label>Специальность</label>
+  <md-select ng-model="vm.troop.specialty_id">
+          <md-option ng-repeat="specialty in vm.specialties" value="{{specialty.id}}">
+            {{specialty.code}}
+          </md-option>
+  </md-select>
+</md-input-container>
+<div ng-if="!troop">
+  <md-button class="md-raised" ng-click="vm.create()">Создать взвод</md-button>
+</div>
+<div ng-if="troop">
+  <md-button class="md-raised" ng-click="vm.update()">Обновить взвод</md-button>
+  <md-button class="md-raised md-warn" ng-click="vm.delete()">Удалить взвод</md-button>
+</div>

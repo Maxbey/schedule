@@ -62,10 +62,10 @@ Route::group(['prefix' => 'api'], function(){
     Route::get('trashcan/disciplines', 'DisciplinesController@trashed');
 
     /* Troops */
-    Route::put('troops/{id}', [
+    /*Route::put('troops/{id}', [
         'uses' => 'TroopsController@restore',
         'as'   => 'api.troops.restore'
-    ]);
+    ]);*/
 
     Route::resource('troops', 'TroopsController', [
         'parameters' => [
