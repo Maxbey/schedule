@@ -13,7 +13,7 @@
 			RestangularConfigurer
 				.setBaseUrl('/api/')
 				.setDefaultHeaders(headers)
-				.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
+				.addResponseInterceptor(function(data, operation, what, url, response) {
 					var extractedData = data.data;
 
 					return extractedData;

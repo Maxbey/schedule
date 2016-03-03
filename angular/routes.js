@@ -32,12 +32,19 @@
 				}
 			})
 
-			.state('app.specialties-management', {
-				url: '/management/specialties',
-				data: {},
+			.state('app.specialties-list', {
+				url: '/specialties',
 				views: {
 					'main@': {
-						templateUrl: getView('specialties-management')
+						templateUrl: getView('specialties-list')
+					}
+				}
+			})
+			.state('app.specialty-create', {
+				url: '/specialties/create',
+				views: {
+					'main@': {
+						templateUrl: getView('specialty-create')
 					}
 				}
 			});

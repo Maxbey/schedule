@@ -3,7 +3,7 @@
 
     angular.module('app.controllers').controller('HeaderController', HeaderController);
 
-    function HeaderController($scope, $mdSidenav){
+    function HeaderController(){
       var vm = this;
       vm.sidebar_is_opened = false;
 

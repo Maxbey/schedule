@@ -6,8 +6,14 @@
     });
 
     function SpecialtyService(API){
+        var resource = API.all('specialties');
+
         this.all = function(){
-            return API.all('specialties').getList();
+            return resource.getList();
+        };
+
+        this.create = function(specialty){
+            return resource.post(angular.toJson(specialty));
         };
     }
 

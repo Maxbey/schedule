@@ -1,4 +1,4 @@
-<md-content class="Page-Container" ng-controller="SpecialtiesManagementController as vm">
+<md-content class="Page-Container" ng-controller="SpecialtiesListController as vm">
   <h1 class="md-title">Администрирование учебных специальностей</h1>
 
   <md-toolbar class="md-theme-light">
@@ -7,7 +7,7 @@
         <span>Специальности</span>
       </h2>
       <span flex></span>
-      <md-button class="md-raised">Добавить</md-button>
+      <md-button ng-href="specialties/create" class="md-raised">Добавить</md-button>
     </div>
   </md-toolbar>
   <md-content>
@@ -18,7 +18,7 @@
           <h4 class="md-subhead">{{specialty.code}}</h4>
         </div>
         <md-button class="md-secondary md-warn" ng-click="vm.remove(specialty)">Удалить</md-button>
-        
+
         <md-divider ng-if="!$last"></md-divider>
       </md-list-item>
     </md-list>
