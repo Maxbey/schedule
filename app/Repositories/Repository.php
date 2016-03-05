@@ -3,11 +3,17 @@
 namespace App\Repositories;
 
 
+use App\Presenters\EntityPresenterInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 abstract class Repository extends BaseRepository
 {
+    /**
+     * @var EntityPresenterInterface
+     */
+    protected $presenter;
+
     /**
      * The method to find all entities, the id which are contained in the array
      *
@@ -24,6 +30,19 @@ abstract class Repository extends BaseRepository
         }
 
         return $collection;
+    }
+
+    /**
+     * Include relations through Presenter
+     *
+     * @param array $relations
+     * @return Repository
+     */
+    public function withRelations(array $relations)
+    {
+        $this->presenter->includeRelations($relations);
+
+        return $this;
     }
 
 }

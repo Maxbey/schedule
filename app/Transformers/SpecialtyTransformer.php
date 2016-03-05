@@ -17,8 +17,8 @@ class SpecialtyTransformer extends TransformerAbstract
      * @var array
      */
     protected $availableIncludes = [
-        'troops',
-        'disciplines'
+        'disciplines',
+        'troops'
     ];
 
     /**
@@ -34,7 +34,6 @@ class SpecialtyTransformer extends TransformerAbstract
             'name' => $model->name,
             'code' => $model->code,
             'links' => [
-                'show' => route('api.specialties.show', ['id' => $model->id]) . '?include=troops,disciplines',
                 'self' => route('api.specialties.show', ['id' => $model->id]),
                 'setDisciplines' => route('api.specialties.setDisciplines', ['id' => $model->id])
             ]

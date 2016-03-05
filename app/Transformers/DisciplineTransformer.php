@@ -30,10 +30,10 @@ class DisciplineTransformer extends TransformerAbstract
     public function transform(Discipline $model)
     {
         return [
-            'full_name' => $model->full_name,
-            'short_name' => $model->short_name,
-            'links' => [
-                'show' => route('api.disciplines.show', ['id' => $model->id]) . '?include=themes,specialties',
+            'id'          => $model->id,
+            'full_name'   => $model->full_name,
+            'short_name'  => $model->short_name,
+            'links'       => [
                 'self' => route('api.disciplines.show', ['id' => $model->id]),
                 'setSpecialties' => route('api.disciplines.setSpecialties', ['id' => $model->id])
             ]

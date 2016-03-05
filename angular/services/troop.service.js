@@ -6,14 +6,15 @@
     });
 
     function TroopService(API){
-        var all = API.all('troops');
+        var url = 'troops';
+        var all = API.all(url);
 
         this.all = function(){
             return all.getList();
         };
 
         this.get = function(id){
-            return API.one('troops', id).get();
+            return API.one(url, id).get();
         };
 
         this.create = function(troop){

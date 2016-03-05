@@ -101,7 +101,7 @@ class ThemesController extends Controller
      */
     public function show($id)
     {
-        return $this->themesRepository->find($id);
+        return $this->themesRepository->withRelations(['teachers', 'audiences'])->find($id);
     }
 
     /**

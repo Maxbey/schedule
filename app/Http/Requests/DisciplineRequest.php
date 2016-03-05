@@ -13,7 +13,7 @@ class DisciplineRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,7 @@ class DisciplineRequest extends Request
     {
         return [
             'full_name' => 'required|string|min:3|max:100',
-            'short_name' => 'required|string|min:3|max:100'
+            'short_name' => 'required|string|min:2|max:100'
         ];
     }
 }

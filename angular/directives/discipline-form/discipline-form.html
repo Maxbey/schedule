@@ -1,0 +1,28 @@
+<h2 class="md-subhead">Основаная информация</h2>
+<md-input-container class="md-block" flex-gt-sm>
+  <label>Полное название дисциплины</label>
+  <input ng-model="vm.discipline.full_name">
+</md-input-container>
+<md-input-container class="md-block" flex-gt-sm>
+  <label>Аббревиатура</label>
+  <input ng-model="vm.discipline.short_name">
+</md-input-container>
+<div ng-if="!discipline">
+  <md-button class="md-raised" ng-click="vm.create()">Создать дисциплину</md-button>
+</div>
+<div ng-if="discipline">
+  <md-button class="md-raised" ng-click="vm.update()">Обновить дисциплину</md-button>
+  <md-button class="md-raised md-warn" ng-click="vm.delete()">Удалить дисциплину</md-button>
+</div>
+<h2 class="md-subhead">Ассоциировать со специальностями</h2>
+<md-contact-chips
+        ng-model="vm.specialties"
+        md-contacts="ctrl.querySearch($query)"
+        md-contact-name="name"
+        md-contact-image="image"
+        md-contact-email="email"
+        md-require-match="true"
+        md-highlight-flags="i"
+        filter-selected="ctrl.filterSelected"
+        placeholder="To">
+    </md-contact-chips>

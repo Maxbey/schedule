@@ -41,10 +41,10 @@ Route::group(['prefix' => 'api'], function(){
     Route::get('trashcan/specialties', 'SpecialtiesController@trashed');
 
     /* Disciplines */
-    Route::put('disciplines/{id}', [
+    /*Route::put('disciplines/{id}', [
         'uses' => 'DisciplinesController@restore',
         'as'   => 'api.disciplines.restore'
-    ]);
+    ]);*/
 
     Route::resource('disciplines', 'DisciplinesController', [
         'parameters' => [

@@ -81,7 +81,7 @@ class DisciplinesController extends Controller
      */
     public function show($id)
     {
-        return $this->disciplinesRepository->find($id);
+        return $this->disciplinesRepository->withRelations(['specialties', 'themes'])->find($id);
     }
 
     /**

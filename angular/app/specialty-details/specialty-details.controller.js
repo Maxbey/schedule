@@ -6,7 +6,7 @@
     function SpecialtyDetailsController($stateParams, SpecialtyService){
         var vm = this;
 
-        SpecialtyService.getWithRelations($stateParams.id).then(function(specialty){
+        SpecialtyService.get($stateParams.id).then(function(specialty){
           vm.specialty = specialty;
         });
     }

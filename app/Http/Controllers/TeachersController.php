@@ -80,7 +80,7 @@ class TeachersController extends Controller
      */
     public function show($id)
     {
-        return $this->teachersRepository->find($id);
+        return $this->teachersRepository->withRelations(['themes'])->find($id);
     }
 
     /**

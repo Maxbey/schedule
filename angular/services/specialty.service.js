@@ -6,8 +6,8 @@
     });
 
     function SpecialtyService(API){
-        var all = API.all('specialties');
-        var relationsQuery = '?include=troops,disciplines';
+      var url = 'specialties';
+      var all = API.all(url);
 
         this.all = function(){
             return all.getList();
@@ -17,12 +17,8 @@
             return all.post(angular.toJson(specialty));
         };
 
-        this.getWithRelations = function(id){
-            return API.one('specialties/' + id + relationsQuery).get();
-        };
-
         this.get = function(id){
-            return API.one('specialties', id).get();
+            return API.one(url, id).get();
         };
     }
 

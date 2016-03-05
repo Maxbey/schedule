@@ -88,7 +88,30 @@
 					}
 				}
 			})
-			;
+			.state('app.disciplines-list', {
+				url: '/disciplines',
+				views: {
+					'main@': {
+						templateUrl: getView('disciplines-list')
+					}
+				}
+			})
+			.state('app.discipline-create', {
+				url: '/disciplines/create',
+				views: {
+					'main@': {
+						templateUrl: getView('discipline-create')
+					}
+				}
+			})
+			.state('app.discipline-edit', {
+				url: '/disciplines/{id}/edit',
+				views: {
+					'main@': {
+						templateUrl: getView('discipline-edit')
+					}
+				}
+			});
 
 	});
 })();

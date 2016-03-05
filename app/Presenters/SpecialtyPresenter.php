@@ -10,7 +10,7 @@ use Prettus\Repository\Presenter\FractalPresenter;
  *
  * @package namespace App\Presenters;
  */
-class SpecialtyPresenter extends FractalPresenter
+class SpecialtyPresenter extends EntityPresenter
 {
     /**
      * Transformer

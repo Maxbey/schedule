@@ -80,7 +80,7 @@ class AudiencesController extends Controller
      */
     public function show($id)
     {
-        return $this->audiencesRepository->find($id);
+        return $this->audiencesRepository->withRelations(['themes'])->find($id);
     }
 
     /**

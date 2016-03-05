@@ -34,7 +34,6 @@ class ThemeTransformer extends TransformerAbstract
             'name' => $model->name,
             'discipline' => $model->disciplineName,
             'links' => [
-                'show' => route('api.themes.show', ['id' => $model->id]) . '?include=teachers,audiences',
                 'self' => route('api.themes.show', ['id' => $model->id]),
                 'setAudiences' => route('api.themes.setAudiences', ['id' => $model->id]),
                 'setTeachers'  => route('api.themes.setTeachers', ['id' => $model->id])

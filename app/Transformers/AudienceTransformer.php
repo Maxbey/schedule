@@ -32,7 +32,6 @@ class AudienceTransformer extends TransformerAbstract
             'name' => $model->name,
             'location' => $model->location,
             'links' => [
-                'show' => route('api.audiences.show', ['id' => $model->id]) . '?include=themes',
                 'self' => route('api.audiences.show', ['id' => $model->id]),
                 'setThemes' => route('api.audiences.setThemes', ['id' => $model->id])
             ]

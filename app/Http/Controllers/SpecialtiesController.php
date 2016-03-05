@@ -54,7 +54,7 @@ class SpecialtiesController extends Controller
      */
     public function index()
     {
-        return $this->specialtiesRepository->all();
+        return $this->specialtiesRepository->with(['troops', 'disciplines'])->all();
     }
 
     /**
@@ -65,7 +65,7 @@ class SpecialtiesController extends Controller
      */
     public function show($id)
     {
-        return $this->specialtiesRepository->find($id);
+        return $this->specialtiesRepository->withRelations(['troops', 'disciplines'])->find($id);
     }
 
     /**
