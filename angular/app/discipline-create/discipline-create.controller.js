@@ -6,9 +6,9 @@
     function DisciplineCreateController($scope, $state, DisciplineService){
         var vm = this;
 
-        $scope.$on('create_discipline', function(e, discipline){
-
-          DisciplineService.create(discipline).then(function(){
+        $scope.$on('create_discipline', function(e, data){
+          console.log(data);
+          DisciplineService.create(data).then(function(){
               $state.go('app.disciplines-list');
           });
         });

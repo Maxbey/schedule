@@ -54,11 +54,6 @@ Route::group(['prefix' => 'api'], function(){
             ['create', 'edit']
     ]);
 
-    Route::post('disciplines/{id}/specialties', [
-        'uses' => 'DisciplinesController@setSpecialties',
-        'as'   => 'api.disciplines.setSpecialties'
-    ]);
-
     Route::get('trashcan/disciplines', 'DisciplinesController@trashed');
 
     /* Troops */

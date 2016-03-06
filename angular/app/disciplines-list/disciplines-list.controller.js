@@ -16,6 +16,10 @@
           $state.go('app.discipline-edit', {'id': discipline.id});
         };
 
+        vm.details = function(discipline){
+          $state.go('app.discipline-details', {'id': discipline.id});
+        };
+
         renderList();
     }
 

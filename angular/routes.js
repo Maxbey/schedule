@@ -111,6 +111,14 @@
 						templateUrl: getView('discipline-edit')
 					}
 				}
+			})
+			.state('app.discipline-details', {
+				url: '/disciplines/{id}/show',
+				views: {
+					'main@': {
+						templateUrl: getView('discipline-details')
+					}
+				}
 			});
 
 	});

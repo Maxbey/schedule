@@ -34,8 +34,7 @@ class DisciplineTransformer extends TransformerAbstract
             'full_name'   => $model->full_name,
             'short_name'  => $model->short_name,
             'links'       => [
-                'self' => route('api.disciplines.show', ['id' => $model->id]),
-                'setSpecialties' => route('api.disciplines.setSpecialties', ['id' => $model->id])
+                'self' => route('api.disciplines.show', ['id' => $model->id])
             ]
         ];
     }

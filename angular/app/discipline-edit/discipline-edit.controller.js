@@ -11,8 +11,7 @@
         });
 
         $scope.$on('update_discipline', function(e, discipline){
-          console.log(discipline);
-          discipline.save().then(function(){
+          DisciplineService.update(discipline).then(function(){
             $state.go('app.disciplines-list');
           });
         });

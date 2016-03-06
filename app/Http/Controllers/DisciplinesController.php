@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Discipline;
 use App\Http\Requests\DisciplineRequest;
 use App\Repositories\DisciplinesRepository;
 use App\Services\DisciplineService;
@@ -63,12 +64,17 @@ class DisciplinesController extends Controller
     /**
      * Store a newly created Discipline in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param DisciplineRequest|Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(DisciplineRequest $request)
     {
         $discipline = $this->disciplineService->create($request->all());
+
+        if($request->exists('specialties'))
+        {
+            $this->setSpecialties($discipline, $request->input('specialties'));
+        }
 
         return response('Created', 201);
     }
@@ -87,13 +93,18 @@ class DisciplinesController extends Controller
     /**
      * Update the specified Discipline in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param DisciplineRequest|Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(DisciplineRequest $request, $id)
     {
-        $this->disciplineService->attributesUpdate($id, $request->all());
+        $discipline = $this->disciplineService->attributesUpdate($id, $request->all());
+
+        if($request->exists('specialties'))
+        {
+            $this->setSpecialties($discipline, $request->input('specialties'));
+        }
 
         return response('Updated', 202);
     }
@@ -137,17 +148,12 @@ class DisciplinesController extends Controller
     /**
      * Sync with Specialties
      *
-     * @param $id
-     * @param Request $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @param Discipline $discipline
+     * @param array $specialtiesIds
      */
-    public function setSpecialties($id, Request $request)
+    protected function setSpecialties(Discipline $discipline, array $specialtiesIds)
     {
-        $ids = $request->input('specialties');
-        $specialties = $this->specialtyService->getByIds($ids);
-
-        $this->disciplineService->syncSpecialties($id, $specialties);
-
-        return response('Synced with specialties', 202);
+        $specialties = $this->specialtyService->getByIds($specialtiesIds);
+        $this->disciplineService->syncSpecialties($discipline, $specialties);
     }
 }

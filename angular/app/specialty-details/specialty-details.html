@@ -16,5 +16,7 @@
   <h3 class="md-subhead">Код специальности: {{ vm.specialty.code }}</h3>
 
   <h2 class="md-title">Взводы, обучающиеся по данной специальности:</h2>
-  <h3 class="md-subhead" ng-repeat="troop in vm.specialty.troops.data">{{ troop.code }}</h3>
+  <md-chips>
+      <md-chip ng-repeat="troop in vm.specialty.troops.data">{{ troop.code }}</md-chip>
+  </md-chips>
 </md-content>
