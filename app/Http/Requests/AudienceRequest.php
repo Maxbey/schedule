@@ -13,7 +13,7 @@ class AudienceRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,9 +24,8 @@ class AudienceRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|string|min:3|max:100',
-            'building' => 'required|integer',
-            'number' => 'required|integer'
+            'location' => 'required|string|min:3|max:100',
+            'purpose'  => 'required|string|min:3|max:100'
         ];
     }
 }

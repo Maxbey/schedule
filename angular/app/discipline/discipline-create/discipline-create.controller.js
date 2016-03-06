@@ -4,8 +4,6 @@
     angular.module('app.controllers').controller('DisciplineCreateController', DisciplineCreateController);
 
     function DisciplineCreateController($scope, $state, DisciplineService){
-        var vm = this;
-
         $scope.$on('create_discipline', function(e, data){
           DisciplineService.create(data).then(function(){
               $state.go('app.disciplines-list');

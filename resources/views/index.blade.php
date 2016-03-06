@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{!! asset('css/vendor.css') !!}">
     <link rel="stylesheet" href="{!! asset('css/app.css') !!}">
     <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
-    <title>Laravel Angular Material Starter</title>
+    <title>Расписание</title>
     <!--[if lte IE 10]>
     <script type="text/javascript">document.location.href = '/unsupported-browser'</script>
     <![endif]-->

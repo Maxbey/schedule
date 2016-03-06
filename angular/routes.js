@@ -3,8 +3,10 @@
 
 	angular.module('app.routes').config(function($stateProvider, $urlRouterProvider){
 
-		var getView = function(viewName){
-			return './views/app/' + viewName + '/' + viewName + '.html';
+		var getView = function(path){
+			var viewName = path.substring(path.lastIndexOf('.') + 1, path.length);
+
+			return './views/app/' + path.replace('.', '/') + '/' + viewName + '.html';
 		};
 
 		$urlRouterProvider.otherwise('/');
@@ -36,7 +38,7 @@
 				url: '/specialties',
 				views: {
 					'main@': {
-						templateUrl: getView('specialties-list')
+						templateUrl: getView('specialty.specialties-list')
 					}
 				}
 			})
@@ -44,7 +46,7 @@
 				url: '/specialties/{id}/show',
 				views: {
 					'main@': {
-						templateUrl: getView('specialty-details')
+						templateUrl: getView('specialty.specialty-details')
 					}
 				}
 			})
@@ -52,7 +54,7 @@
 				url: '/specialties/create',
 				views: {
 					'main@': {
-						templateUrl: getView('specialty-create')
+						templateUrl: getView('specialty.specialty-create')
 					}
 				}
 			})
@@ -60,7 +62,7 @@
 				url: '/specialties/{id}/edit',
 				views: {
 					'main@': {
-						templateUrl: getView('specialty-edit')
+						templateUrl: getView('specialty.specialty-edit')
 					}
 				}
 			})
@@ -68,7 +70,7 @@
 				url: '/troops',
 				views: {
 					'main@': {
-						templateUrl: getView('troops-list')
+						templateUrl: getView('troop.troops-list')
 					}
 				}
 			})
@@ -76,7 +78,7 @@
 				url: '/troops/create',
 				views: {
 					'main@': {
-						templateUrl: getView('troop-create')
+						templateUrl: getView('troop.troop-create')
 					}
 				}
 			})
@@ -84,7 +86,7 @@
 				url: '/troops/{id}/edit',
 				views: {
 					'main@': {
-						templateUrl: getView('troop-edit')
+						templateUrl: getView('troop.troop-edit')
 					}
 				}
 			})
@@ -92,7 +94,7 @@
 				url: '/disciplines',
 				views: {
 					'main@': {
-						templateUrl: getView('disciplines-list')
+						templateUrl: getView('discipline.disciplines-list')
 					}
 				}
 			})
@@ -100,7 +102,7 @@
 				url: '/disciplines/create',
 				views: {
 					'main@': {
-						templateUrl: getView('discipline-create')
+						templateUrl: getView('discipline.discipline-create')
 					}
 				}
 			})
@@ -108,7 +110,7 @@
 				url: '/disciplines/{id}/edit',
 				views: {
 					'main@': {
-						templateUrl: getView('discipline-edit')
+						templateUrl: getView('discipline.discipline-edit')
 					}
 				}
 			})
@@ -116,7 +118,31 @@
 				url: '/disciplines/{id}/show',
 				views: {
 					'main@': {
-						templateUrl: getView('discipline-details')
+						templateUrl: getView('discipline.discipline-details')
+					}
+				}
+			})
+			.state('app.audiences-list', {
+				url: '/audiences',
+				views: {
+					'main@': {
+						templateUrl: getView('audience.audiences-list')
+					}
+				}
+			})
+			.state('app.audience-create', {
+				url: '/audiences/create',
+				views: {
+					'main@': {
+						templateUrl: getView('audience.audience-create')
+					}
+				}
+			})
+			.state('app.audience-edit', {
+				url: '/audiences/{id}/edit',
+				views: {
+					'main@': {
+						templateUrl: getView('audience.audience-edit')
 					}
 				}
 			});

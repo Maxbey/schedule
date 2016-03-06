@@ -29,6 +29,7 @@ class AudienceTransformer extends TransformerAbstract
     public function transform(Audience $model)
     {
         return [
+            'id' => $model->id,
             'purpose' => $model->purpose,
             'location' => $model->location,
             'links' => [

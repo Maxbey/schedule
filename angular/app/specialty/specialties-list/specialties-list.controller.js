@@ -1,11 +1,11 @@
 (function(){
     "use strict";
 
-    angular.module('app.controllers').controller('SpecialtiesListController', function($state, SpecialtyService, ToastService){
-        return new SpecialtiesListController($state, SpecialtyService, ToastService);
+    angular.module('app.controllers').controller('SpecialtiesListController', function($state, SpecialtyService){
+        return new SpecialtiesListController($state, SpecialtyService);
     });
 
-    function SpecialtiesListController($state, SpecialtyService, ToastService){
+    function SpecialtiesListController($state, SpecialtyService){
         var vm = this;
 
         var renderList = function(){

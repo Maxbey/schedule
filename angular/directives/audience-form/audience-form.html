@@ -1,0 +1,15 @@
+<md-input-container class="md-block" flex-gt-sm>
+  <label>Номер аудитории</label>
+  <input ng-model="vm.audience.location">
+</md-input-container>
+<md-input-container class="md-block" flex-gt-sm>
+  <label>Предназначение аудитории</label>
+  <input ng-model="vm.audience.purpose">
+</md-input-container>
+<div ng-if="!audience">
+  <md-button class="md-raised" ng-click="vm.create()">Создать аудиторию</md-button>
+</div>
+<div ng-if="audience">
+  <md-button class="md-raised" ng-click="vm.update()">Обновить аудиторию</md-button>
+  <md-button class="md-raised md-warn" ng-click="vm.delete()">Удалить аудиторию</md-button>
+</div>
