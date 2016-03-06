@@ -17,10 +17,10 @@ abstract class ServiceTestCase extends TestCase
 
     protected function syncTest($entityClass, $toSyncClass, $method)
     {
-        $entityId = factory($entityClass)->create()->id;
+        $entity = factory($entityClass)->create();
         $toSync = factory($toSyncClass, 3)->create();
 
-        $changes = $this->service->$method($entityId, $toSync);
+        $changes = $this->service->$method($entity, $toSync);
 
         $this->assertTrue(count($changes['attached']) === 3);
     }

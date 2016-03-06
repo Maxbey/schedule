@@ -34,8 +34,7 @@ class SpecialtyTransformer extends TransformerAbstract
             'name' => $model->name,
             'code' => $model->code,
             'links' => [
-                'self' => route('api.specialties.show', ['id' => $model->id]),
-                'setDisciplines' => route('api.specialties.setDisciplines', ['id' => $model->id])
+                'self' => route('api.specialties.show', ['id' => $model->id])
             ]
         ];
     }

@@ -33,11 +33,6 @@ Route::group(['prefix' => 'api'], function(){
             ['create', 'edit']
     ]);
 
-    Route::post('specialties/{id}/disciplines', [
-        'uses' => 'SpecialtiesController@setDisciplines',
-        'as'   => 'api.specialties.setDisciplines'
-    ]);
-
     Route::get('trashcan/specialties', 'SpecialtiesController@trashed');
 
     /* Disciplines */

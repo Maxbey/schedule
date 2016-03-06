@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Entities\Specialty;
 use App\Repositories\SpecialtiesRepository;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -31,13 +32,13 @@ class SpecialtyService extends EntityService
     /**
      * Sync Disciplines through relation
      *
-     * @param $specialtyId
+     * @param Specialty $specialty
      * @param Collection $disciplines
-     * @return mixed
+     * @return array
      */
-    public function syncDisciplines($specialtyId, Collection $disciplines)
+    public function syncDisciplines(Specialty $specialty, Collection $disciplines)
     {
-        return $this->getById($specialtyId)
+        return $specialty
             ->disciplines()
             ->sync($disciplines);
     }

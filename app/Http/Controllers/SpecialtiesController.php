@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Specialty;
 use App\Repositories\SpecialtiesRepository;
 use App\Services\DisciplineService;
 use App\Services\SpecialtyService;
@@ -78,6 +79,11 @@ class SpecialtiesController extends Controller
     {
         $specialty = $this->specialtyService->create($request->all());
 
+        if($request->exists('disciplines'))
+        {
+            $this->setDisciplines($specialty, $request->input('disciplines'));
+        }
+
         return response('Created', 201);
     }
 
@@ -92,24 +98,24 @@ class SpecialtiesController extends Controller
     {
         $specialty = $this->specialtyService->attributesUpdate($id, $request->all());
 
+        if($request->exists('disciplines'))
+        {
+            $this->setDisciplines($specialty, $request->input('disciplines'));
+        }
+
         return response('Updated', 202);
     }
 
     /**
      * Sync with Disciplines
      *
-     * @param int $id
-     * @param Request $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @param Specialty $specialty
+     * @param array $disciplinesIds
      */
-    public function setDisciplines($id, Request $request)
+    protected function setDisciplines(Specialty $specialty, array $disciplinesIds)
     {
-        $ids = $request->input('disciplines');
-        $disciplines = $this->disciplineService->getByIds($ids);
-
-        $this->specialtyService->syncDisciplines($id, $disciplines);
-
-        return response('Synced with disciplines', 202);
+        $disciplines = $this->disciplineService->getByIds($disciplinesIds);
+        $this->specialtyService->syncDisciplines($specialty, $disciplines);
     }
 
     /**
