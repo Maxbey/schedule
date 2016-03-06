@@ -1,11 +1,11 @@
 (function(){
     "use strict";
 
-    angular.module('app.services').factory('SpecialtyService', function(API){
-        return new SpecialtyService(API);
+    angular.module('app.services').factory('SpecialtyService', function(API, CollectionHelpersService){
+        return new SpecialtyService(API, CollectionHelpersService);
     });
 
-    function SpecialtyService(API){
+    function SpecialtyService(API, CollectionHelpersService){
       var url = 'specialties';
       var all = API.all(url);
 
@@ -14,7 +14,13 @@
         };
 
         this.create = function(specialty){
+          specialty.disciplines = CollectionHelpersService.getIdsFromCollection(specialty.disciplines.data);
             return all.post(angular.toJson(specialty));
+        };
+
+        this.update = function(specialty){
+          specialty.disciplines = CollectionHelpersService.getIdsFromCollection(specialty.disciplines.data);
+          return specialty.save();
         };
 
         this.get = function(id){

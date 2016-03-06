@@ -19,4 +19,9 @@
   <md-chips>
       <md-chip ng-repeat="troop in vm.specialty.troops.data">{{ troop.code }}</md-chip>
   </md-chips>
+
+  <h2 class="md-title">Дисцилины, ассоциированные с данной специальностью</h2>
+  <md-chips>
+      <md-chip ng-repeat="discipline in vm.specialty.disciplines.data">{{ discipline.short_name }}</md-chip>
+  </md-chips>
 </md-content>

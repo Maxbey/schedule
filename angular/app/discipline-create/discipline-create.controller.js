@@ -7,7 +7,6 @@
         var vm = this;
 
         $scope.$on('create_discipline', function(e, data){
-          console.log(data);
           DisciplineService.create(data).then(function(){
               $state.go('app.disciplines-list');
           });

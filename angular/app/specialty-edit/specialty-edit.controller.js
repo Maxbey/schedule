@@ -11,7 +11,7 @@
         });
 
         $scope.$on('update_specialty', function(e, specialty){
-          specialty.save().then(function(){
+          SpecialtyService.update(specialty).then(function(){
             $state.go('app.specialties-list');
           });
         });

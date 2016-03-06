@@ -6,6 +6,18 @@
     <label>Код специальности</label>
     <input ng-model="vm.specialty.code">
   </md-input-container>
+  <h2 class="md-subhead">Прикрепить дисциплины</h2>
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Выберите дисциплины</label>
+    <md-contact-chips
+            ng-model="vm.specialty.disciplines.data"
+            md-contacts="vm.querySearch($query)"
+            md-contact-name="short_name"
+            md-require-match="true"
+            md-highlight-flags="i"
+            filter-selected="true"
+    </md-contact-chips>
+  </md-input-container>
   <div ng-if="!specialty">
     <md-button class="md-raised" ng-click="vm.create()">Создать специальность</md-button>
   </div>
