@@ -89,11 +89,6 @@ Route::group(['prefix' => 'api'], function(){
             ['create', 'edit']
     ]);
 
-    Route::post('teachers/{id}/themes', [
-        'uses' => 'TeachersController@setThemes',
-        'as'   => 'api.teachers.setThemes'
-    ]);
-
     Route::get('trashcan/teachers', 'TeachersController@trashed');
 
     /* Themes */
@@ -110,16 +105,6 @@ Route::group(['prefix' => 'api'], function(){
             ['create', 'edit']
     ]);
 
-    Route::post('themes/{id}/audiences', [
-        'uses' => 'ThemesController@setAudiences',
-        'as'   => 'api.themes.setAudiences'
-    ]);
-
-    Route::post('themes/{id}/teachers', [
-        'uses' => 'ThemesController@setTeachers',
-        'as'   => 'api.themes.setTeachers'
-    ]);
-
     Route::get('trashcan/themes', 'ThemesController@trashed');
 
     /*Audiences*/
@@ -134,11 +119,6 @@ Route::group(['prefix' => 'api'], function(){
         ],
         'except' =>
             ['create', 'edit']
-    ]);
-
-    Route::post('audiences/{id}/themes', [
-        'uses' => 'AudiencesController@setThemes',
-        'as'   => 'api.audiences.setThemes'
     ]);
 
     Route::get('trashcan/audiences', 'AudiencesController@trashed');

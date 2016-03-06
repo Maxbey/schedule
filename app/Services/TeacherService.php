@@ -3,6 +3,7 @@
 namespace App\Services;
 
 
+use App\Entities\Teacher;
 use App\Repositories\TeachersRepository;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -32,12 +33,12 @@ class TeacherService extends EntityService
     /**
      * Sync Themes through relation
      *
-     * @param int $teacherId
+     * @param Teacher $teacher
      * @param Collection $themes
-     * @return mixed
+     * @return array
      */
-    public function syncThemes($teacherId, Collection $themes)
+    public function syncThemes(Teacher $teacher, Collection $themes)
     {
-        return $this->getById($teacherId)->themes()->sync($themes);
+        return $teacher->themes()->sync($themes);
     }
 }

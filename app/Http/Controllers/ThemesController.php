@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Theme;
 use App\Http\Requests\ThemeRequest;
 use App\Repositories\DisciplinesRepository;
 use App\Repositories\ThemesRepository;
@@ -81,14 +82,23 @@ class ThemesController extends Controller
     /**
      * Store a newly created Theme in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param ThemeRequest|Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(ThemeRequest $request)
     {
         $discipline = $this->disciplinesRepository->find($request->input('discipline_id'));
 
-        $this->themesService->create($discipline, $request->all());
+        $theme = $this->themesService->create($discipline, $request->all());
+
+        if($request->exists('audiences'))
+        {
+            $this->setAudiences($theme, $request->input('audiences'));
+        }
+        if($request->exists('teachers'))
+        {
+            $this->setTeachers($theme, $request->input('teachers'));
+        }
 
         return response('Created', 201);
     }
@@ -107,15 +117,24 @@ class ThemesController extends Controller
     /**
      * Update the specified Theme in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param ThemeRequest|Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(ThemeRequest $request, $id)
     {
         $discipline = $this->disciplinesRepository->find($request->input('discipline_id'));
 
-        $this->themesService->update($id, $discipline, $request->all());
+        $theme = $this->themesService->update($id, $discipline, $request->all());
+
+        if($request->exists('audiences'))
+        {
+            $this->setAudiences($theme, $request->input('audiences'));
+        }
+        if($request->exists('teachers'))
+        {
+            $this->setTeachers($theme, $request->input('teachers'));
+        }
 
         return response('Updated', 202);
     }
@@ -123,36 +142,25 @@ class ThemesController extends Controller
     /**
      * Sync with Audiences
      *
-     * @param int $id
-     * @param Request $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @param Theme $theme
+     * @param array $audienceIds
      */
-    public function setAudiences($id, Request $request)
+    public function setAudiences(Theme $theme, array $audienceIds)
     {
-        $ids = $request->input('audiences');
-        $audiences = $this->audienceService->getByIds($ids);
-
-        $this->themesService->syncAudiences($id, $audiences);
-
-        return response('Synced with audiences', 202);
-
+        $audiences = $this->audienceService->getByIds($audienceIds);
+        $this->themesService->syncAudiences($theme, $audiences);
     }
 
     /**
      * Sync with Teachers
      *
-     * @param $id
-     * @param Request $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @param Theme $theme
+     * @param array $teachersIds
      */
-    public function setTeachers($id, Request $request)
+    public function setTeachers(Theme $theme, array $teachersIds)
     {
-        $ids = $request->input('teachers');
-        $teachers = $this->teacherService->getByIds($ids);
-
-        $this->themesService->syncTeachers($id, $teachers);
-
-        return response('Synced with teachers', 202);
+        $teachers = $this->teacherService->getByIds($teachersIds);
+        $this->themesService->syncTeachers($theme, $teachers);
     }
 
     /**

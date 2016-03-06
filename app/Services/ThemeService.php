@@ -4,6 +4,7 @@ namespace App\Services;
 
 
 use App\Entities\Discipline;
+use App\Entities\Theme;
 use App\Repositories\ThemesRepository;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -54,13 +55,13 @@ class ThemeService extends EntityService
     /**
      * Sync Teachers through relation
      *
-     * @param int $themeId
+     * @param Theme $theme
      * @param Collection $teachers
-     * @return mixed
+     * @return array
      */
-    public function syncTeachers($themeId, Collection $teachers)
+    public function syncTeachers(Theme $theme, Collection $teachers)
     {
-        return $this->getById($themeId)
+        return $theme
             ->teachers()
             ->sync($teachers);
     }
@@ -68,13 +69,13 @@ class ThemeService extends EntityService
     /**
      * Sync Audiences through relation
      *
-     * @param int $themeId
+     * @param Theme $theme
      * @param Collection $audiences
-     * @return mixed
+     * @return array
      */
-    public function syncAudiences($themeId, Collection $audiences)
+    public function syncAudiences(Theme $theme, Collection $audiences)
     {
-        return $this->getById($themeId)
+        return $theme
             ->audiences()
             ->sync($audiences);
     }

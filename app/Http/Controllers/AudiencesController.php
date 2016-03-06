@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Audience;
 use App\Http\Requests\AudienceRequest;
 use App\Repositories\AudiencesRepository;
 use App\Services\AudienceService;
@@ -67,7 +68,12 @@ class AudiencesController extends Controller
      */
     public function store(AudienceRequest $request)
     {
-        $this->audiencesService->create($request->all());
+        $audience = $this->audiencesService->create($request->all());
+
+        if($request->exists('themes'))
+        {
+            $this->setThemes($audience, $request->input('themes'));
+        }
 
         return response('Created', 201);
     }
@@ -86,13 +92,18 @@ class AudiencesController extends Controller
     /**
      * Update the specified Audience in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param AudienceRequest|Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(AudienceRequest $request, $id)
     {
-        $this->audiencesService->attributesUpdate($id, $request->all());
+        $audience = $this->audiencesService->attributesUpdate($id, $request->all());
+
+        if($request->exists('themes'))
+        {
+            $this->setThemes($audience, $request->input('themes'));
+        }
 
         return response('Updated', 202);
     }
@@ -100,18 +111,13 @@ class AudiencesController extends Controller
     /**
      * Sync with Themes
      *
-     * @param $id
-     * @param Request $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @param Audience $audiecne
+     * @param array $themesIds
      */
-    public function setThemes($id, Request $request)
+    public function setThemes(Audience $audiecne, array $themesIds)
     {
-        $ids = $request->input('themes');
-        $themes = $this->themeService->getByIds($ids);
-
-        $this->audiencesService->syncThemes($id, $themes);
-
-        return response('Synced with themes', 202);
+        $themes = $this->themeService->getByIds($themesIds);
+        $this->audiencesService->syncThemes($audiecne, $themes);
     }
 
     /**

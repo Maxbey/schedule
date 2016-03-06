@@ -33,8 +33,7 @@ class TeacherTransformer extends TransformerAbstract
             'rank' => $model->military_rank,
             'work_limit' => $model->work_hours_limit,
             'links' => [
-                'self' => route('api.teachers.show', ['id' => $model->id]),
-                'setThemes' => route('api.teachers.setThemes', ['id' => $model->id])
+                'self' => route('api.teachers.show', ['id' => $model->id])
             ]
         ];
     }

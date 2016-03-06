@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Teacher;
 use App\Http\Requests\TeacherRequest;
 use App\Repositories\TeachersRepository;
 use App\Services\TeacherService;
@@ -67,7 +68,12 @@ class TeachersController extends Controller
      */
     public function store(TeacherRequest $request)
     {
-        $this->teacherService->create($request->all());
+        $teacher = $this->teacherService->create($request->all());
+
+        if($request->exists('themes'))
+        {
+            $this->setThemes($teacher, $request->input('themes'));
+        }
 
         return response('Created', 201);
     }
@@ -92,7 +98,12 @@ class TeachersController extends Controller
      */
     public function update(TeacherRequest $request, $id)
     {
-        $this->teacherService->attributesUpdate($id, $request->all());
+        $teacher = $this->teacherService->attributesUpdate($id, $request->all());
+
+        if($request->exists('themes'))
+        {
+            $this->setThemes($teacher, $request->input('themes'));
+        }
 
         return response('Updated', 202);
     }
@@ -136,17 +147,12 @@ class TeachersController extends Controller
     /**
      * Sync with themes.
      *
-     * @param int $id
-     * @param Request $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @param Teacher $teacher
+     * @param array $themesIds
      */
-    public function setThemes($id, Request $request)
+    public function setThemes(Teacher $teacher, array $themesIds)
     {
-        $ids = $request->input('themes');
-        $themes = $this->themeService->getByIds($ids);
-
-        $this->teacherService->syncThemes($id, $themes);
-
-        return response('Synced with themes', 202);
+        $themes = $this->themeService->getByIds($themesIds);
+        $this->teacherService->syncThemes($teacher, $themes);
     }
 }

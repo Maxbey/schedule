@@ -3,6 +3,7 @@
 namespace App\Services;
 
 
+use App\Entities\Audience;
 use App\Repositories\AudiencesRepository;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -32,13 +33,13 @@ class AudienceService extends EntityService
     /**
      * Sync Themes through relation
      *
-     * @param int $audienceId
+     * @param Audience $audience
      * @param Collection $themes
-     * @return mixed
+     * @return array
      */
-    public function syncThemes($audienceId, Collection $themes)
+    public function syncThemes(Audience $audience, Collection $themes)
     {
-        return $this->getById($audienceId)
+        return $audience
             ->themes()
             ->sync($themes);
     }
