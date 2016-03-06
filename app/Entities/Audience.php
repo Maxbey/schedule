@@ -14,9 +14,8 @@ class Audience extends Model
     protected $table = 'audiences';
 
     protected $fillable = [
-        'name',
-        'building',
-        'number'
+        'purpose',
+        'location'
     ];
 
     public function themes()
@@ -27,11 +26,6 @@ class Audience extends Model
     public function occupations()
     {
         return $this->hasMany(Occupation::class);
-    }
-
-    public function getLocationAttribute()
-    {
-        return $this->building . '-' . $this->number;
     }
 
 }

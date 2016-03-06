@@ -10,9 +10,8 @@ class AudienceServiceTest extends ServiceTestCase
     public function testCreateMethod()
     {
         $attributes = [
-            'name' => 'auditory name',
-            'building' => 1,
-            'number' => 321
+            'purpose' => 'auditory name',
+            'location' => 1
         ];
 
         $audience = $this->service->create($attributes);

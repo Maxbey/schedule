@@ -29,7 +29,7 @@ class AudienceTransformer extends TransformerAbstract
     public function transform(Audience $model)
     {
         return [
-            'name' => $model->name,
+            'purpose' => $model->purpose,
             'location' => $model->location,
             'links' => [
                 'self' => route('api.audiences.show', ['id' => $model->id])

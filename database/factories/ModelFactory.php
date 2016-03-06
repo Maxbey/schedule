@@ -62,9 +62,8 @@ $factory->define(App\Entities\Teacher::class, function(Faker\Generator $faker){
 
 $factory->define(App\Entities\Audience::class, function(Faker\Generator $faker){
     return [
-        'name' => $faker->title,
-        'building' => $faker->numberBetween(0, 100),
-        'number' => $faker->numberBetween(0, 100)
+        'purpose' => $faker->word,
+        'location' => $faker->numberBetween(1, 6) . $faker->numberBetween(1, 6) 
     ];
 });
 
