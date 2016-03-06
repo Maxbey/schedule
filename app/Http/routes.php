@@ -76,10 +76,10 @@ Route::group(['prefix' => 'api'], function(){
             ['create', 'edit']
     ]);
 
-    Route::put('teachers/{id}', [
+    /*Route::put('teachers/{id}', [
         'uses' => 'TeachersController@restore',
         'as'   => 'api.teachers.restore'
-    ]);
+    ]);*/
 
     Route::resource('teachers', 'TeachersController', [
         'parameters' => [
@@ -92,10 +92,10 @@ Route::group(['prefix' => 'api'], function(){
     Route::get('trashcan/teachers', 'TeachersController@trashed');
 
     /* Themes */
-    Route::put('themes/{id}', [
+    /*Route::put('themes/{id}', [
         'uses' => 'ThemesController@restore',
         'as'   => 'api.themes.restore'
-    ]);
+    ]);*/
 
     Route::resource('themes', 'ThemesController', [
         'parameters' => [
@@ -108,10 +108,10 @@ Route::group(['prefix' => 'api'], function(){
     Route::get('trashcan/themes', 'ThemesController@trashed');
 
     /*Audiences*/
-    Route::put('audiences/{id}', [
+    /*Route::put('audiences/{id}', [
         'uses' => 'AudiencesController@restore',
         'as'   => 'api.audiences.restore'
-    ]);
+    ]);*/
 
     Route::resource('audiences', 'AudiencesController', [
         'parameters' => [
@@ -124,10 +124,10 @@ Route::group(['prefix' => 'api'], function(){
     Route::get('trashcan/audiences', 'AudiencesController@trashed');
 
     /*Occupations*/
-    Route::put('occupations/{id}', [
+    /*Route::put('occupations/{id}', [
         'uses' => 'OccupationsController@restore',
         'as'   => 'api.occupations.restore'
-    ]);
+    ]);*/
 
     Route::resource('occupations', 'OccupationsController', [
         'parameters' => [
