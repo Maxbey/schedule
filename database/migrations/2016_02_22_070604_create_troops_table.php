@@ -15,6 +15,7 @@ class CreateTroopsTable extends Migration
         Schema::create('troops', function (Blueprint $table) {
             $table->smallIncrements('id');
             $table->string('code', 100);
+            $table->enum('day', [1, 2, 3, 4, 5]);
             $table->smallInteger('specialty_id')->unsigned()->index();
 
             $table->timestamps();

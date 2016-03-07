@@ -13,7 +13,7 @@ class Troop extends Model
 
     protected $table = 'troops';
 
-    protected $fillable = ['code'];
+    protected $fillable = ['code', 'day'];
 
     public function specialty()
     {
@@ -30,9 +30,9 @@ class Troop extends Model
      *
      * @return mixed
      */
-    public function getSpecialtyNameAttribute()
+    public function getSpecialtyCodeAttribute()
     {
-        return $this->specialty->name;
+        return $this->specialty->code;
     }
 
 }

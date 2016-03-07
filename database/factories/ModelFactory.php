@@ -30,6 +30,7 @@ $factory->define(App\Entities\Specialty::class, function(Faker\Generator $faker)
 $factory->define(App\Entities\Troop::class, function(Faker\Generator $faker){
     return [
         'code' => '231',
+        'day' => $faker->numberBetween(1, 5),
         'specialty_id' => factory(App\Entities\Specialty::class)->create()->id
     ];
 });
