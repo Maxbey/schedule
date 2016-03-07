@@ -16,10 +16,10 @@ class Specialty extends Model implements SluggableInterface
 
     protected $table = 'specialties';
 
-    protected $fillable = ['name', 'code'];
+    protected $fillable = ['code'];
 
     protected $sluggable = [
-        'build_from' => 'name',
+        'build_from' => 'code',
         'save_to' => 'slug'
     ];
 

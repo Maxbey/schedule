@@ -11,7 +11,6 @@ class SpecialtyServiceTest extends ServiceTestCase
     public function testCreateMethod()
     {
         $attributes = [
-            'name' => 'name of specialty',
             'code' => '123-300-1'
         ];
 

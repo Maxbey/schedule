@@ -24,7 +24,6 @@ class SpecialtyRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|string|min:3|max:100',
             'code' => 'required|string|min:3|max:100'
         ];
     }

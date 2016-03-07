@@ -14,7 +14,6 @@ class CreateSpecialtiesTable extends Migration
     {
         Schema::create('specialties', function (Blueprint $table) {
             $table->smallIncrements('id');
-            $table->string('name', 100);
             $table->string('code', 100);
             $table->string('slug')->nullable();
 

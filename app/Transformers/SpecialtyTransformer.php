@@ -30,8 +30,7 @@ class SpecialtyTransformer extends TransformerAbstract
     public function transform(Specialty $model)
     {
         return [
-            'id'   => $model->id, 
-            'name' => $model->name,
+            'id'   => $model->id,
             'code' => $model->code,
             'links' => [
                 'self' => route('api.specialties.show', ['id' => $model->id])

@@ -22,7 +22,6 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Entities\Specialty::class, function(Faker\Generator $faker){
     return [
-        'name' => $faker->word,
         'code' => $faker->postcode
     ];
 
