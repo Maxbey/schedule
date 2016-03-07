@@ -10,6 +10,14 @@
           </md-option>
   </md-select>
 </md-input-container>
+<md-input-container class="md-block" flex-gt-sm>
+  <label>День прихода</label>
+  <md-select ng-model="vm.troop.day">
+          <md-option ng-repeat="day in vm.daysOfWeek" value="{{day.value}}">
+            {{ day.name }}
+          </md-option>
+  </md-select>
+</md-input-container>
 <div ng-if="!troop">
   <md-button class="md-raised" ng-click="vm.create()">Создать взвод</md-button>
 </div>

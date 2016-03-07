@@ -14,7 +14,6 @@
     <md-list>
       <md-list-item class="secondary-button-padding" ng-repeat="specialty in vm.specialties" ng-click="vm.details(specialty)">
         <div class="md-list-item-text">
-          <h3 class="md-subhead">{{specialty.name}}</h3>
           <h4 class="md-subhead">{{specialty.code}}</h4>
         </div>
         <md-button class="md-secondary md-primary" ng-click="vm.edit(specialty)">Редактировать</md-button>

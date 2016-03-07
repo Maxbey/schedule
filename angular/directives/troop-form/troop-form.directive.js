@@ -8,6 +8,14 @@
 
         vm.troop = $scope.troop;
 
+        vm.daysOfWeek = [
+          {name: 'Понедельник', value: 1},
+          {name: 'Вторник', value: 2},
+          {name: 'Среда', value: 3},
+          {name: 'Четверг', value: 4},
+          {name: 'Пятница', value: 5}
+        ];
+
         SpecialtyService.all().then(function(specialties){
             vm.specialties = specialties;
         });
