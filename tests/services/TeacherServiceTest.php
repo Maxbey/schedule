@@ -15,9 +15,7 @@ class TeacherServiceTest extends ServiceTestCase
     public function testCreateMethod()
     {
         $attributes = [
-            'firstname' => 'Fname',
-            'lastname' => 'Lname',
-            'middlename' => 'Mname',
+            'name' => 'Name N.N.',
             'work_hours_limit' => 300,
             'military_rank' => 'MRank'
         ];

@@ -29,7 +29,7 @@ class TeacherTransformer extends TransformerAbstract
     public function transform(Teacher $model)
     {
         return [
-            'name' => $model->fullName,
+            'name' => $model->name,
             'rank' => $model->military_rank,
             'work_limit' => $model->work_hours_limit,
             'links' => [

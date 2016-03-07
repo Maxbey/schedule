@@ -17,15 +17,13 @@ class Teacher extends Model implements SluggableInterface
     protected $table = 'teachers';
 
     protected $fillable = [
-        'firstname',
-        'lastname',
-        'middlename',
+        'name',
         'work_hours_limit',
         'military_rank'
     ];
 
     protected $sluggable = [
-        'build_from' => 'lastname',
+        'build_from' => 'name',
         'save_to' => 'slug'
     ];
 
@@ -37,16 +35,6 @@ class Teacher extends Model implements SluggableInterface
     public function occupations()
     {
         return $this->hasMany(Occupation::class);
-    }
-
-    /**
-     * Get concatenated l-f-m names.
-     *
-     * @return string
-     */
-    public function getFullNameAttribute()
-    {
-        return $this->lastname . ' ' . $this->firstname . ' ' . $this->middlename;
     }
 
 }

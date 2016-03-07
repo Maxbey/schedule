@@ -52,9 +52,7 @@ $factory->define(App\Entities\Theme::class, function(Faker\Generator $faker){
 
 $factory->define(App\Entities\Teacher::class, function(Faker\Generator $faker){
     return [
-        'firstname' => $faker->firstName,
-        'lastname' => $faker->lastName,
-        'middlename' => $faker->lastName,
+        'name' => $faker->lastName,
         'work_hours_limit' => 300,
         'military_rank' => $faker->word
     ];

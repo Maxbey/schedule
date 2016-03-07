@@ -24,11 +24,9 @@ class TeacherRequest extends Request
     public function rules()
     {
         return [
-            'firstname' => 'required|string|max:100',
-            'lastname' => 'required|string|max:100',
-            'middlename' => 'required|string|max:100',
+            'name' => 'required|string|max:100',
             'work_hours_limit' => 'required|integer',
-            'military_rank' => 'required|string'
+            'military_rank' => 'required|string|max:100'
         ];
     }
 }
