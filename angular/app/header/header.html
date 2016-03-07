@@ -11,27 +11,14 @@
 		<md-toolbar>
 			<div class="md-toolbar-tools">
 				<h2 class="md-subhead">Расписание</h2>
-
 			</div>
 		</md-toolbar>
 		<md-content>
 			<md-list>
-				<md-list-item>
-					<a ng-href="specialties" ng-click="vm.toggle()" class="md-button md-raised md-primary">Учебные специальности</a>
-				</md-list-item>
-				<md-list-item>
-				  <a ng-href="troops" ng-click="vm.toggle()" class="md-button md-raised md-primary">Учебные взводы</a>
-				</md-list-item>
-				<md-list-item>
-				  <a ng-href="disciplines" ng-click="vm.toggle()" class="md-button md-raised md-primary">Дисциплины</a>
-				</md-list-item>
-				<md-list-item>
-				  <a href="#" class="md-button md-raised md-primary">Преподаватели</a>
-				</md-list-item>
-				<md-list-item>
-				  <a ng-href="audiences" ng-click="vm.toggle()" class="md-button md-raised md-primary">Аудитории</a>
-				</md-list-item>
-			</md-list>
+	      <md-list-item class="secondary-button-padding" ng-repeat="item in vm.menuItems" ng-click="vm.toggle();vm.go(item)">
+					<h4 class="md-subhead">{{ item.text }}</h4>
+	      </md-list-item>
+	    </md-list>
 		</md-content>
 	</md-sidenav>
 </div>

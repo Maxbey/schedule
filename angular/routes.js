@@ -145,6 +145,30 @@
 						templateUrl: getView('audience.audience-edit')
 					}
 				}
+			})
+			.state('app.teachers-list', {
+				url: '/teachers',
+				views: {
+					'main@': {
+						templateUrl: getView('teacher.teachers-list')
+					}
+				}
+			})
+			.state('app.teacher-create', {
+				url: '/teachers/create',
+				views: {
+					'main@': {
+						templateUrl: getView('teacher.teacher-create')
+					}
+				}
+			})
+			.state('app.teacher-edit', {
+				url: '/teachers/{id}/edit',
+				views: {
+					'main@': {
+						templateUrl: getView('teacher.teacher-edit')
+					}
+				}
 			});
 
 	});

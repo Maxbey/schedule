@@ -29,9 +29,10 @@ class TeacherTransformer extends TransformerAbstract
     public function transform(Teacher $model)
     {
         return [
+            'id'   => $model->id,
             'name' => $model->name,
-            'rank' => $model->military_rank,
-            'work_limit' => $model->work_hours_limit,
+            'military_rank' => $model->military_rank,
+            'work_hours_limit' => $model->work_hours_limit,
             'links' => [
                 'self' => route('api.teachers.show', ['id' => $model->id])
             ]
