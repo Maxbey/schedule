@@ -31,8 +31,13 @@ class ThemeTransformer extends TransformerAbstract
     public function transform(Theme $model)
     {
         return [
+            'id'   => $model->id,
             'name' => $model->name,
             'discipline' => $model->disciplineName,
+            'term' => $model->term,
+            'audiences_count' => $model->audiences_count,
+            'teachers_count'  => $model->teachers_count,
+            'duration'      => $model->duration,
             'links' => [
                 'self' => route('api.themes.show', ['id' => $model->id])
             ]

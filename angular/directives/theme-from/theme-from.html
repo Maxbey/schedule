@@ -1,0 +1,74 @@
+<md-input-container class="md-block" flex-gt-sm>
+  <label>Наименование темы</label>
+  <input ng-model="vm.theme.name">
+</md-input-container>
+
+<md-input-container class="md-block" flex-gt-sm>
+  <label>Семестр обучения</label>
+  <md-select ng-model="vm.theme.term">
+          <md-option ng-repeat="term in [1, 2, 3, 4, 5, 6, 7]" ng-value="term">
+            {{ term }}
+          </md-option>
+  </md-select>
+</md-input-container>
+
+<md-input-container class="md-block" flex-gt-sm>
+  <label>Продолжительность занятия в академ. часах</label>
+  <md-select ng-model="vm.theme.duration">
+          <md-option ng-repeat="duration in [1, 2, 4, 6]" ng-value="duration">
+            {{ duration }}
+          </md-option>
+  </md-select>
+</md-input-container>
+
+<md-input-container class="md-block" flex-gt-sm>
+  <label>Необходимое количество аудиторий</label>
+  <md-select ng-model="vm.theme.audiences_count">
+          <md-option ng-repeat="cnt in [1, 2, 3]" ng-value="cnt">
+            {{ cnt }}
+          </md-option>
+  </md-select>
+</md-input-container>
+
+<md-input-container class="md-block" flex-gt-sm>
+  <label>Необходимое количество преподавателей</label>
+  <md-select ng-model="vm.theme.teachers_count">
+          <md-option ng-repeat="cnt in [1, 2, 3]" ng-value="cnt">
+            {{ cnt }}
+          </md-option>
+  </md-select>
+</md-input-container>
+
+<h2 class="md-subhead">Прикрепить преподавателей</h2>
+<md-input-container class="md-block" flex-gt-sm>
+  <label>Выберите преподавателей</label>
+  <md-contact-chips
+          ng-model="vm.theme.teachers.data"
+          md-contacts="vm.teachersSearch($query)"
+          md-contact-name="name"
+          md-require-match="true"
+          md-highlight-flags="i"
+          filter-selected="true"
+  </md-contact-chips>
+</md-input-container>
+
+<h2 class="md-subhead">Прикрепить аудитории</h2>
+<md-input-container class="md-block" flex-gt-sm>
+  <label>Выберите аудитории</label>
+  <md-contact-chips
+          ng-model="vm.theme.audiences.data"
+          md-contacts="vm.audiencesSearch($query)"
+          md-contact-name="location"
+          md-require-match="true"
+          md-highlight-flags="i"
+          filter-selected="true"
+  </md-contact-chips>
+</md-input-container>
+
+<div ng-if="!theme">
+  <md-button class="md-raised" ng-click="vm.create()">Создать тему</md-button>
+</div>
+<div ng-if="theme">
+  <md-button class="md-raised" ng-click="vm.update()">Обновить тему</md-button>
+  <md-button class="md-raised md-warn" ng-click="vm.delete()">Удалить тему</md-button>
+</div>

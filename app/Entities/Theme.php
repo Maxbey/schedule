@@ -50,7 +50,7 @@ class Theme extends Model
      */
     public function getDisciplineNameAttribute()
     {
-        return $this->discipline->full_name;
+        return $this->discipline->short_name;
     }
 
 }

@@ -6,13 +6,14 @@
           Назад
         </md-button>
         <h2>
-          <span>Просмотр учебной специальности: {{ vm.discipline.full_name }}</span>
+          <span>Просмотр учебной дисциплины: {{ vm.discipline.full_name }}</span>
         </h2>
         <span flex></span>
+        <md-button ng-click="vm.goToThemes()" class="md-raised">Темы дисциплины</md-button>
       </div>
     </md-toolbar>
   <h2 class="md-title">Основные данные:</h2>
-  <h3 class="md-subhead">Полное название дисциплины {{ vm.discipline.full_name }}</h3>
+  <h3 class="md-subhead">Полное название дисциплины: {{ vm.discipline.full_name }}</h3>
   <h3 class="md-subhead">Аббревиатура: {{ vm.discipline.short_name }}</h3>
 
   <h2 class="md-title">Специальности, ассоциированные с данной дисциплиной</h2>

@@ -1,0 +1,15 @@
+<md-content class="Page-Container" ng-controller="ThemeEditController as vm">
+  <h1 class="md-title">Администрирование тем учебных дисциплин</h1>
+  <md-toolbar>
+      <div class="md-toolbar-tools">
+        <md-button ng-click="vm.goBack()" aria-label="back">
+          Назад
+        </md-button>
+        <h2>
+          <span>Редактирование темы</span>
+        </h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+  <theme-from ng-if="vm.theme" theme="vm.theme"></theme-from>
+</md-content>

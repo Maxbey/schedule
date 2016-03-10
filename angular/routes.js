@@ -169,6 +169,38 @@
 						templateUrl: getView('teacher.teacher-edit')
 					}
 				}
+			})
+			.state('app.themes-list', {
+				url: '/disciplines/{id}/themes',
+				views: {
+					'main@': {
+						templateUrl: getView('theme.themes-list')
+					}
+				}
+			})
+			.state('app.theme-create', {
+				url: '/disciplines/{id}/themes/create',
+				views: {
+					'main@': {
+						templateUrl: getView('theme.theme-create')
+					}
+				}
+			})
+			.state('app.theme-edit', {
+				url: '/disciplines/{id}/themes/{themeId}/edit',
+				views: {
+					'main@': {
+						templateUrl: getView('theme.theme-edit')
+					}
+				}
+			})
+			.state('app.theme-details', {
+				url: '/disciplines/{id}/themes/{themeId}/show',
+				views: {
+					'main@': {
+						templateUrl: getView('theme.theme-details')
+					}
+				}
 			});
 
 	});
