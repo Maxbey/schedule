@@ -2,11 +2,11 @@
   <h1 class="md-title">Администрирование тем учебных дисциплин</h1>
   <md-toolbar>
       <div class="md-toolbar-tools">
-        <md-button ng-href="vm.goBack()" aria-label="back">
+        <md-button ng-click="vm.goBack()" aria-label="back">
           Назад
         </md-button>
         <h2>
-          <span>Просмотр темы № учебной дисциплины: {{ vm.theme.discipline }}</span>
+          <span>Просмотр темы № {{ vm.theme.number }} учебной дисциплины {{ vm.theme.discipline }}</span>
         </h2>
         <span flex></span>
       </div>
