@@ -2,7 +2,6 @@
 
 namespace App\Transformers;
 
-use App\Entities\Theme;
 use League\Fractal\TransformerAbstract;
 use App\Entities\Occupation;
 
@@ -19,7 +18,8 @@ class OccupationTransformer extends TransformerAbstract
      */
     protected $availableIncludes = [
         'teachers',
-        'audiences'
+        'audiences',
+        'theme'
     ];
 
     /**
@@ -33,7 +33,6 @@ class OccupationTransformer extends TransformerAbstract
         return [
             'date_of' => $model->date_of,
             'troop' => $model->troopCode,
-            'theme' => $model->themeName,
             'links' => [
                 'self' => route('api.occupations.show', ['id' => $model->id])
             ]
@@ -43,10 +42,10 @@ class OccupationTransformer extends TransformerAbstract
     /**
      * Teachers relation
      *
-     * @param Theme $model
+     * @param Occupation $model
      * @return \League\Fractal\Resource\Collection
      */
-    public function includeTeachers(Theme $model)
+    public function includeTeachers(Occupation $model)
     {
         $teachers = $model->teachers;
 
@@ -56,13 +55,26 @@ class OccupationTransformer extends TransformerAbstract
     /**
      * Audiences relation
      *
-     * @param Theme $model
+     * @param Occupation $model
      * @return \League\Fractal\Resource\Collection
      */
-    public function includeAudiences(Theme $model)
+    public function includeAudiences(Occupation $model)
     {
         $audiences = $model->audiences;
 
         return $this->collection($audiences, new AudienceTransformer);
+    }
+
+    /**
+     * Audiences relation
+     *
+     * @param Occupation $model
+     * @return \League\Fractal\Resource\Collection
+     */
+    public function includeTheme(Occupation $model)
+    {
+        $theme = $model->theme;
+
+        return $this->item($theme, new ThemeTransformer);
     }
 }

@@ -25,11 +25,8 @@ class OccupationRequest extends Request
     {
         return [
             'date_of' => 'required|date',
-            'teacher_id' => 'required|integer',
             'troop_id' => 'required|integer',
-            'theme_id' => 'required|integer',
-            'discipline_id' => 'required|integer',
-            'audience_id' => 'required|integer'
+            'theme_id' => 'required|integer'
         ];
     }
 }

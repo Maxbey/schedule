@@ -2,15 +2,11 @@
 
 namespace App\Services;
 
-
-use App\Entities\Audience;
-use App\Entities\Discipline;
 use App\Entities\Occupation;
-use App\Entities\Teacher;
 use App\Entities\Theme;
 use App\Entities\Troop;
 use App\Repositories\OccupationsRepository;
-use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 
 class OccupationService extends EntityService
 {
@@ -25,51 +21,72 @@ class OccupationService extends EntityService
     }
 
     /**
-     * Ugly stupid method for save occupation.
-     * TODO: Needed refactoring!
+     * Create Occupation instance
      *
-     * @param Occupation|null $occupation
+     * @param Troop $troop
+     * @param Theme $theme
      * @param array $attributes
      * @return Occupation
      */
-    protected function save(Occupation $occupation = null, array $attributes)
+    public function create(Troop $troop, Theme $theme, array $attributes)
     {
-        if(!$occupation)
-            $occupation = new Occupation;
+        $occupation = new Occupation;
 
-        $occupation->date_of = Carbon::parse($attributes['date_of']);
-
-        $occupation
-            ->troop()->associate(Troop::findOrFail($attributes['troop_id']))
-            ->theme()->associate(Theme::findOrFail($attributes['theme_id']))
+        $occupation->fill($attributes)
+            ->troop()->associate($troop)
+            ->theme()->associate($theme)
             ->save();
 
         return $occupation;
     }
 
     /**
-     * Save Occupation
-     *
-     * @param array $attributes
-     * @return Occupation
-     */
-    public function create(array $attributes)
-    {
-        return $this->save(null, $attributes);
-    }
-
-    /**
      * Update Occupation
      *
      * @param $id
+     * @param Troop $troop
+     * @param Theme $theme
      * @param array $attributes
      * @return Occupation
      */
-    public function update($id, array $attributes)
+    public function update($id, Troop $troop, Theme $theme, array $attributes)
     {
         $occupation = $this->repository->find($id);
 
-        return $this->save($occupation, $attributes);
+        $occupation->fill($attributes)
+            ->troop()->associate($troop)
+            ->theme()->associate($theme)
+            ->save();
+
+        return $occupation;
+    }
+
+    /**
+     * Sync Teachers through relation
+     *
+     * @param Occupation $occupation
+     * @param Collection $teachers
+     * @return array
+     */
+    public function syncTeachers(Occupation $occupation, Collection $teachers)
+    {
+        return $occupation
+            ->teachers()
+            ->sync($teachers);
+    }
+
+    /**
+     * Sync Audiences through relation
+     *
+     * @param Occupation $occupation
+     * @param Collection $audiences
+     * @return array
+     */
+    public function syncAudiences(Occupation $occupation, Collection $audiences)
+    {
+        return $occupation
+            ->audiences()
+            ->sync($audiences);
     }
 
 }
