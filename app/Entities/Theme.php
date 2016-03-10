@@ -16,7 +16,12 @@ class Theme extends Model
 
     protected $table = 'themes';
 
-    protected $fillable = ['name', 'term'];
+    protected $fillable = [
+        'name', 'term',
+        'audiences_count',
+        'teachers_count',
+        'duration'
+    ];
 
     public function discipline()
     {

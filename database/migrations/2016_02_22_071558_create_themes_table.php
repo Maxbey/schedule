@@ -15,8 +15,11 @@ class CreateThemesTable extends Migration
         Schema::create('themes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 100);
-            $table->smallInteger('discipline_id')->unsigned()->index();
             $table->smallInteger('term');
+            $table->smallInteger('discipline_id')->unsigned()->index();
+            $table->unsignedTinyInteger('audiences_count');
+            $table->unsignedTinyInteger('teachers_count');
+            $table->unsignedTinyInteger('duration');
 
             $table->timestamps();
             $table->softDeletes();

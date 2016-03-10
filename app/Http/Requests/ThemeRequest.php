@@ -25,6 +25,9 @@ class ThemeRequest extends Request
     {
         return [
             'name' => 'required|string|min:3|max:100',
+            'audiences_count' => 'required|integer|min:1|max:3',
+            'teachers_count' => 'required|integer|min:1|max:3',
+            'duration' => 'required|integer|min:2|max:6',
             'term' => 'required|integer',
             'discipline_id' => 'required|integer'
         ];
