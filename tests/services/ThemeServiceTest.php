@@ -15,6 +15,10 @@ class ThemeServiceTest extends ServiceTestCase
     {
         $attributes = [
             'name' => 'Name of theme',
+            'number' => '1/1',
+            'audiences_count' => 1,
+            'teachers_count' => 2,
+            'duration' => 2,
             'term' => 2
         ];
 

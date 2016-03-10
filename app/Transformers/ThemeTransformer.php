@@ -33,6 +33,7 @@ class ThemeTransformer extends TransformerAbstract
         return [
             'id'   => $model->id,
             'name' => $model->name,
+            'number' => $model->number,
             'discipline' => $model->disciplineName,
             'term' => $model->term,
             'audiences_count' => $model->audiences_count,

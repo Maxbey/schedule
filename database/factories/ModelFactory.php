@@ -45,6 +45,10 @@ $factory->define(App\Entities\Discipline::class, function(Faker\Generator $faker
 $factory->define(App\Entities\Theme::class, function(Faker\Generator $faker){
     return [
         'name' => $faker->title,
+        'number' => '1/1',
+        'audiences_count' => 2,
+        'teachers_count' => 2,
+        'duration' => 2,
         'term' => 1,
         'discipline_id' => factory(App\Entities\Discipline::class)->create()->id
     ];
