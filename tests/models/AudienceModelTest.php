@@ -20,8 +20,8 @@ class AudienceModelTest extends TestCase
         $this->checkBelongsToManyRelation(App\Entities\Audience::class, App\Entities\Theme::class, 'themes');
     }
 
-    public function testRelationsWith()
+    public function testRelationsWithOccupation()
     {
-        $this->checkHasManyRelation(App\Entities\Audience::class, App\Entities\Occupation::class, 'occupations');
+        $this->checkBelongsToManyRelation(App\Entities\Audience::class, App\Entities\Occupation::class, 'occupations');
     }
 }

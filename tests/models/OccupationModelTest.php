@@ -15,9 +15,9 @@ class OccupationModelTest extends TestCase
         $this->seeInDatabase('occupations', ['id' => $occupation->id]);
     }
 
-    public function testRelationsWithTeacher()
+    public function testRelationsWithTeachers()
     {
-        $this->checkBelongsToRelation(App\Entities\Occupation::class, App\Entities\Teacher::class, 'teacher');
+        $this->checkBelongsToManyRelation(App\Entities\Occupation::class, App\Entities\Teacher::class, 'teachers');
     }
 
     public function testRelationsWithTroop()
@@ -30,13 +30,8 @@ class OccupationModelTest extends TestCase
         $this->checkBelongsToRelation(App\Entities\Occupation::class, App\Entities\Theme::class, 'theme');
     }
 
-    public function testRelationsWithAudience()
+    public function testRelationsWithAudiences()
     {
-        $this->checkBelongsToRelation(App\Entities\Occupation::class, App\Entities\Audience::class, 'audience');
-    }
-
-    public function testRelationsWithDiscipline()
-    {
-        $this->checkBelongsToRelation(App\Entities\Occupation::class, App\Entities\Discipline::class, 'discipline');
+        $this->checkBelongsToManyRelation(App\Entities\Occupation::class, App\Entities\Audience::class, 'audiences');
     }
 }

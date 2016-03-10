@@ -24,9 +24,4 @@ class DisciplineModelTest extends TestCase
     {
         $this->checkBelongsToManyRelation(App\Entities\Discipline::class, App\Entities\Specialty::class, 'specialties');
     }
-
-    public function testRelationsWithOccupation()
-    {
-        $this->checkHasManyRelation(App\Entities\Discipline::class, App\Entities\Occupation::class, 'occupations');
-    }
 }

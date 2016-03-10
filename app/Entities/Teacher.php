@@ -34,7 +34,7 @@ class Teacher extends Model implements SluggableInterface
 
     public function occupations()
     {
-        return $this->hasMany(Occupation::class);
+        return $this->belongsToMany(Occupation::class)->withTimestamps();
     }
 
 }

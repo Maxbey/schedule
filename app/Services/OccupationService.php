@@ -40,11 +40,8 @@ class OccupationService extends EntityService
         $occupation->date_of = Carbon::parse($attributes['date_of']);
 
         $occupation
-            ->teacher()->associate(Teacher::findOrFail($attributes['teacher_id']))
             ->troop()->associate(Troop::findOrFail($attributes['troop_id']))
             ->theme()->associate(Theme::findOrFail($attributes['theme_id']))
-            ->discipline()->associate(Discipline::findOrFail($attributes['discipline_id']))
-            ->audience()->associate(Audience::findOrFail($attributes['audience_id']))
             ->save();
 
         return $occupation;

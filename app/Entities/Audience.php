@@ -25,7 +25,7 @@ class Audience extends Model
 
     public function occupations()
     {
-        return $this->hasMany(Occupation::class);
+        return $this->belongsToMany(Occupation::class)->withTimestamps();
     }
 
 }

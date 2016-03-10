@@ -15,38 +15,20 @@ class CreateOccupationsTable extends Migration
         Schema::create('occupations', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamp('date_of');
-            $table->smallInteger('teacher_id')->unsigned()->index();
             $table->smallInteger('troop_id')->unsigned()->index();
             $table->integer('theme_id')->unsigned()->index();
-            $table->smallInteger('discipline_id')->unsigned()->index();
-            $table->unsignedTinyInteger('audience_id')->index();
 
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('teacher_id')
-                ->references('id')
-                ->on('teachers')
-                ->onDelete('cascade');
 
             $table->foreign('troop_id')
                 ->references('id')
                 ->on('troops')
                 ->onDelete('cascade');
 
-            $table->foreign('discipline_id')
-                ->references('id')
-                ->on('disciplines')
-                ->onDelete('cascade');
-
             $table->foreign('theme_id')
                 ->references('id')
                 ->on('themes')
-                ->onDelete('cascade');
-
-            $table->foreign('audience_id')
-                ->references('id')
-                ->on('audiences')
                 ->onDelete('cascade');
         });
     }

@@ -22,6 +22,6 @@ class TeacherModelTest extends TestCase
 
     public function testRelationsWithOccupation()
     {
-        $this->checkHasManyRelation(App\Entities\Teacher::class, App\Entities\Occupation::class, 'occupations');
+        $this->checkBelongsToManyRelation(App\Entities\Teacher::class, App\Entities\Occupation::class, 'occupations');
     }
 }

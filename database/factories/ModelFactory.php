@@ -72,10 +72,7 @@ $factory->define(App\Entities\Audience::class, function(Faker\Generator $faker){
 $factory->define(App\Entities\Occupation::class, function(Faker\Generator $faker){
     return [
         'date_of' => $faker->dateTimeThisYear,
-        'teacher_id' => factory(App\Entities\Teacher::class)->create()->id,
         'troop_id' => factory(App\Entities\Troop::class)->create()->id,
-        'theme_id' => factory(App\Entities\Theme::class)->create()->id,
-        'discipline_id' => factory(App\Entities\Discipline::class)->create()->id,
-        'audience_id' => factory(App\Entities\Audience::class)->create()->id,
+        'theme_id' => factory(App\Entities\Theme::class)->create()->id
     ];
 });

@@ -15,9 +15,9 @@ class Occupation extends Model
 
     protected $fillable = ['date_of'];
 
-    public function teacher()
+    public function teachers()
     {
-        return $this->belongsTo(Teacher::class);
+        return $this->belongsToMany(Teacher::class)->withTimestamps();
     }
 
     public function troop()
@@ -30,19 +30,9 @@ class Occupation extends Model
         return $this->belongsTo(Theme::class);
     }
 
-    public function discipline()
+    public function audiences()
     {
-        return $this->belongsTo(Discipline::class);
-    }
-
-    public function audience()
-    {
-        return $this->belongsTo(Audience::class);
-    }
-
-    public function getTeacherNameAttribute()
-    {
-        return $this->teacher->fullName;
+        return $this->belongsToMany(Audience::class)->withTimestamps();
     }
 
     public function getThemeNameAttribute()
@@ -53,16 +43,6 @@ class Occupation extends Model
     public function getTroopCodeAttribute()
     {
         return $this->troop->code;
-    }
-
-    public function getDisciplineNameAttribute()
-    {
-        return $this->discipline->full_name;
-    }
-
-    public function getAudienceLocationAttribute()
-    {
-        return $this->audience->location;
     }
 
 }
