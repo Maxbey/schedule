@@ -19,6 +19,12 @@
           vm.disciplines = disciplines;
         });
 
+        vm.addToSelected = function(discipline){
+          var notAlreadySelected = CollectionHelpersService.exists(vm.specialty.disciplines.data, discipline.id) === false;
+          if(notAlreadySelected)
+            vm.specialty.disciplines.data.push(discipline);
+        };
+
         vm.create = function(){
           $scope.$emit('create_specialty', vm.specialty);
         };

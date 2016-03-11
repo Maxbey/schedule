@@ -15,6 +15,16 @@
             filter-selected="true"
     </md-contact-chips>
   </md-input-container>
+
+  <md-list class="fixedRows">
+        <md-subheader class="md-no-sticky">Учебные дисциплины</md-subheader>
+        <md-list-item ng-click="vm.addToSelected(discipline)" class="md-2-line contact-item" ng-repeat="discipline in vm.disciplines">
+          <div class="md-list-item-text compact">
+            <h3>{{ discipline.short_name }}</h3>
+          </div>
+        </md-list-item>
+      </md-list>
+
   <div ng-if="!specialty">
     <md-button class="md-raised" ng-click="vm.create()">Создать специальность</md-button>
   </div>

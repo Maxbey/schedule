@@ -2,7 +2,7 @@
   <h1 class="md-title">Администрирование учебных специальностей</h1>
   <md-toolbar>
       <div class="md-toolbar-tools">
-        <md-button ng-click="vm.goBack()" aria-label="back">
+        <md-button ng-href="specialties" aria-label="back">
           Назад
         </md-button>
         <h2>
@@ -12,7 +12,6 @@
       </div>
     </md-toolbar>
   <h2 class="md-title">Основные данные:</h2>
-  <h3 class="md-subhead">Полное название специальности: {{ vm.specialty.name }}</h3>
   <h3 class="md-subhead">Код специальности: {{ vm.specialty.code }}</h3>
 
   <h2 class="md-title">Взводы, обучающиеся по данной специальности:</h2>
