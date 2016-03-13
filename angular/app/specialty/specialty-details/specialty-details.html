@@ -1,5 +1,5 @@
-<md-content class="Page-Container" ng-controller="SpecialtyDetailsController as vm">
-  <h1 class="md-title">Администрирование учебных специальностей</h1>
+<div class="Page-Container" ng-controller="SpecialtyDetailsController as vm">
+  <h1 class="md-title" layout-padding>Администрирование учебных специальностей</h1>
   <md-toolbar>
       <div class="md-toolbar-tools">
         <md-button ng-href="specialties" aria-label="back">
@@ -11,16 +11,22 @@
         <span flex></span>
       </div>
     </md-toolbar>
-  <h2 class="md-title">Основные данные:</h2>
-  <h3 class="md-subhead">Код специальности: {{ vm.specialty.code }}</h3>
+    <div layout-padding>
+      <p class="md-body-1">Код специальности: {{ vm.specialty.code }}</p>
 
-  <h2 class="md-title">Взводы, обучающиеся по данной специальности:</h2>
-  <md-chips>
-      <md-chip ng-repeat="troop in vm.specialty.troops.data">{{ troop.code }}</md-chip>
-  </md-chips>
+      <div ng-if="vm.specialty.troops.data.length !== 0">
+        <md-subheader>Взводы, обучающиеся по данной специальности</md-subheader>
+        <md-chips>
+            <md-chip ng-repeat="troop in vm.specialty.troops.data">{{ troop.code }}</md-chip>
+        </md-chips>
+      </div>
 
-  <h2 class="md-title">Дисцилины, прикрепленные к данной специальности</h2>
-  <md-chips>
-      <md-chip ng-repeat="discipline in vm.specialty.disciplines.data">{{ discipline.short_name }}</md-chip>
-  </md-chips>
-</md-content>
+      <div ng-if="vm.specialty.disciplines.data.length !== 0">
+        <md-subheader>Дисцилины, прикрепленные к данной специальности</md-subheader>
+        <md-chips>
+            <md-chip ng-repeat="discipline in vm.specialty.disciplines.data">{{ discipline.short_name }}</md-chip>
+        </md-chips>
+      </div>
+
+    </div>
+  </div>

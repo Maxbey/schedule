@@ -3,7 +3,7 @@
 
     angular.module('app.controllers').controller('SpecialtyFormController', SpecialtyFormController);
 
-    function SpecialtyFormController($scope, DisciplineService, CollectionHelpersService){
+    function SpecialtyFormController($scope, $state, DisciplineService, DialogService, CollectionHelpersService, ToastService, SpecialtyService){
         var vm = this;
 
         vm.specialty = $scope.specialty;
@@ -15,27 +15,48 @@
           };
         }
 
+        vm.buttonLocked = false;
+
         DisciplineService.all().then(function(disciplines){
           vm.disciplines = disciplines;
         });
 
-        vm.addToSelected = function(discipline){
-          var notAlreadySelected = CollectionHelpersService.exists(vm.specialty.disciplines.data, discipline.id) === false;
-          if(notAlreadySelected)
-            vm.specialty.disciplines.data.push(discipline);
-        };
-
         vm.create = function(){
-          $scope.$emit('create_specialty', vm.specialty);
+          vm.buttonLocked = true;
+          SpecialtyService.create(vm.specialty).then(function(){
+              ToastService.show('Специальность создана');
+              $state.go('app.specialties-list');
+          }, function(){
+              vm.buttonLocked = false;
+          });
         };
 
         vm.update = function(){
-          $scope.$emit('update_specialty', vm.specialty);
+          vm.buttonLocked = true;
+          SpecialtyService.update(vm.specialty).then(function(){
+            ToastService.show('Специальность обновлена');
+            $state.go('app.specialties-list');
+          }, function(){
+             vm.buttonLocked = false;
+          });
         };
 
         vm.delete = function(){
-          $scope.$emit('delete_specialty', vm.specialty);
+          DialogService.delete('Вы действительно хотите удалить специальность ?').then(function(){
+            vm.buttonLocked = true;
+            vm.specialty.remove().then(function(){
+              $state.go('app.specialties-list');
+              ToastService.show('Специальность удалена');
+            });
+          });
         };
+
+        function notAlreadySelectedFilter(){
+          return function filterFn(discipline) {
+            var notAlreadySelected = CollectionHelpersService.exists(vm.specialty.disciplines.data, discipline.id) === false;
+            return notAlreadySelected;
+          };
+        }
 
         function createFilterFor(query) {
           return function filterFn(discipline) {
@@ -46,6 +67,8 @@
         }
 
         vm.querySearch = function (criteria) {
+          if(!criteria)
+            return vm.disciplines.filter(notAlreadySelectedFilter());
           var cachedQuery = cachedQuery || criteria;
           return cachedQuery ? vm.disciplines.filter(createFilterFor(cachedQuery)) : [];
         }

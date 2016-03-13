@@ -45,6 +45,11 @@ class Theme extends Model
         return $this->hasMany(Occupation::class);
     }
 
+    public function prevTheme()
+    {
+        return $this->belongsTo(Theme::class);
+    }
+
     /**
      * Get name of discipline through relation
      *

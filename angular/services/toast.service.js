@@ -3,7 +3,7 @@
 
 	angular.module("app.services").factory('ToastService', function($mdToast){
 
-		var delay = 6000,
+		var delay = 3000,
 			position = 'top right',
 			action = 'OK';
 
@@ -17,9 +17,23 @@
 					$mdToast.simple()
 						.content(content)
 						.position(position)
-						.action(action)
 						.hideDelay(delay)
 				);
+			},
+			withAction: function(content, actionText){
+				if (!content){
+					return false;
+				}
+
+				return $mdToast.show(
+					$mdToast.simple()
+						.content(content)
+						.position(position)
+						.action(actionText)
+						.highlightAction(true)
+						.hideDelay(delay * 1.5)
+				);
+
 			},
 			error: function(content){
 				if (!content){

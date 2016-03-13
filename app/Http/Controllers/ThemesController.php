@@ -99,6 +99,11 @@ class ThemesController extends Controller
         {
             $this->setTeachers($theme, $request->input('teachers'));
         }
+        /*if($request->exists('prev_theme_id'))
+        {
+            $prev = $this->themesService->getById($request->input('prev_theme_id'));
+            $this->themesService->setPrevTheme($theme, $prev);
+        }*/
 
         return response('Created', 201);
     }

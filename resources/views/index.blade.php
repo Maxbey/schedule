@@ -11,11 +11,10 @@
     <script type="text/javascript">document.location.href = '/unsupported-browser'</script>
     <![endif]-->
 </head>
-<body>
+<body layout="column" ng-cloak>
 
     <div ui-view="header"></div>
     <div ui-view="main"></div>
-    <div ui-view="footer"></div>
 
     <script src="{!! asset('js/vendor.js') !!}"></script>
     <script src="{!! asset('js/partials.js') !!}"></script>

@@ -27,6 +27,7 @@ class ThemeRequest extends Request
             'name' => 'required|string|min:3|max:100',
             'number' => 'required|string|max:12',
             'audiences_count' => 'required|integer|min:1|max:3',
+            'prev_theme_id'   => 'integer',
             'teachers_count' => 'required|integer|min:1|max:3',
             'duration' => 'required|integer|min:1|max:6',
             'term' => 'required|integer',

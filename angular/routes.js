@@ -18,9 +18,6 @@
 					header: {
 						templateUrl: getView('header')
 					},
-					footer: {
-						templateUrl: getView('footer')
-					},
 					main: {}
 				}
 			})

@@ -1,34 +1,42 @@
-<h2 class="md-subhead">Основная информация</h2>
+<div>
+  <md-subheader>Основная информация</md-subheader>
+<form name="specialtyForm">
   <md-input-container class="md-block" flex-gt-sm>
     <label>Код специальности</label>
-    <input ng-model="vm.specialty.code">
+    <input name="specialtyCode" required minlength="3" ng-model="vm.specialty.code">
+    <div ng-messages="specialtyForm.specialtyCode.$error" role="alert">
+      <div ng-message-exp="['required', 'minlength']">
+        Код специальности должен быть длиннее 3-х символов
+      </div>
+    </div>
   </md-input-container>
-  <h2 class="md-subhead">Прикрепить дисциплины</h2>
+
+  <md-subheader>Прикрепить дисциплины</md-subheader>
   <md-input-container class="md-block" flex-gt-sm>
     <label>Выберите дисциплины</label>
-    <md-contact-chips
-            ng-model="vm.specialty.disciplines.data"
-            md-contacts="vm.querySearch($query)"
-            md-contact-name="short_name"
-            md-require-match="true"
-            md-highlight-flags="i"
-            filter-selected="true"
-    </md-contact-chips>
-  </md-input-container>
-
-  <md-list class="fixedRows">
-        <md-subheader class="md-no-sticky">Учебные дисциплины</md-subheader>
-        <md-list-item ng-click="vm.addToSelected(discipline)" class="md-2-line contact-item" ng-repeat="discipline in vm.disciplines">
-          <div class="md-list-item-text compact">
-            <h3>{{ discipline.short_name }}</h3>
-          </div>
-        </md-list-item>
-      </md-list>
+    <md-chips ng-model="vm.specialty.disciplines.data" md-autocomplete-snap md-require-match="true">
+        <md-autocomplete
+                         md-search-text="vm.query"
+                         md-items="discipline in vm.querySearch(vm.query)"
+                         md-item-text="short_name"
+                         md-min-length="0"
+                         md-no-cache="true"
+                         md-require-match="true"
+                         placeholder="Выбирите дисциплины">
+            <span md-highlight-text="searchText">{{ discipline.short_name }}</span>
+        </md-autocomplete>
+        <md-chip-template>
+            <span>{{$chip.short_name}}</span>
+        </md-chip-template>
+    </md-chips>
 
   <div ng-if="!specialty">
-    <md-button class="md-raised" ng-click="vm.create()">Создать специальность</md-button>
+    <md-button ng-disabled="vm.buttonLocked || specialtyForm.$invalid" class="md-raised" ng-click="vm.create()">Создать специальность</md-button>
   </div>
   <div ng-if="specialty">
-    <md-button class="md-raised" ng-click="vm.update()">Обновить специальность</md-button>
-    <md-button class="md-raised md-warn" ng-click="vm.delete()">Удалить специальность</md-button>
+    <md-button ng-disabled="vm.buttonLocked || specialtyForm.$invalid" class="md-raised" ng-click="vm.update()">Обновить специальность</md-button>
+    <md-button ng-disabled="vm.buttonLocked || specialtyForm.$invalid" class="md-raised md-warn" ng-click="vm.delete()">Удалить специальность</md-button>
   </div>
+
+  </form>
+</div>

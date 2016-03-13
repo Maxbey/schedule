@@ -79,4 +79,20 @@ class ThemeService extends EntityService
             ->audiences()
             ->sync($audiences);
     }
+
+    /**
+     * Set the prev theme
+     *
+     * @param Theme $theme
+     * @param Theme $prev
+     * @return Theme
+     */
+    public function setPrevTheme(Theme $theme, Theme $prev)
+    {
+        $theme->prevTheme()
+            ->associate($prev)
+            ->save();
+
+        return $theme;
+    }
 }

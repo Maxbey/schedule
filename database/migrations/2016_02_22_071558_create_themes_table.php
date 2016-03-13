@@ -17,6 +17,7 @@ class CreateThemesTable extends Migration
             $table->string('name', 100);
             $table->string('number');
             $table->smallInteger('term');
+            $table->unsignedTinyInteger('prev_theme_id')->nullable()->index();
             $table->smallInteger('discipline_id')->unsigned()->index();
             $table->unsignedTinyInteger('audiences_count');
             $table->unsignedTinyInteger('teachers_count');
@@ -28,6 +29,11 @@ class CreateThemesTable extends Migration
             $table->foreign('discipline_id')
                 ->references('id')
                 ->on('disciplines')
+                ->onDelete('cascade');
+
+            $table->foreign('prev_theme_id')
+                ->references('id')
+                ->on('themes')
                 ->onDelete('cascade');
         });
     }

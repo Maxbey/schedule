@@ -38,7 +38,26 @@
 						.ok('Ok')
 						.cancel('Cancel')
 				);
-			}
+			},
+
+			delete: function(content){
+				return $mdDialog.show(
+					$mdDialog.confirm()
+						.title('Подтверждение удаления')
+						.content(content)
+						.ok('Удалить')
+						.cancel('Отмена')
+				);
+			},
+			action: function(content, okButton){
+				return $mdDialog.show(
+					$mdDialog.confirm()
+						.title('')
+						.content(content)
+						.ok(okButton)
+						.cancel('Отмена')
+				);
+			},
 		};
 	});
 })();
