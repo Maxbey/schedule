@@ -1,23 +1,41 @@
-<md-input-container class="md-block" flex-gt-sm>
-  <label>Имя преподавателя</label>
-  <input ng-model="vm.teacher.name">
-</md-input-container>
-<md-input-container class="md-block" flex-gt-sm>
-  <label>Воинское звание</label>
-  <md-select ng-model="vm.teacher.military_rank">
-          <md-option ng-repeat="rank in vm.ranks">
-            {{ rank }}
-          </md-option>
-  </md-select>
-</md-input-container>
-<md-input-container class="md-block" flex-gt-sm>
-  <label>Максимальная нагрузка на преподавателя в семестр (в часах)</label>
-  <input ng-model="vm.teacher.work_hours_limit">
-</md-input-container>
-<div ng-if="!teacher">
-  <md-button class="md-raised" ng-click="vm.create()">Создать преподавателя</md-button>
-</div>
-<div ng-if="teacher">
-  <md-button class="md-raised" ng-click="vm.update()">Обновить преподавателя</md-button>
-  <md-button class="md-raised md-warn" ng-click="vm.delete()">Удалить преподавателя</md-button>
-</div>
+<md-subheader>Основная информация</md-subheader>
+<form name="teacherForm">
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Имя преподавателя</label>
+    <input name="teacherName" required ng-model="vm.teacher.name">
+    <div ng-messages="teacherForm.teacherName.$error" role="alert">
+      <div ng-message-exp="['required']">
+        Введите имя преподавателя
+      </div>
+    </div>
+  </md-input-container>
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Воинское звание</label>
+    <md-select required name="teacherRank" ng-model="vm.teacher.military_rank">
+            <md-option ng-repeat="rank in vm.ranks">
+              {{ rank }}
+            </md-option>
+    </md-select>
+    <div ng-messages="teacherForm.teacherRank.$error" role="alert">
+      <div ng-message-exp="['required']">
+        Выберите звание преподавателя
+      </div>
+    </div>
+  </md-input-container>
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Максимальная нагрузка на преподавателя в семестр (в часах)</label>
+    <input required type="number" name="teacherLimit" ng-model="vm.teacher.work_hours_limit">
+    <div ng-messages="teacherForm.teacherLimit.$error" role="alert">
+      <div ng-message-exp="['required']">
+        Введите нагрузку преподавателя
+      </div>
+    </div>
+  </md-input-container>
+  <div ng-if="!teacher">
+    <md-button ng-disabled="vm.buttonLocked || teacherForm.$invalid" class="md-raised" ng-click="vm.create()">Создать преподавателя</md-button>
+  </div>
+  <div ng-if="teacher">
+    <md-button ng-disabled="vm.buttonLocked || teacherForm.$invalid" class="md-raised" ng-click="vm.update()">Обновить преподавателя</md-button>
+    <md-button ng-disabled="vm.buttonLocked || teacherForm.$invalid" class="md-raised md-warn" ng-click="vm.delete()">Удалить преподавателя</md-button>
+  </div>
+</form>
