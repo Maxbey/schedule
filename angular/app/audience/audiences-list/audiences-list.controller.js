@@ -3,24 +3,26 @@
 
     angular.module('app.controllers').controller('AudiencesListController', AudiencesListController);
 
-    function AudiencesListController($state, AudienceService){
+    function AudiencesListController($state, AudienceService, DialogService){
         var vm = this;
 
-        var renderList = function(){
-          AudienceService.all().then(function(audiences){
-              vm.audiences = audiences;
-          });
-        };
-
-        vm.details = function(audience){
-          $state.go('app.audience-details', {'id': audience.id});
-        };
+        AudienceService.all().then(function(audiences){
+          if(!audiences.length){
+            DialogService.action(
+              'В системе не зарегистрированно ни одной аудитории. Создать новую ?',
+               'Перейти к созданию'
+             ).then(function(){
+               $state.go('app.audience-create');
+             });
+          }
+          else{
+            vm.audiences = audiences;
+          }
+        });
 
         vm.edit = function(audience){
           $state.go('app.audience-edit', {'id': audience.id});
         };
-
-        renderList();
     }
 
 })();

@@ -1,15 +1,28 @@
-<md-input-container class="md-block" flex-gt-sm>
-  <label>Номер аудитории</label>
-  <input ng-model="vm.audience.location">
-</md-input-container>
-<md-input-container class="md-block" flex-gt-sm>
-  <label>Предназначение аудитории</label>
-  <input ng-model="vm.audience.purpose">
-</md-input-container>
-<div ng-if="!audience">
-  <md-button class="md-raised" ng-click="vm.create()">Создать аудиторию</md-button>
-</div>
-<div ng-if="audience">
-  <md-button class="md-raised" ng-click="vm.update()">Обновить аудиторию</md-button>
-  <md-button class="md-raised md-warn" ng-click="vm.delete()">Удалить аудиторию</md-button>
-</div>
+<md-subheader>Основная информация</md-subheader>
+<form name="audienceForm">
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Номер аудитории</label>
+    <input required name="audienceNumber" ng-model="vm.audience.location">
+    <div ng-messages="audienceForm.audienceNumber.$error" role="alert">
+      <div ng-message="required">
+        Введите номер аудитории
+      </div>
+    </div>
+  </md-input-container>
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Предназначение аудитории</label>
+    <input required name="audiencePurpose" ng-model="vm.audience.purpose">
+    <div ng-messages="audienceForm.audiencePurpose.$error" role="alert">
+      <div ng-message="required">
+        Введите предназначение аудитории
+      </div>
+    </div>
+  </md-input-container>
+  <div ng-if="!audience">
+    <md-button ng-disabled="vm.buttonLocked || audienceForm.$invalid" class="md-raised" ng-click="vm.create()">Создать аудиторию</md-button>
+  </div>
+  <div ng-if="audience">
+    <md-button ng-disabled="vm.buttonLocked || audienceForm.$invalid" class="md-raised" ng-click="vm.update()">Обновить аудиторию</md-button>
+    <md-button ng-disabled="vm.buttonLocked || audienceForm.$invalid" class="md-raised md-warn" ng-click="vm.delete()">Удалить аудиторию</md-button>
+  </div>
+</form>
