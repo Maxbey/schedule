@@ -22,8 +22,8 @@
                          md-min-length="0"
                          md-no-cache="true"
                          md-require-match="true"
-                         placeholder="Выбирите дисциплины">
-            <span md-highlight-text="searchText">{{ discipline.short_name }}</span>
+                         placeholder="Выберите дисциплины">
+            <span md-highlight-text="vm.query">{{ discipline.short_name }}</span>
         </md-autocomplete>
         <md-chip-template>
             <span>{{$chip.short_name}}</span>
