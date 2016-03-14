@@ -9,7 +9,7 @@
         SpecialtyService.all().then(function(specialties){
           if(!specialties.length){
             DialogService.action(
-              'В системе не зарегистрированно ни одной специальности.\n Создать новую ?',
+              'В системе не зарегистрированно ни одной специальности. Создать новую ?',
                'Перейти к созданию'
              ).then(function(){
                $state.go('app.specialty-create');

@@ -3,7 +3,7 @@
 
     angular.module('app.controllers').controller('TroopFormController', TroopFormController);
 
-    function TroopFormController($scope, SpecialtyService){
+    function TroopFormController($scope, $state, SpecialtyService, TroopService, DialogService, ToastService){
         var vm = this;
 
         vm.troop = $scope.troop;
@@ -16,20 +16,53 @@
           {name: 'Пятница', value: 5}
         ];
 
+        vm.buttonLocked = false;
+
         SpecialtyService.all().then(function(specialties){
+          if(!specialties.length){
+            DialogService.action(
+              'В системе не зарегистрированно ни одной специальности. Создание взвода невозможно!',
+               'Добавить специальность'
+             ).then(function(){
+               $state.go('app.specialty-create');
+             }, function(){
+               $state.go('app.troops-list');
+             });
+          }
+          else {
             vm.specialties = specialties;
+          }
         });
 
         vm.create = function(){
-          $scope.$emit('create_troop', vm.troop);
+          vm.buttonLocked = true;
+          TroopService.create(vm.troop).then(function(){
+              ToastService.show('Взвод создан');
+              $state.go('app.troops-list');
+          }, function(){
+              vm.buttonLocked = false;
+          });
         };
 
         vm.update = function(){
-          $scope.$emit('update_troop', vm.troop);
+          vm.buttonLocked = true;
+          vm.troop.save().then(function(){
+            ToastService.show('Взвод обновлен');
+            $state.go('app.troops-list');
+          }, function(){
+            vm.buttonLocked = false;
+          });
         };
 
         vm.delete = function(){
-          $scope.$emit('delete_troop', vm.troop);
+          DialogService.delete('Вы действительно хотите удалить взвод ?').then(function(){
+            vm.buttonLocked = true;
+            vm.troop.remove().then(function(){
+              ToastService.show('Взвод удален');
+              $state.go('app.troops-list');
+            });
+          });
+
         };
 
     }

@@ -1,27 +1,45 @@
-<md-input-container class="md-block" flex-gt-sm>
-  <label>Номер взвода</label>
-  <input ng-model="vm.troop.code">
-</md-input-container>
-<md-input-container class="md-block" flex-gt-sm>
-  <label>Специальность</label>
-  <md-select ng-model="vm.troop.specialty_id">
-          <md-option ng-repeat="specialty in vm.specialties" value="{{specialty.id}}">
-            {{specialty.code}}
-          </md-option>
-  </md-select>
-</md-input-container>
-<md-input-container class="md-block" flex-gt-sm>
-  <label>День прихода</label>
-  <md-select ng-model="vm.troop.day">
-          <md-option ng-repeat="day in vm.daysOfWeek" value="{{day.value}}">
-            {{ day.name }}
-          </md-option>
-  </md-select>
-</md-input-container>
-<div ng-if="!troop">
-  <md-button class="md-raised" ng-click="vm.create()">Создать взвод</md-button>
-</div>
-<div ng-if="troop">
-  <md-button class="md-raised" ng-click="vm.update()">Обновить взвод</md-button>
-  <md-button class="md-raised md-warn" ng-click="vm.delete()">Удалить взвод</md-button>
-</div>
+<md-subheader>Основная информация</md-subheader>
+<form name="troopForm">
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Номер взвода</label>
+    <input required minlength="3" name="troopCode" ng-model="vm.troop.code">
+    <div ng-messages="troopForm.troopCode.$error" role="alert">
+      <div ng-message-exp="['required', 'minlength']">
+        Код взвода должен быть не короче 3-х символов
+      </div>
+    </div>
+  </md-input-container>
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Специальность</label>
+    <md-select name="troopSpecialty" required ng-model="vm.troop.specialty_id">
+            <md-option ng-repeat="specialty in vm.specialties" value="{{specialty.id}}">
+              {{specialty.code}}
+            </md-option>
+    </md-select>
+    <div ng-messages="troopForm.troopSpecialty.$error" role="alert">
+      <div ng-message-exp="['required']">
+        Взвод должен быть привязан к учебной специальности
+      </div>
+    </div>
+  </md-input-container>
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>День прихода</label>
+    <md-select name="troopDay" required ng-model="vm.troop.day">
+            <md-option ng-repeat="day in vm.daysOfWeek" value="{{day.value}}">
+              {{ day.name }}
+            </md-option>
+    </md-select>
+    <div ng-messages="troopForm.troopDay.$error" role="alert">
+      <div ng-message-exp="['required']">
+        Обязательно должен быть указан день прихода взвода
+      </div>
+    </div>
+  </md-input-container>
+  <div ng-if="!troop">
+    <md-button ng-disabled="vm.buttonLocked || troopForm.$invalid" class="md-raised" ng-click="vm.create()">Создать взвод</md-button>
+  </div>
+  <div ng-if="troop">
+    <md-button ng-disabled="vm.buttonLocked || troopForm.$invalid" class="md-raised" ng-click="vm.update()">Обновить взвод</md-button>
+    <md-button ng-disabled="vm.buttonLocked || troopForm.$invalid" class="md-raised md-warn" ng-click="vm.delete()">Удалить взвод</md-button>
+  </div>
+</form>
