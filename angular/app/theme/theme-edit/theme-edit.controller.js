@@ -14,19 +14,6 @@
           vm.theme = theme;
         });
 
-        $scope.$on('update_theme', function(e, theme){
-          theme.discipline_id = $stateParams.id;
-          ThemeService.update(theme).then(function(){
-            $state.go('app.themes-list', {id: $stateParams.id});
-          });
-        });
-
-        $scope.$on('delete_theme', function(e, theme){
-          theme.remove().then(function(){
-            $state.go('app.themes-list', {id: $stateParams.id});
-          });
-        });
-
         vm.goBack = function(){
           $state.go('app.themes-list', {id: $stateParams.id});
         };

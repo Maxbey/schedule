@@ -1,5 +1,5 @@
 <md-content class="Page-Container" ng-controller="ThemeDetailsController as vm">
-  <h1 class="md-title">Администрирование тем учебных дисциплин</h1>
+  <h1 class="md-title" layout-padding>Администрирование тем учебных дисциплин</h1>
   <md-toolbar>
       <div class="md-toolbar-tools">
         <md-button ng-click="vm.goBack()" aria-label="back">
@@ -11,20 +11,26 @@
         <span flex></span>
       </div>
     </md-toolbar>
-  <h2 class="md-title">Основные данные:</h2>
-  <h3 class="md-subhead">Наименование темы: {{ vm.theme.name }}</h3>
-  <h3 class="md-subhead">Семестр: {{ vm.theme.term }}</h3>
-  <h3 class="md-subhead">Продолжительность занятия в академ. часах: {{ vm.theme.term }}</h3>
-  <h3 class="md-subhead">Необходимое количество преподавателей: {{ vm.theme.teachers_count }}</h3>
-  <h3 class="md-subhead">Необходимое количество аудиторий: {{ vm.theme.audiences_count }}</h3>
+    <div layout-padding>
+      <md-subheader>Основные данные:</md-subheader>
+      <p class="md-body-1">Наименование темы: {{ vm.theme.name }}</p>
+      <p class="md-body-1">Семестр обучения: {{ vm.theme.term }}</p>
+      <p class="md-body-1">Продолжительность занятия в академ. часах: {{ vm.theme.term }}</p>
+      <p class="md-body-1">Необходимое количество преподавателей: {{ vm.theme.teachers_count }}</p>
+      <p class="md-body-1">Необходимое количество аудиторий: {{ vm.theme.audiences_count }}</p>
 
-  <h2 class="md-title">Прикрепленные преподаватели</h2>
-  <md-chips>
-      <md-chip ng-repeat="teacher in vm.theme.teachers.data">{{ teacher.name }}</md-chip>
-  </md-chips>
+      <div ng-if="vm.theme.teachers.data.length !== 0">
+        <md-subheader>Прикрепленные преподаватели</md-subheader>
+        <md-chips>
+            <md-chip ng-repeat="teacher in vm.theme.teachers.data">{{ teacher.name }}</md-chip>
+        </md-chips>
+      </div>
 
-  <h2 class="md-title">Прикрепленные аудитории</h2>
-  <md-chips>
-      <md-chip ng-repeat="audience in vm.theme.audiences.data">{{ audience.location }}</md-chip>
-  </md-chips>
+      <div ng-if="vm.theme.audiences.data.length !== 0">
+        <md-subheader>Прикрепленные аудитории</md-subheader>
+        <md-chips>
+            <md-chip ng-repeat="audience in vm.theme.audiences.data">{{ audience.location }}</md-chip>
+        </md-chips>
+      </div>
+    </div>
 </md-content>

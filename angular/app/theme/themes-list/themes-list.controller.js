@@ -3,7 +3,7 @@
 
     angular.module('app.controllers').controller('ThemesListController', ThemesListController);
 
-    function ThemesListController($state, $stateParams, DisciplineService){
+    function ThemesListController($state, $stateParams, DisciplineService, DialogService){
         var vm = this;
 
         vm.goBack = function(){
@@ -30,6 +30,15 @@
 
         DisciplineService.get($stateParams.id).then(function(discipline){
           vm.discipline = discipline;
+
+          if(!discipline.themes.data.length){
+            DialogService.action(
+              'Данная дисциплина не имеет тем. Создать новую ?',
+               'Перейти к созданию'
+             ).then(function(){
+               vm.goToCreate();
+             });
+          }
         });
     }
 
