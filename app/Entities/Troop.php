@@ -35,4 +35,17 @@ class Troop extends Model
         return $this->specialty->code;
     }
 
+    /**
+     * Handle Eloquent events.
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function(Troop $troop){
+            $troop->occupations()->delete();
+        });
+
+    }
+
 }

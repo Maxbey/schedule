@@ -33,5 +33,18 @@ class Discipline extends Model implements SluggableInterface
         return $this->belongsToMany(Specialty::class)->withTimestamps();
     }
 
+    /**
+     * Handle Eloquent events.
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function(Discipline $discipline){
+            $discipline->themes()->delete();
+        });
+
+    }
+
 
 }

@@ -60,4 +60,17 @@ class Theme extends Model
         return $this->discipline->short_name;
     }
 
+    /**
+     * Handle Eloquent events.
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function(Theme $theme){
+            $theme->occupations()->delete();
+        });
+
+    }
+
 }

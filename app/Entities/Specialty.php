@@ -6,8 +6,6 @@ use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
 
 class Specialty extends Model implements SluggableInterface
 {
@@ -28,9 +26,22 @@ class Specialty extends Model implements SluggableInterface
         return $this->hasMany(Troop::class);
     }
 
+
     public function disciplines()
     {
         return $this->belongsToMany(Discipline::class)->withTimestamps();
+    }
+
+    /**
+     * Handle Eloquent events.
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function(Specialty $specialty){
+            $specialty->troops()->delete();
+        });
     }
 
 }
