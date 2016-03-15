@@ -45,9 +45,9 @@ class Theme extends Model
         return $this->hasMany(Occupation::class);
     }
 
-    public function prevTheme()
+    public function prevThemes()
     {
-        return $this->belongsTo(Theme::class);
+        return $this->belongsToMany(Theme::class, 'theme_prev_theme', 'prev_theme_id')->withTimestamps();
     }
 
     /**

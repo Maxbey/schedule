@@ -34,4 +34,9 @@ class ThemeModelTest extends TestCase
     {
         $this->checkBelongsToManyRelation(App\Entities\Theme::class, App\Entities\Audience::class, 'audiences');
     }
+
+    public function testRelationsWithPrevTheme()
+    {
+        $this->checkBelongsToManyRelation(App\Entities\Theme::class, App\Entities\Theme::class, 'prevThemes');
+    }
 }
