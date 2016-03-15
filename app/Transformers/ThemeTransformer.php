@@ -19,7 +19,8 @@ class ThemeTransformer extends TransformerAbstract
      */
     protected $availableIncludes = [
         'teachers',
-        'audiences'
+        'audiences',
+        'prevThemes'
     ];
 
     /**
@@ -69,5 +70,18 @@ class ThemeTransformer extends TransformerAbstract
         $audiences = $model->audiences;
 
         return $this->collection($audiences, new AudienceTransformer);
+    }
+
+    /**
+     * PrevThemes relation
+     *
+     * @param Theme $model
+     * @return \League\Fractal\Resource\Collection
+     */
+    public function includePrevThemes(Theme $model)
+    {
+        $themes = $model->prevThemes;
+
+        return $this->collection($themes, new ThemeTransformer);
     }
 }

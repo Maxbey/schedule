@@ -99,11 +99,10 @@ class ThemesController extends Controller
         {
             $this->setTeachers($theme, $request->input('teachers'));
         }
-        /*if($request->exists('prev_theme_id'))
+        if($request->exists('prevThemes'))
         {
-            $prev = $this->themesService->getById($request->input('prev_theme_id'));
-            $this->themesService->setPrevTheme($theme, $prev);
-        }*/
+            $this->setPrevThemes($theme, $request->input('prevThemes'));
+        }
 
         return response('Created', 201);
     }
@@ -116,7 +115,7 @@ class ThemesController extends Controller
      */
     public function show($id)
     {
-        return $this->themesRepository->withRelations(['teachers', 'audiences'])->find($id);
+        return $this->themesRepository->withRelations(['teachers', 'audiences', 'prevThemes'])->find($id);
     }
 
     /**
@@ -166,6 +165,18 @@ class ThemesController extends Controller
     {
         $teachers = $this->teacherService->getByIds($teachersIds);
         $this->themesService->syncTeachers($theme, $teachers);
+    }
+
+    /**
+     * Sync with PrevThemes
+     *
+     * @param Theme $theme
+     * @param array $prevThemesIds
+     */
+    public function setPrevThemes(Theme $theme, array $prevThemesIds)
+    {
+        $prevThemes = $this->themesService->getByIds($prevThemesIds);
+        $this->themesService->syncPrevThemes($theme, $prevThemes);
     }
 
     /**
