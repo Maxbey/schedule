@@ -32,5 +32,13 @@
             <md-chip ng-repeat="audience in vm.theme.audiences.data">{{ audience.location }}</md-chip>
         </md-chips>
       </div>
+
+      <div ng-if="vm.theme.prevThemes.data.length !== 0">
+        <md-subheader>Обязательные предшествующие темы</md-subheader>
+        <md-chips>
+            <md-chip ng-repeat="theme in vm.theme.prevThemes.data">{{ theme.discipline }} : №{{ theme.number }}</md-chip>
+        </md-chips>
+      </div>
+
     </div>
 </md-content>

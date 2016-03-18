@@ -18,9 +18,14 @@
         return CollectionHelpersService.getIdsFromCollection(theme.teachers.data);
       }
 
+      function preparePrevThemes(theme){
+        return CollectionHelpersService.getIdsFromCollection(theme.prevThemes.data);
+      }
+
       this.create = function(theme){
         theme.audiences = prepareAudiences(theme);
         theme.teachers = prepareTeachers(theme);
+        theme.prevThemes = preparePrevThemes(theme);
 
         return all.post(angular.toJson(theme));
       };
@@ -28,6 +33,7 @@
       this.update = function(theme){
         theme.audiences = prepareAudiences(theme);
         theme.teachers = prepareTeachers(theme);
+        theme.prevThemes = preparePrevThemes(theme);
 
         return theme.save();
       };

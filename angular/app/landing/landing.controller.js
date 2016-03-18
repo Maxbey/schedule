@@ -3,18 +3,28 @@
 
 	angular.module('app.controllers').controller('LandingController', LandingController);
 
-	function LandingController() {
+	function LandingController($filter) {
 		var vm = this;
 
-		vm.laravel_description = 'Response macros integrated with your Angular app';
-		vm.angular_description = 'Query your API without worrying about validations';
-
-		/*
-		This is a terrible temporary hack,
-		to fix layout issues with flex on iOS (chrome & safari)
-		Make sure to remove this when you modify this demo
-		*/
-		vm.iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+		vm.selectedDate = null;
+    vm.firstDayOfWeek = 0;
+    vm.setDirection = function(direction) {
+      vm.direction = direction;
+    };
+    vm.dayClick = function(date) {
+      vm.msg = "You clicked " + $filter("date")(date, "MMM d, y h:mm:ss a Z");
+    };
+    vm.prevMonth = function(data) {
+      vm.msg = "You clicked (prev) month " + data.month + ", " + data.year;
+    };
+    vm.nextMonth = function(data) {
+      vm.msg = "You clicked (next) month " + data.month + ", " + data.year;
+    };
+    vm.setDayContent = function(date) {
+      // You would inject any HTML you wanted for
+      // that particular date here.
+        return "<p></p>";
+    };
 	}
 
 })();

@@ -116,6 +116,9 @@
     </md-chips>
   </md-input-container>
 
+
+  <md-button class="md-primary" ng-click="vm.getSetPrevThemesModal()">Настроить предшествующие темы</md-button>
+
   <div ng-if="!theme">
     <md-button ng-disabled="vm.buttonLocked || themeForm.$invalid" class="md-raised" ng-click="vm.create(); vm.checkLogic();">Создать тему</md-button>
   </div>

@@ -1,0 +1,41 @@
+<md-dialog ng-controller="SetPrevThemesController as vm">
+    <form ng-submit="vm.save()">
+        <md-dialog-content layout-padding>
+            <h2 class="md-title">Выбор предшествующих тем</h2>
+          <md-autocomplete
+           md-selected-item="vm.selectedDiscipline"
+           md-search-text="vm.disciplineQuery"
+           md-selected-item-change="vm.loadDisciplineThemes(vm.selectedDiscipline)"
+           md-items="discipline in vm.disciplinesSearch(vm.disciplineQuery)"
+           md-item-text="discipline.full_name"
+           md-min-length="0"
+           placeholder="Фильтр дисциплин">
+         <md-item-template>
+           <span md-highlight-text="vm.disciplineQuery" md-highlight-flags="^i">{{discipline.full_name}}</span>
+         </md-item-template>
+       </md-autocomplete>
+
+     <md-input-container class="md-block" flex-gt-sm>
+       <label>Выберите предшествующие темы</label>
+       <md-chips ng-model="vm.prevThemes" md-autocomplete-snap md-require-match="true">
+           <md-autocomplete
+                            md-search-text="vm.themeQuery"
+                            md-items="theme in vm.themesSearch(vm.themeQuery)"
+                            md-item-text="theme.name"
+                            md-min-length="0"
+                            md-no-cache="true"
+                            md-require-match="true">
+               <span md-highlight-text="vm.themeQuery">№{{ theme.number }} {{ theme.name }}</span>
+           </md-autocomplete>
+           <md-chip-template>
+               <span>{{ $chip.discipline }} : №{{ $chip.number }}</span>
+           </md-chip-template>
+       </md-chips>
+     </md-input-container>
+        </md-dialog-content>
+
+        <div class="md-actions" layout="row">
+            <md-button type="button" ng-click="vm.hide()">Закрыть</md-button>
+        </div>
+    </form>
+</md-dialog>

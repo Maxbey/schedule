@@ -139,6 +139,10 @@ class ThemesController extends Controller
         {
             $this->setTeachers($theme, $request->input('teachers'));
         }
+        if($request->exists('prevThemes'))
+        {
+            $this->setPrevThemes($theme, $request->input('prevThemes'));
+        }
 
         return response('Updated', 202);
     }

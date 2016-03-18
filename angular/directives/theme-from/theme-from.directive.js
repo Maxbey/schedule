@@ -14,11 +14,15 @@
             },
             teachers:{
               data:[]
+            },
+            prevThemes:{
+              data:[]
             }
           };
         }
 
         vm.theme.discipline_id = $stateParams.id;
+        $scope.prevThemes = vm.theme.prevThemes.data;
 
         vm.buttonLocked = false;
 
@@ -138,6 +142,10 @@
               $state.go('app.themes-list', {id: $stateParams.id});
             });
           });
+        };
+
+        vm.getSetPrevThemesModal = function(){
+          DialogService.fromTemplate('set-prev-themes', $scope);
         };
     }
 
