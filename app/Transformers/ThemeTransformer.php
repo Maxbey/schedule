@@ -37,6 +37,7 @@ class ThemeTransformer extends TransformerAbstract
             'number' => $model->number,
             'discipline' => $model->disciplineName,
             'term' => $model->term,
+            'self_study' => $model->self_study,
             'audiences_count' => $model->audiences_count,
             'teachers_count'  => $model->teachers_count,
             'duration'      => $model->duration,

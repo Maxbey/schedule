@@ -41,6 +41,21 @@
       this.get = function(id){
           return API.one(url, id).get();
       };
+
+      this.getEmptyInstance = function(){
+        return {
+          self_study: false,
+          audiences:{
+            data:[]
+          },
+          teachers:{
+            data:[]
+          },
+          prevThemes:{
+            data:[]
+          }
+        };
+      };
     }
 
 })();

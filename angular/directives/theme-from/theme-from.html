@@ -48,6 +48,12 @@
     </div>
   </md-input-container>
 
+  <md-input-container class="md-block" flex-gt-sm layout-padding>
+    <md-checkbox ng-model="vm.theme.self_study" name="selfStudy" aria-label="self study checkbox">
+      Тема для самоподготовки?
+    </md-checkbox>
+  </md-input-container>
+
   <md-input-container class="md-block" flex-gt-sm>
     <label>Необходимое количество аудиторий</label>
     <md-select required name="themeAudiences" ng-model="vm.theme.audiences_count">

@@ -8,17 +8,7 @@
 
         vm.theme = $scope.theme;
         if(!vm.theme){
-          vm.theme = {
-            audiences:{
-              data:[]
-            },
-            teachers:{
-              data:[]
-            },
-            prevThemes:{
-              data:[]
-            }
-          };
+          vm.theme = ThemeService.getEmptyInstance();
         }
 
         vm.theme.discipline_id = $stateParams.id;
