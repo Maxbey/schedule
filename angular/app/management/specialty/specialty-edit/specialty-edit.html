@@ -1,0 +1,15 @@
+<div class="Page-Container" ng-controller="SpecialtyEditController as vm">
+  <h1 class="md-title" layout-padding>Администрирование учебных специальностей</h1>
+  <md-toolbar>
+      <div class="md-toolbar-tools">
+        <md-button ng-href="management/specialties" aria-label="back">
+          Назад
+        </md-button>
+        <h2>
+          <span>Редактирование учебной специальности</span>
+        </h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+  <specialty-form ng-if="vm.specialty" specialty="vm.specialty"></specialty-form>
+</div>

@@ -108,7 +108,7 @@
           vm.buttonLocked = true;
           ThemeService.create(vm.theme).then(function(){
             ToastService.show('Тема создана');
-            $state.go('app.themes-list', {id: $stateParams.id});
+            $state.go('management.themes-list', {id: $stateParams.id});
           }, function(){
             vm.buttonLocked = false;
           });
@@ -128,7 +128,7 @@
           vm.buttonLocked = true;
           ThemeService.update(vm.theme).then(function(){
             ToastService.show('Тема обновлена');
-            $state.go('app.themes-list', {id: $stateParams.id});
+            $state.go('management.themes-list', {id: $stateParams.id});
           }, function(){
             vm.buttonLocked = false;
           });
@@ -139,7 +139,7 @@
             vm.buttonLocked = true;
             vm.theme.remove().then(function(){
               ToastService.show('Тема удалена');
-              $state.go('app.themes-list', {id: $stateParams.id});
+              $state.go('management.themes-list', {id: $stateParams.id});
             });
           });
         };

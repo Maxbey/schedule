@@ -25,7 +25,7 @@
           vm.buttonLocked = true;
           DisciplineService.create(vm.discipline).then(function(){
             ToastService.show('Дисциплина создана');
-            $state.go('app.disciplines-list');
+            $state.go('management.disciplines-list');
           }, function(){
             vm.buttonLocked = false;
           });
@@ -35,7 +35,7 @@
           vm.buttonLocked = true;
           DisciplineService.update(vm.discipline).then(function(){
             ToastService.show('Дисциплина обновлена');
-            $state.go('app.disciplines-list');
+            $state.go('management.disciplines-list');
           }, function(){
             vm.buttonLocked = false;
           });
@@ -46,7 +46,7 @@
             vm.buttonLocked = true;
             vm.discipline.remove().then(function(){
               ToastService.show('Дисциплина удалена');
-              $state.go('app.disciplines-list');
+              $state.go('management.disciplines-list');
             });
           });
         };

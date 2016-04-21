@@ -20,7 +20,7 @@
         vm.buttonLocked = true;
         TeacherService.create(vm.teacher).then(function(){
           ToastService.show('Преподаватель создан');
-          $state.go('app.teachers-list');
+          $state.go('management.teachers-list');
         }, function(){
           vm.buttonLocked = false;
         });
@@ -30,7 +30,7 @@
         vm.buttonLocked = true;
         vm.teacher.save().then(function(){
           ToastService.show('Преподаватель обновлен');
-          $state.go('app.teachers-list');
+          $state.go('management.teachers-list');
         }), function(){
           vm.buttonLocked = false;
         };
@@ -41,7 +41,7 @@
           vm.buttonLocked = true;
           vm.teacher.remove().then(function(){
             ToastService.show('Преподаватель удален');
-            $state.go('app.teachers-list');
+            $state.go('management.teachers-list');
           });
         });
       };

@@ -26,8 +26,17 @@ class LoginController extends Controller
         return response()->success(['token' => $token]);
     }
 
-    public function protectedData()
+    public function authorizedUser()
     {
-        return response()->success(['sample', 'of', 'jwt', 'protected', 'data', '[', 'response', 'from', 'API', ']']);
+      try
+      {
+          $user = JWTAuth::parseToken()->authenticate();
+      }
+      catch(JWTException $e)
+      {
+          return response()->json(['error' => 'Invalid token'], Response::HTTP_UNAUTHORIZED);
+      }
+
+      return response()->json(['data' => $user], 200);
     }
 }

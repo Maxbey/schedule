@@ -6,14 +6,15 @@
 		var getView = function(path){
 			var viewName = path.substring(path.lastIndexOf('.') + 1, path.length);
 
-			return './views/app/' + path.replace('.', '/') + '/' + viewName + '.html';
+			return './views/app/' + path.replace(/\./g, '/') + '/' + viewName + '.html';
 		};
 
 		$urlRouterProvider.otherwise('/');
 
 		$stateProvider
-			.state('app', {
+			.state('management', {
 				abstract: true,
+				url: '/management',
 				views: {
 					header: {
 						templateUrl: getView('header')
@@ -21,181 +22,231 @@
 					main: {}
 				}
 			})
-			.state('app.landing', {
+			.state('management.dashboard', {
 				url: '/',
 				data: {},
 				views: {
 					'main@': {
-						templateUrl: getView('landing')
+						templateUrl: getView('management.management-dash')
 					}
 				}
 			})
 
-			.state('app.specialties-list', {
+			.state('management.specialties-list', {
 				url: '/specialties',
 				views: {
 					'main@': {
-						templateUrl: getView('specialty.specialties-list')
+						templateUrl: getView('management.specialty.specialties-list')
 					}
 				}
 			})
-			.state('app.specialty-details', {
+			.state('management.specialty-details', {
 				url: '/specialties/{id}/show',
 				views: {
 					'main@': {
-						templateUrl: getView('specialty.specialty-details')
+						templateUrl: getView('management.specialty.specialty-details')
 					}
 				}
 			})
-			.state('app.specialty-create', {
+			.state('management.specialty-create', {
 				url: '/specialties/create',
 				views: {
 					'main@': {
-						templateUrl: getView('specialty.specialty-create')
+						templateUrl: getView('management.specialty.specialty-create')
 					}
 				}
 			})
-			.state('app.specialty-edit', {
+			.state('management.specialty-edit', {
 				url: '/specialties/{id}/edit',
 				views: {
 					'main@': {
-						templateUrl: getView('specialty.specialty-edit')
+						templateUrl: getView('management.specialty.specialty-edit')
 					}
 				}
 			})
-			.state('app.troops-list', {
+			.state('management.troops-list', {
 				url: '/troops',
 				views: {
 					'main@': {
-						templateUrl: getView('troop.troops-list')
+						templateUrl: getView('management.troop.troops-list')
 					}
 				}
 			})
-			.state('app.troop-create', {
+			.state('management.troop-create', {
 				url: '/troops/create',
 				views: {
 					'main@': {
-						templateUrl: getView('troop.troop-create')
+						templateUrl: getView('management.troop.troop-create')
 					}
 				}
 			})
-			.state('app.troop-edit', {
+			.state('management.troop-edit', {
 				url: '/troops/{id}/edit',
 				views: {
 					'main@': {
-						templateUrl: getView('troop.troop-edit')
+						templateUrl: getView('management.troop.troop-edit')
 					}
 				}
 			})
-			.state('app.disciplines-list', {
+			.state('management.disciplines-list', {
 				url: '/disciplines',
 				views: {
 					'main@': {
-						templateUrl: getView('discipline.disciplines-list')
+						templateUrl: getView('management.discipline.disciplines-list')
 					}
 				}
 			})
-			.state('app.discipline-create', {
+			.state('management.discipline-create', {
 				url: '/disciplines/create',
 				views: {
 					'main@': {
-						templateUrl: getView('discipline.discipline-create')
+						templateUrl: getView('management.discipline.discipline-create')
 					}
 				}
 			})
-			.state('app.discipline-edit', {
+			.state('management.discipline-edit', {
 				url: '/disciplines/{id}/edit',
 				views: {
 					'main@': {
-						templateUrl: getView('discipline.discipline-edit')
+						templateUrl: getView('management.discipline.discipline-edit')
 					}
 				}
 			})
-			.state('app.discipline-details', {
+			.state('management.discipline-details', {
 				url: '/disciplines/{id}/show',
 				views: {
 					'main@': {
-						templateUrl: getView('discipline.discipline-details')
+						templateUrl: getView('management.discipline.discipline-details')
 					}
 				}
 			})
-			.state('app.audiences-list', {
+			.state('management.audiences-list', {
 				url: '/audiences',
 				views: {
 					'main@': {
-						templateUrl: getView('audience.audiences-list')
+						templateUrl: getView('management.audience.audiences-list')
 					}
 				}
 			})
-			.state('app.audience-create', {
+			.state('management.audience-create', {
 				url: '/audiences/create',
 				views: {
 					'main@': {
-						templateUrl: getView('audience.audience-create')
+						templateUrl: getView('management.audience.audience-create')
 					}
 				}
 			})
-			.state('app.audience-edit', {
+			.state('management.audience-edit', {
 				url: '/audiences/{id}/edit',
 				views: {
 					'main@': {
-						templateUrl: getView('audience.audience-edit')
+						templateUrl: getView('management.audience.audience-edit')
 					}
 				}
 			})
-			.state('app.teachers-list', {
+			.state('management.teachers-list', {
 				url: '/teachers',
 				views: {
 					'main@': {
-						templateUrl: getView('teacher.teachers-list')
+						templateUrl: getView('management.teacher.teachers-list')
 					}
 				}
 			})
-			.state('app.teacher-create', {
+			.state('management.teacher-create', {
 				url: '/teachers/create',
 				views: {
 					'main@': {
-						templateUrl: getView('teacher.teacher-create')
+						templateUrl: getView('management.teacher.teacher-create')
 					}
 				}
 			})
-			.state('app.teacher-edit', {
+			.state('management.teacher-edit', {
 				url: '/teachers/{id}/edit',
 				views: {
 					'main@': {
-						templateUrl: getView('teacher.teacher-edit')
+						templateUrl: getView('management.teacher.teacher-edit')
 					}
 				}
 			})
-			.state('app.themes-list', {
+			.state('management.themes-list', {
 				url: '/disciplines/{id}/themes',
 				views: {
 					'main@': {
-						templateUrl: getView('theme.themes-list')
+						templateUrl: getView('management.theme.themes-list')
 					}
 				}
 			})
-			.state('app.theme-create', {
+			.state('management.theme-create', {
 				url: '/disciplines/{id}/themes/create',
 				views: {
 					'main@': {
-						templateUrl: getView('theme.theme-create')
+						templateUrl: getView('management.theme.theme-create')
 					}
 				}
 			})
-			.state('app.theme-edit', {
+			.state('management.theme-edit', {
 				url: '/disciplines/{id}/themes/{themeId}/edit',
 				views: {
 					'main@': {
-						templateUrl: getView('theme.theme-edit')
+						templateUrl: getView('management.theme.theme-edit')
 					}
 				}
 			})
-			.state('app.theme-details', {
+			.state('management.theme-details', {
 				url: '/disciplines/{id}/themes/{themeId}/show',
 				views: {
 					'main@': {
-						templateUrl: getView('theme.theme-details')
+						templateUrl: getView('management.theme.theme-details')
+					}
+				}
+			})
+			.state('management.users-list', {
+				url: '/users',
+				views: {
+					'main@': {
+						templateUrl: getView('management.user.users-list')
+					}
+				}
+			})
+			.state('management.user-create', {
+				url: '/users/create',
+				views: {
+					'main@': {
+						templateUrl: getView('management.user.user-create')
+					}
+				}
+			});
+
+			$stateProvider
+			.state('user', {
+				abstract: true,
+				main: {}
+			})
+				.state('user.user-dash', {
+					url: '/',
+					views: {
+						'main@': {
+							templateUrl: getView('user-dash')
+						}
+					},
+					data: {
+						noLogin: true
+					}
+				});
+
+			$stateProvider
+				.state('auth', {
+					abstract: true,
+					main: {}
+				})
+			.state('auth.login', {
+				url: '/login',
+				data: {
+					noLogin: true
+				},
+				views: {
+					'main@': {
+						templateUrl: getView('login')
 					}
 				}
 			});

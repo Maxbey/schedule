@@ -35,8 +35,8 @@ class TeachersRepositoryEloquent extends Repository implements TeachersRepositor
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
-    public function findByLastName($lastName)
+    public function findByName($name)
     {
-        return $this->findByField('lastname', $lastName);
+        return $this->findByField('name', $name);
     }
 }

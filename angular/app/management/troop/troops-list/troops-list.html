@@ -1,0 +1,26 @@
+<div class="Page-Container" ng-controller="TroopsListController as vm">
+  <h1 class="md-title" layout-padding>Администрирование учебных взводов</h1>
+
+  <md-toolbar class="md-theme-light">
+    <div class="md-toolbar-tools">
+      <h2 class="md-toolbar-tools">
+        <span>Взводы</span>
+      </h2>
+      <span flex></span>
+      <md-button ng-href="management/troops/create" class="md-raised">Добавить</md-button>
+    </div>
+  </md-toolbar>
+  <md-content>
+    <md-list>
+      <md-list-item class="secondary-button-padding" ng-repeat="troop in vm.troops">
+        <div class="md-list-item-text">
+          <h3 class="md-subhead">{{troop.code}}</h3>
+          <h4 class="md-subhead">{{troop.specialty}}</h4>
+        </div>
+        <md-button class="md-secondary md-primary" ng-click="vm.edit(troop)">Редактировать</md-button>
+
+        <md-divider ng-if="!$last"></md-divider>
+      </md-list-item>
+    </md-list>
+  </md-content>
+</div>

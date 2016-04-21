@@ -6,7 +6,7 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.1.*",
+        "laravel/framework": "5.1.27",
         "barryvdh/laravel-debugbar": "~2.0",
         "tymon/jwt-auth": "0.5.*",
         "dingo/api": "1.0.x@dev",

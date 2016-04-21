@@ -1,0 +1,26 @@
+<md-content class="Page-Container" ng-controller="LoginController as vm">
+  <div layout="column" flex id="content" role="main">
+    <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h3>
+          <span>Вход</span>
+      </h3>
+    </div>
+  </md-toolbar>
+				<div layout="row" layout-align="center center" style="min-height: 100px">
+					<md-whiteframe class="md-whiteframe-5dp" layout="column" flex="20" layout-margin>
+						<md-content>
+							<md-input-container class="md-block" flex-gt-sm>
+								<label>E-mail</label>
+								<input ng-model="vm.email">
+							</md-input-container>
+							<md-input-container class="md-block" flex-gt-sm>
+								<label>Пароль</label>
+								<input ng-model="vm.password" type="password">
+							</md-input-container>
+							<md-button ng-click="vm.login(vm.email, vm.password)" class="md-block md-raised" flex-gt-sm>Войти</md-button>
+						</md-content>
+					</md-whiteframe>
+				</div>
+		</div>
+</md-content>

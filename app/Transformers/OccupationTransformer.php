@@ -33,6 +33,7 @@ class OccupationTransformer extends TransformerAbstract
         return [
             'date_of' => $model->date_of,
             'troop' => $model->troopCode,
+            'discipline_name' => $model->disciplineName,
             'links' => [
                 'self' => route('api.occupations.show', ['id' => $model->id])
             ]

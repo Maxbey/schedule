@@ -13,7 +13,7 @@ class OccupationRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**

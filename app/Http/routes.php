@@ -5,27 +5,25 @@ Route::get('/', 'AngularController@serveApp');
 Route::get('/unsupported-browser', 'AngularController@unsupported');
 
 $api->group([], function ($api) {
-
     $api->post('users/login', 'LoginController@login');
-
+    $api->get('auth/user', 'LoginController@authorizedUser');
 });
 
 //protected routes with JWT (must be logged in to access any of these routes)
-$api->group(['middleware' => 'api.auth'], function ($api) {
-
-    $api->get('sample/protected', 'LoginController@protectedData');
-
-});
-
-Route::group(['prefix' => 'api'], function(){
-
-    /* Specialties */
-    Route::post('specialties/{id}', [
-        'uses' => 'SpecialtiesController@restore',
-        'as'   => 'api.specialties.restore'
+$api->group([], function ($api) {
+    /* Users */
+    $api->resource('users', 'UsersController', [
+        'parameters' => [
+            'users' => 'id'
+        ],
+        'excerpt' => [
+            'create, show, edit'
+        ]
     ]);
 
-    Route::resource('specialties', 'SpecialtiesController', [
+
+    /* Specialties */
+    $api->resource('specialties', 'SpecialtiesController', [
         'parameters' => [
             'specialties' => 'id'
         ],
@@ -33,15 +31,11 @@ Route::group(['prefix' => 'api'], function(){
             ['create', 'edit']
     ]);
 
-    Route::get('trashcan/specialties', 'SpecialtiesController@trashed');
+    $api->get('trashcan/specialties', 'SpecialtiesController@trashed');
 
     /* Disciplines */
-    /*Route::put('disciplines/{id}', [
-        'uses' => 'DisciplinesController@restore',
-        'as'   => 'api.disciplines.restore'
-    ]);*/
 
-    Route::resource('disciplines', 'DisciplinesController', [
+    $api->resource('disciplines', 'DisciplinesController', [
         'parameters' => [
             'disciplines' => 'id'
         ],
@@ -49,26 +43,22 @@ Route::group(['prefix' => 'api'], function(){
             ['create', 'edit']
     ]);
 
-    Route::get('trashcan/disciplines', 'DisciplinesController@trashed');
+    $api->get('trashcan/disciplines', 'DisciplinesController@trashed');
 
     /* Troops */
-    /*Route::put('troops/{id}', [
-        'uses' => 'TroopsController@restore',
-        'as'   => 'api.troops.restore'
-    ]);*/
 
-    Route::resource('troops', 'TroopsController', [
+    $api->resource('troops', 'TroopsController', [
         'parameters' => [
             'troops' => 'id'
         ],
         'except' =>
-            ['create', 'edit']
+            ['create', 'edit', 'all']
     ]);
 
-    Route::get('trashcan/troops', 'TroopsController@trashed');
+    $api->get('trashcan/troops', 'TroopsController@trashed');
 
     /* Teachers */
-    Route::resource('teachers', 'TeachersController', [
+    $api->resource('teachers', 'TeachersController', [
         'parameters' => [
             'teachers' => 'id'
         ],
@@ -76,12 +66,7 @@ Route::group(['prefix' => 'api'], function(){
             ['create', 'edit']
     ]);
 
-    /*Route::put('teachers/{id}', [
-        'uses' => 'TeachersController@restore',
-        'as'   => 'api.teachers.restore'
-    ]);*/
-
-    Route::resource('teachers', 'TeachersController', [
+    $api->resource('teachers', 'TeachersController', [
         'parameters' => [
             'teachers' => 'id'
         ],
@@ -89,15 +74,11 @@ Route::group(['prefix' => 'api'], function(){
             ['create', 'edit']
     ]);
 
-    Route::get('trashcan/teachers', 'TeachersController@trashed');
+    $api->get('trashcan/teachers', 'TeachersController@trashed');
 
     /* Themes */
-    /*Route::put('themes/{id}', [
-        'uses' => 'ThemesController@restore',
-        'as'   => 'api.themes.restore'
-    ]);*/
 
-    Route::resource('themes', 'ThemesController', [
+    $api->resource('themes', 'ThemesController', [
         'parameters' => [
             'themes' => 'id'
         ],
@@ -105,15 +86,11 @@ Route::group(['prefix' => 'api'], function(){
             ['create', 'edit']
     ]);
 
-    Route::get('trashcan/themes', 'ThemesController@trashed');
+    $api->get('trashcan/themes', 'ThemesController@trashed');
 
     /*Audiences*/
-    /*Route::put('audiences/{id}', [
-        'uses' => 'AudiencesController@restore',
-        'as'   => 'api.audiences.restore'
-    ]);*/
 
-    Route::resource('audiences', 'AudiencesController', [
+    $api->resource('audiences', 'AudiencesController', [
         'parameters' => [
             'audiences' => 'id'
         ],
@@ -121,15 +98,11 @@ Route::group(['prefix' => 'api'], function(){
             ['create', 'edit']
     ]);
 
-    Route::get('trashcan/audiences', 'AudiencesController@trashed');
+    $api->get('trashcan/audiences', 'AudiencesController@trashed');
 
     /*Occupations*/
-    /*Route::put('occupations/{id}', [
-        'uses' => 'OccupationsController@restore',
-        'as'   => 'api.occupations.restore'
-    ]);*/
 
-    Route::resource('occupations', 'OccupationsController', [
+    $api->resource('occupations', 'OccupationsController', [
         'parameters' => [
             'occupations' => 'id'
         ],
@@ -137,5 +110,10 @@ Route::group(['prefix' => 'api'], function(){
             ['create', 'edit']
     ]);
 
-    Route::get('trashcan/occupations', 'OccupationsController@trashed');
+    $api->get('trashcan/occupations', 'OccupationsController@trashed');
+});
+
+$api->group([], function ($api) {
+  $api->get('troops', 'TroopsController@index');
+  $api->get('troops/{id}/occupations', 'OccupationsController@findByTroop');
 });

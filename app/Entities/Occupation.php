@@ -45,4 +45,9 @@ class Occupation extends Model
         return $this->troop->code;
     }
 
+    public function getDisciplineNameAttribute()
+    {
+      return $this->theme->discipline->full_name;
+    }
+
 }

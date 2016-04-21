@@ -1,0 +1,32 @@
+<div class="Page-Container" ng-controller="SpecialtyDetailsController as vm">
+  <h1 class="md-title" layout-padding>Администрирование учебных специальностей</h1>
+  <md-toolbar>
+      <div class="md-toolbar-tools">
+        <md-button ng-href="management/specialties" aria-label="back">
+          Назад
+        </md-button>
+        <h2>
+          <span>Просмотр учебной специальности: {{ vm.specialty.code }}</span>
+        </h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+    <div layout-padding>
+      <p class="md-body-1">Код специальности: {{ vm.specialty.code }}</p>
+
+      <div ng-if="vm.specialty.troops.data.length !== 0">
+        <md-subheader>Взводы, обучающиеся по данной специальности</md-subheader>
+        <md-chips>
+            <md-chip ng-repeat="troop in vm.specialty.troops.data">{{ troop.code }}</md-chip>
+        </md-chips>
+      </div>
+
+      <div ng-if="vm.specialty.disciplines.data.length !== 0">
+        <md-subheader>Дисцилины, прикрепленные к данной специальности</md-subheader>
+        <md-chips>
+            <md-chip ng-repeat="discipline in vm.specialty.disciplines.data">{{ discipline.short_name }}</md-chip>
+        </md-chips>
+      </div>
+
+    </div>
+  </div>

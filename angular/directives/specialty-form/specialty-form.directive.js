@@ -25,7 +25,7 @@
           vm.buttonLocked = true;
           SpecialtyService.create(vm.specialty).then(function(){
               ToastService.show('Специальность создана');
-              $state.go('app.specialties-list');
+              $state.go('management.specialties-list');
           }, function(){
               vm.buttonLocked = false;
           });
@@ -35,7 +35,7 @@
           vm.buttonLocked = true;
           SpecialtyService.update(vm.specialty).then(function(){
             ToastService.show('Специальность обновлена');
-            $state.go('app.specialties-list');
+            $state.go('management.specialties-list');
           }, function(){
              vm.buttonLocked = false;
           });
@@ -45,7 +45,7 @@
           DialogService.delete('Вы действительно хотите удалить специальность ?').then(function(){
             vm.buttonLocked = true;
             vm.specialty.remove().then(function(){
-              $state.go('app.specialties-list');
+              $state.go('management.specialties-list');
               ToastService.show('Специальность удалена');
             });
           });

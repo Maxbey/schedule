@@ -39,4 +39,9 @@ class OccupationsRepositoryEloquent extends Repository implements OccupationsRep
     {
         return $this->findByField('date_of', $date);
     }
+
+    public function findByTroopId($id)
+    {
+      return $this->findByField('troop_id', $id);
+    }
 }

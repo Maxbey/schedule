@@ -1,0 +1,55 @@
+<md-subheader>Основная информация</md-subheader>
+<form name="userForm">
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Логин пользователя</label>
+    <input required minlength="3" name="userName" ng-model="vm.user.name">
+    <div ng-messages="userForm.userName.$error" role="alert">
+      <div ng-message-exp="['required', 'minlength']">
+        Имя пользователя должно быть длиннее 3-х символов
+      </div>
+    </div>
+  </md-input-container>
+
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Email</label>
+    <input required type="email" name="userEmail" ng-model="vm.user.email">
+    <div ng-messages="userForm.userEmail.$error" role="alert">
+      <div ng-message-exp="['required']">
+        Email должен быть указан
+      </div>
+      <div ng-message-exp="['email']">
+        Проверьте правильность e-mail адреса
+      </div>
+    </div>
+  </md-input-container>
+
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Пароль</label>
+    <input required minlength="10" type="password" name="userPassword" ng-model="vm.user.password">
+    <div ng-messages="userForm.userPassword.$error" role="alert">
+      <div ng-message="required">
+        Укажите пароль
+      </div>
+      <div ng-message="minlength">
+        Длина пароля должна составлять не менее 10 символов
+      </div>
+    </div>
+  </md-input-container>
+
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Повторите пароль</label>
+    <input required type="password" minlength="10" name="userPasswordConfirmation" ng-model="vm.user.password_confirmation" match="vm.user.password">
+    <div ng-messages="userForm.userPasswordConfirmation.$error" role="alert">
+      <div ng-message="required">
+        Подтвердите пароль
+      </div>
+      <div ng-message="match">
+        Пароли не совпадают
+      </div>
+    </div>
+  </md-input-container>
+
+    <md-button ng-disabled="vm.buttonLocked || userForm.$invalid" class="md-raised" ng-click="vm.create()">
+      Создать пользователя
+    </md-button>
+</form>

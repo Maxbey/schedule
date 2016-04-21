@@ -10,5 +10,5 @@ use App\Repositories\RepositoryInterface;
  */
 interface TeachersRepository extends RepositoryInterface
 {
-    public function findByLastName($lastName);
+    public function findByName($name);
 }

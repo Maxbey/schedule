@@ -126,6 +126,12 @@ class OccupationsController extends Controller
         return $this->occupationsRepository->withRelations(['teachers', 'audiences', 'theme'])->find($id);
     }
 
+
+    public function findByTroop($id)
+    {
+      return $this->occupationsRepository->withRelations(['teachers', 'audiences', 'theme'])->findByTroopId($id);
+    }
+
     /**
      * Update the specified Occupation in storage.
      *

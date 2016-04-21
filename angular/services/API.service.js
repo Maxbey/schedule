@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	angular.module('app.services').factory('API', function(Restangular, ToastService, $localStorage) {
+	angular.module('app.services').factory('API', function(Restangular, ToastService, $localStorage, locker) {
 
 		//content negotiation
 		var headers = {
@@ -19,15 +19,18 @@
 					return extractedData;
 				})
 				.setErrorInterceptor(function(response) {
-					if (response.status === 422) {
+					if (response.status === 422
+					) {
 						for (var error in response.data.errors) {
 							return ToastService.error(response.data.errors[error][0]);
 						}
 					}
 				})
 				.addFullRequestInterceptor(function(element, operation, what, url, headers) {
-					if ($localStorage.jwt) {
-						headers.Authorization = 'Bearer ' + $localStorage.jwt;
+					var token = locker.get('jwt');
+
+					if (token) {
+						headers.Authorization = 'Bearer ' + token;
 					}
 				});
 		});

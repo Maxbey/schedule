@@ -1,0 +1,55 @@
+<md-content class="Page-Container" ng-controller="UserDashController as vm">
+  <div layout="column" flex id="content" role="main">
+    <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h3>
+          <span>Расписание</span>
+      </h3>
+    </div>
+  </md-toolbar>
+				<div layout="row" layout-align="center center" style="min-height: 100px">
+					<md-whiteframe class="md-whiteframe-5dp" layout="column" flex="65" layout-margin>
+						<md-content>
+              <md-autocomplete
+                  md-selected-item="troop"
+                  md-search-text="vm.troopQuery"
+                  md-items="troop in vm.troopsSearch(vm.troopQuery)"
+                  md-selected-item-change="vm.loadOccupations(troop)"
+                  md-item-text="troop.code"
+                  md-min-length="0"
+                  placeholder="Укажите номер учебного взвода">
+                  <span md-highlight-text="vm.troopQuery">{{ troop.code }}</span>
+                <md-not-found>
+                  Учебный взвод с данным номером не найден
+                </md-not-found>
+      </md-autocomplete>
+    </br>
+      <md-datepicker ng-model="myDate" md-placeholder="Укажите дату"></md-datepicker>
+      </br>
+      <div ng-if="vm.occupations.length">
+        <md-toolbar layout="row">
+          <div class="md-toolbar-tools">
+            <h3>
+                <span>Занятия</span>
+            </h3>
+          </div>
+        </md-toolbar>
+
+        <md-list flex>
+          <md-list-item class="md-3-line" ng-repeat="occupation in vm.occupations" ng-click="null">
+            <div class="md-list-item-text" layout="column">
+              <h3>{{ occupation.discipline_name }}</h3>
+              <h4>
+                {{ occupation.theme.data.name }}  №{{ occupation.theme.data.number }} ({{ vm.formAudiencesString(occupation) }})
+              </h4>
+              <p>{{ vm.formTeachersString(occupation) }}</p>
+            </div>
+          </md-list-item>
+        </md-list>
+      </div>
+
+						</md-content>
+					</md-whiteframe>
+				</div>
+		</div>
+</md-content>

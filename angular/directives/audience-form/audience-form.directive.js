@@ -14,7 +14,7 @@
           vm.buttonLocked = true;
           AudienceService.create(vm.audience).then(function(){
             ToastService.show('Аудитория создана');
-            $state.go('app.audiences-list');
+            $state.go('management.audiences-list');
           }, function(){
             vm.buttonLocked = false;
           });
@@ -25,7 +25,7 @@
           delete vm.audience.themes;
           vm.audience.save().then(function(){
             ToastService.show('Аудитория обновлена');
-            $state.go('app.audiences-list');
+            $state.go('management.audiences-list');
           }, function(){
             vm.buttonLocked = false;
           });
@@ -36,7 +36,7 @@
             vm.buttonLocked = true;
             vm.audience.remove().then(function(){
               ToastService.show('Аудитория удалена');
-              $state.go('app.audiences-list');
+              $state.go('management.audiences-list');
             });
           });
         };

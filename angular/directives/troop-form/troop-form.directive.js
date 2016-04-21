@@ -24,9 +24,9 @@
               'В системе не зарегистрированно ни одной специальности. Создание взвода невозможно!',
                'Добавить специальность'
              ).then(function(){
-               $state.go('app.specialty-create');
+               $state.go('management.specialty-create');
              }, function(){
-               $state.go('app.troops-list');
+               $state.go('management.troops-list');
              });
           }
           else {
@@ -38,7 +38,7 @@
           vm.buttonLocked = true;
           TroopService.create(vm.troop).then(function(){
               ToastService.show('Взвод создан');
-              $state.go('app.troops-list');
+              $state.go('management.troops-list');
           }, function(){
               vm.buttonLocked = false;
           });
@@ -48,7 +48,7 @@
           vm.buttonLocked = true;
           vm.troop.save().then(function(){
             ToastService.show('Взвод обновлен');
-            $state.go('app.troops-list');
+            $state.go('management.troops-list');
           }, function(){
             vm.buttonLocked = false;
           });
@@ -59,7 +59,7 @@
             vm.buttonLocked = true;
             vm.troop.remove().then(function(){
               ToastService.show('Взвод удален');
-              $state.go('app.troops-list');
+              $state.go('management.troops-list');
             });
           });
 

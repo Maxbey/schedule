@@ -3,15 +3,24 @@
 
     angular.module('app.controllers').controller('HeaderController', HeaderController);
 
-    function HeaderController($state){
+    function HeaderController($state, $rootScope){
       var vm = this;
 
-      vm.menuItems = [
-        {text: 'Учебные специальности', state: 'app.specialties-list'},
-        {text: 'Учебные взводы', state: 'app.troops-list'},
-        {text: 'Дисциплины', state: 'app.disciplines-list'},
-        {text: 'Преподаватели', state: 'app.teachers-list'},
-        {text: 'Аудитории', state: 'app.audiences-list'}
+      vm.scheduleMenuItems = [
+        {text: 'Учебные специальности', state: 'management.specialties-list'},
+        {text: 'Учебные взводы', state: 'management.troops-list'},
+        {text: 'Дисциплины', state: 'management.disciplines-list'},
+        {text: 'Преподаватели', state: 'management.teachers-list'},
+        {text: 'Аудитории', state: 'management.audiences-list'}
+      ];
+
+      vm.settingsMenuItems = [
+        {text: 'Пользователи', state: 'management.users-list'}
+      ];
+
+      vm.dashboardsMenuItems = [
+        {text: 'Панель администратора', state: 'management.dashboard'},
+        {text: 'Панель пользователя', state: 'user.user-dash'}
       ];
 
       vm.go = function(item){
@@ -19,10 +28,10 @@
       };
 
 
-      vm.sidebar_is_opened = false;
+      vm.sidebarIsOpened = false;
 
       vm.toggle = function(){
-        vm.sidebar_is_opened = !vm.sidebar_is_opened;
+        vm.sidebarIsOpened = !vm.sidebarIsOpened;
       }
 
 
