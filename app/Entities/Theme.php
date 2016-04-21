@@ -22,7 +22,8 @@ class Theme extends Model
         'term',
         'audiences_count',
         'teachers_count',
-        'duration'
+        'duration',
+        'self_study'
     ];
 
     public function discipline()

@@ -24,14 +24,15 @@ class ThemeRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|string|min:3|max:100',
-            'number' => 'required|string|max:12',
-            'audiences_count' => 'required|integer|min:1|max:3',
-            'prev_theme_id'   => 'integer',
-            'teachers_count' => 'required|integer|min:1|max:3',
-            'duration' => 'required|integer|min:1|max:6',
-            'term' => 'required|integer',
-            'discipline_id' => 'required|integer'
+            'name'                  => 'required|string|min:3|max:100',
+            'number'                => 'required|string|max:12',
+            'audiences_count'       => 'required|integer|min:1|max:3',
+            'prev_theme_id'         => 'integer',
+            'teachers_count'        => 'required|integer|min:1|max:3',
+            'duration'              => 'required|integer|min:1|max:6',
+            'term'                  => 'required|integer',
+            'discipline_id'         => 'required|integer',
+            'self_study'            => 'required|boolean'
         ];
     }
 }

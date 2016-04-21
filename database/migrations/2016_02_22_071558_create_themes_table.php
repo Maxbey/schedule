@@ -14,13 +14,17 @@ class CreateThemesTable extends Migration
     {
         Schema::create('themes', function (Blueprint $table) {
             $table->increments('id');
+
             $table->string('name', 100);
             $table->string('number');
-            $table->smallInteger('term');
-            $table->smallInteger('discipline_id')->unsigned()->index();
+            $table->unsignedTinyInteger('term');
+
+            $table->boolean('self_study');
+            $table->unsignedTinyInteger('duration');
             $table->unsignedTinyInteger('audiences_count');
             $table->unsignedTinyInteger('teachers_count');
-            $table->unsignedTinyInteger('duration');
+
+            $table->unsignedSmallInteger('discipline_id')->index();
 
             $table->timestamps();
             $table->softDeletes();

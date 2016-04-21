@@ -45,6 +45,7 @@ $factory->define(App\Entities\Discipline::class, function(Faker\Generator $faker
 $factory->define(App\Entities\Theme::class, function(Faker\Generator $faker){
     return [
         'name' => $faker->title,
+        'self_study' => $faker->boolean(),
         'number' => '1/1',
         'audiences_count' => 2,
         'teachers_count' => 2,
@@ -72,6 +73,7 @@ $factory->define(App\Entities\Audience::class, function(Faker\Generator $faker){
 $factory->define(App\Entities\Occupation::class, function(Faker\Generator $faker){
     return [
         'date_of' => $faker->dateTimeThisYear,
+        'initial_hour' => $faker->boolean(),
         'troop_id' => factory(App\Entities\Troop::class)->create()->id,
         'theme_id' => factory(App\Entities\Theme::class)->create()->id
     ];

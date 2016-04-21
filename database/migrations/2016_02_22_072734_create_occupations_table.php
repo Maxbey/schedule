@@ -15,6 +15,8 @@ class CreateOccupationsTable extends Migration
         Schema::create('occupations', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamp('date_of');
+            $table->unsignedTinyInteger('initial_hour');
+
             $table->smallInteger('troop_id')->unsigned()->index();
             $table->integer('theme_id')->unsigned()->index();
 

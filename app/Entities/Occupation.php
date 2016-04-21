@@ -13,7 +13,7 @@ class Occupation extends Model
 
     protected $table = 'occupations';
 
-    protected $fillable = ['date_of'];
+    protected $fillable = ['date_of', 'initial_hour'];
 
     public function teachers()
     {

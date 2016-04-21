@@ -16,6 +16,7 @@ class OccupationServiceTest extends ServiceTestCase
     {
         $attributes = [];
         $attributes['date_of'] = new \Carbon\Carbon;
+        $attributes['initial_hour'] = 1;
         $troop = factory(\App\Entities\Troop::class)->create();
         $theme = factory(\App\Entities\Theme::class)->create();
 

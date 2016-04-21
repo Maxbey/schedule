@@ -24,9 +24,10 @@ class OccupationRequest extends Request
     public function rules()
     {
         return [
-            'date_of' => 'required|date',
-            'troop_id' => 'required|integer',
-            'theme_id' => 'required|integer'
+            'date_of'       => 'required|date',
+            'troop_id'      => 'required|integer',
+            'theme_id'      => 'required|integer',
+            'initial_hour'  => 'required|integer'
         ];
     }
 }
