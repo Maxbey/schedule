@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Entities\Discipline;
+use App\Entities\Troop;
 use Illuminate\Database\Eloquent\Collection;
 
 class DisciplineService extends EntityService
@@ -41,4 +42,5 @@ class DisciplineService extends EntityService
             ->specialties()
             ->sync($specialties);
     }
+
 }

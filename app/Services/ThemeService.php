@@ -5,6 +5,7 @@ namespace App\Services;
 
 use App\Entities\Discipline;
 use App\Entities\Theme;
+use App\Entities\Troop;
 use App\Repositories\ThemesRepository;
 use Illuminate\Database\Eloquent\Collection;
 

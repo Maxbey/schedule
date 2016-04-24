@@ -37,4 +37,16 @@ class Teacher extends Model implements SluggableInterface
         return $this->belongsToMany(Occupation::class)->withTimestamps();
     }
 
+    public function getWorkLoadRationAttribute()
+    {
+        $occupationsHours = 0;
+
+        $this->occupations->each(function($occupation) use (&$occupationsHours){
+            $occupationsHours += $occupation->theme->duration;
+        });
+
+        return $occupationsHours / $this->work_hours_limit;
+    }
+
+
 }

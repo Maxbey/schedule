@@ -6,6 +6,7 @@ use App\Entities\Occupation;
 use App\Entities\Theme;
 use App\Entities\Troop;
 use App\Repositories\OccupationsRepository;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
 class OccupationService extends EntityService
@@ -37,10 +38,34 @@ class OccupationService extends EntityService
             ->theme()->associate($theme)
             ->save();
 
+
+        dd($theme->occupations->toArray());
         return $occupation;
     }
 
     /**
+     * Make Occupation instance
+     *
+     * @param Troop $troop
+     * @param Theme $theme
+     * @param Carbon $date
+     * @param $initialHour
+     * @return Occupation
+     */
+    public function make(Troop $troop, Theme $theme, Carbon $date, $initialHour)
+    {
+        $occupation = new Occupation;
+
+        $occupation->date_of = $date->format('Y-m-d H:i:s.u');
+        $occupation->initial_hour = $initialHour;
+
+        $occupation->troop()->associate($troop)
+            ->theme()->associate($theme);
+
+        return $occupation;
+    }
+
+        /**
      * Update Occupation
      *
      * @param $id
@@ -87,6 +112,19 @@ class OccupationService extends EntityService
         return $occupation
             ->audiences()
             ->sync($audiences);
+    }
+
+
+    public function troopLearnHours(Troop $troop, Carbon $date)
+    {
+        $hours = 0;
+
+
+        $this->repository->findByTroopAndDate($troop, $date)->each(function($occupation) use(&$hours){
+            $hours += $occupation->theme->duration;
+        });
+
+        return $hours;
     }
 
 }

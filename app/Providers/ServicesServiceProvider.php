@@ -57,5 +57,10 @@ class ServicesServiceProvider extends ServiceProvider
             'AudienceService',
             'App\Services\AudienceService'
         );
+
+        $this->app->bind(
+            'Schedule',
+            'App\Schedule\Schedule'
+        );
     }
 }

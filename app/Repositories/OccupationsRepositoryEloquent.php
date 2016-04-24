@@ -2,8 +2,11 @@
 
 namespace App\Repositories;
 
+use App\Entities\Discipline;
+use App\Entities\Troop;
 use App\Repositories\Additions\Restore;
 use App\Repositories\Additions\RestoreFunctionality;
+use Carbon\Carbon;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\OccupationsRepository;
@@ -42,6 +45,14 @@ class OccupationsRepositoryEloquent extends Repository implements OccupationsRep
 
     public function findByTroopId($id)
     {
-      return $this->findByField('troop_id', $id);
+        return $this->findByField('troop_id', $id);
+    }
+
+    public function findByTroopAndDate(Troop $troop, Carbon $date)
+    {
+        return $this->findWhere([
+            ['troop_id', '=', $troop->id],
+            ['date_of', '=', $date]
+        ]);
     }
 }

@@ -33,6 +33,11 @@ class Discipline extends Model implements SluggableInterface
         return $this->belongsToMany(Specialty::class)->withTimestamps();
     }
 
+    public function getHoursSumAttribute()
+    {
+        return $this->themes->sum('duration');
+    }
+
     /**
      * Handle Eloquent events.
      */
