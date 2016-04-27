@@ -119,3 +119,5 @@ $api->group([], function ($api) {
 });
 
 Route::get('api/schedule', 'ScheduleController@index');
+
+Route::get('api/schedule/export', 'ScheduleController@export');

@@ -156,7 +156,8 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
         App\Providers\RepositoriesServiceProvider::class,
-        App\Providers\ServicesServiceProvider::class
+        App\Providers\ServicesServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class
 
     ],
 
@@ -210,6 +211,7 @@ return [
         'Debugbar'   => Barryvdh\Debugbar\Facade::class,
         'JWTAuth'    => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        'Excel'      => Maatwebsite\Excel\Facades\Excel::class
 
     ],
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Excel\ScheduleExport;
 use App\Schedule\Schedule;
 use Illuminate\Http\Request;
 
@@ -27,5 +28,10 @@ class ScheduleController extends Controller
     public function index()
     {
         $this->schedule->buildSchedule();
+    }
+
+    public function export(ScheduleExport $export)
+    {
+        $export->handleExport();
     }
 }
