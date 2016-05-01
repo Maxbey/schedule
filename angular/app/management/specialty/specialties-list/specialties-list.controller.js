@@ -12,7 +12,7 @@
               'В системе не зарегистрированно ни одной специальности. Создать новую ?',
                'Перейти к созданию'
              ).then(function(){
-               $state.go('app.specialty-create');
+               $state.go('management.specialty-create');
              });
           }
           else {

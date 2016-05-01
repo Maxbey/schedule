@@ -46,7 +46,7 @@ class ScheduleExportHandler
                     $cell->setValue(Carbon::parse($day->first()->date_of)->format('m-d'));
                 });
 
-                $day->groupBy('troop_id')->each(function($troopOccupations) use(&$sheet, &$row){
+                $day->sortBy('troop_code')->sortBy('initial_hour')->groupBy('troop_id')->each(function($troopOccupations) use(&$sheet, &$row){
                     $troopCode = $troopOccupations->first()->troop->code;
 
                     $sheet->cell('B' . $row, function($cell) use ($troopCode){

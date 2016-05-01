@@ -9,11 +9,11 @@
         vm.troop = $scope.troop;
 
         vm.daysOfWeek = [
-          {name: 'Понедельник', value: 1},
-          {name: 'Вторник', value: 2},
-          {name: 'Среда', value: 3},
-          {name: 'Четверг', value: 4},
-          {name: 'Пятница', value: 5}
+          {name: 'Понедельник', value: 0},
+          {name: 'Вторник', value: 1},
+          {name: 'Среда', value: 2},
+          {name: 'Четверг', value: 3},
+          {name: 'Пятница', value: 4}
         ];
 
         vm.buttonLocked = false;

@@ -56,7 +56,7 @@ class OccupationService extends EntityService
     {
         $occupation = new Occupation;
 
-        $occupation->date_of = $date->format('Y-m-d H:i:s.u');
+        $occupation->date_of = $date->toDateTimeString();
         $occupation->initial_hour = $initialHour;
 
         $occupation->troop()->associate($troop)

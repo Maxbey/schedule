@@ -15,7 +15,7 @@ class CreateThemesTable extends Migration
         Schema::create('themes', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('name', 100);
+            $table->string('name');
             $table->string('number');
             $table->unsignedTinyInteger('term');
 

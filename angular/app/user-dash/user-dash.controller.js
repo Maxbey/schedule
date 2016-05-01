@@ -3,7 +3,7 @@
 
     angular.module('app.controllers').controller('UserDashController', UserDashController);
 
-    function UserDashController(TroopService){
+    function UserDashController($scope, TroopService){
         var vm = this;
 
         TroopService.all().then(function(troops){
@@ -61,6 +61,23 @@
 
           return result.substring(0, result.length - 1) + ' ';
         };
+
+
+        vm.arrivalDayFilter = function(date){
+          return date.getDay() == vm.troop.day + 1;
+        };
+
+        $scope.$watch('vm.date', function(date){
+          if(date)
+          {
+            console.log(vm.occupations);
+            vm.occupations = vm.occupations.filter(function(occupation){
+              var dateOfOccupation = new Date(occupation.date_of).setHours(0, 0, 0, 0);
+
+              return vm.date === dateOfOccupation;
+            });
+          }
+        });
     }
 
 })();

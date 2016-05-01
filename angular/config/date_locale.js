@@ -9,6 +9,8 @@
           'Октябрь', 'Ноябрь', 'Декабрь'
         ];
 
+        $mdDateLocaleProvider.shortDays = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
+
         $mdDateLocaleProvider.shortMonths = $mdDateLocaleProvider.months;
     });
 

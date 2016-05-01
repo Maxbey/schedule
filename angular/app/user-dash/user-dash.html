@@ -11,10 +11,10 @@
 					<md-whiteframe class="md-whiteframe-5dp" layout="column" flex="65" layout-margin>
 						<md-content>
               <md-autocomplete
-                  md-selected-item="troop"
+                  md-selected-item="vm.troop"
                   md-search-text="vm.troopQuery"
                   md-items="troop in vm.troopsSearch(vm.troopQuery)"
-                  md-selected-item-change="vm.loadOccupations(troop)"
+                  md-selected-item-change="vm.loadOccupations(vm.troop)"
                   md-item-text="troop.code"
                   md-min-length="0"
                   placeholder="Укажите номер учебного взвода">
@@ -24,7 +24,7 @@
                 </md-not-found>
       </md-autocomplete>
     </br>
-      <md-datepicker ng-model="myDate" md-placeholder="Укажите дату"></md-datepicker>
+      <md-datepicker ng-model="vm.date" md-date-filter="vm.arrivalDayFilter" md-placeholder="Укажите дату"></md-datepicker>
       </br>
       <div ng-if="vm.occupations.length">
         <md-toolbar layout="row">
@@ -38,9 +38,9 @@
         <md-list flex>
           <md-list-item class="md-3-line" ng-repeat="occupation in vm.occupations" ng-click="null">
             <div class="md-list-item-text" layout="column">
-              <h3>{{ occupation.discipline_name }}</h3>
+              <h3>{{ occupation.discipline_name }}  №{{ occupation.theme.data.number }}</h3>
               <h4>
-                {{ occupation.theme.data.name }}  №{{ occupation.theme.data.number }} ({{ vm.formAudiencesString(occupation) }})
+                {{ occupation.theme.data.name }} ({{ vm.formAudiencesString(occupation) }})
               </h4>
               <p>{{ vm.formTeachersString(occupation) }}</p>
             </div>

@@ -31,7 +31,7 @@ class Schedule extends AbstractSchedule
      * The term length in weeks
      * @var int
      */
-    private $termLength = 2;
+    private $termLength = 18;
 
     /**
      * @var TroopsRepository
@@ -90,13 +90,15 @@ class Schedule extends AbstractSchedule
         {
             $this->troopsRepository->all()->each(function(Troop $troop) use($date){
                 $date->startOfWeek();
-                $date->addDays($troop->day - 1);
+                $date->addDays($troop->day);
                 $hours = 0;
 
                 while($hours != $this->dayLength) {
 
                     $disciplines = $this->getPriorityDisciplinesList($troop);
                     $theme = null;
+                    $teachers = null;
+                    $audiences = null;
 
                     while(1)
                     {
@@ -122,7 +124,18 @@ class Schedule extends AbstractSchedule
 
                         else
                         {
-                            break;
+                            $teachers = $this->findFreeTeachers($theme, $hours, $date, $troop);
+                            $teachers->splice($theme->teachers_count);
+
+                            $audiences = $this->findFreeAudiences($theme, $hours, $date, $troop);
+                            $audiences->splice($theme->audiences_count);
+
+                            if($teachers->count() < $theme->teachers_count || $audiences->count() < $theme->audiences_count)
+                                $disciplines->shift();
+
+                            else {
+                                break;
+                            }
                         }
 
                     }
@@ -133,13 +146,6 @@ class Schedule extends AbstractSchedule
                         break;
 
                     $occupation = $this->createOccupation($troop, $theme, $date, $hours);
-
-                    $teachers = $this->findFreeTeachers($occupation);
-                    $teachers->splice($theme->teachers_count);
-
-                    $audiences = $this->findFreeAudiences($occupation);
-                    $audiences->splice($theme->audiences_count);
-
                     $occupation->teachers = $teachers;
                     $occupation->audiences = $audiences;
 
@@ -194,12 +200,12 @@ class Schedule extends AbstractSchedule
      * @param Occupation $occupation
      * @return \Illuminate\Support\Collection
      */
-    protected function findFreeTeachers(Occupation $occupation)
+    protected function findFreeTeachers(Theme $theme, $initialHour, Carbon $date, Troop $troop)
     {
-        $inSameTime = $this->getOccupationsInSameTime($occupation);
+        $inSameTime = $this->getOccupationsInSameTime($theme, $initialHour, $date, $troop);
         $freeTeachers = collect();
 
-        $occupation->theme->teachers->each(function(Teacher $teacher) use(&$freeTeachers, $inSameTime){
+        $theme->teachers->each(function(Teacher $teacher) use(&$freeTeachers, $inSameTime){
             if($this->teacherIsFree($teacher, $inSameTime))
             {
                 $teacher->ratio = $this->calcTeacherRatio($teacher);
@@ -233,12 +239,12 @@ class Schedule extends AbstractSchedule
      * @param Occupation $occupation
      * @return Collection
      */
-    protected function findFreeAudiences(Occupation $occupation)
+    protected function findFreeAudiences(Theme $theme, $initialHour, Carbon $date, Troop $troop)
     {
-        $inSameTime = $this->getOccupationsInSameTime($occupation);
+        $inSameTime = $this->getOccupationsInSameTime($theme, $initialHour, $date, $troop);
         $freeAudiences = collect();
 
-        $occupation->theme->audiences->each(function(Audience $audience) use(&$freeAudiences, $inSameTime){
+        $theme->audiences->each(function(Audience $audience) use(&$freeAudiences, $inSameTime){
             if($this->audienceIsFree($audience, $inSameTime))
             {
                 $freeAudiences->push($audience);
@@ -279,6 +285,8 @@ class Schedule extends AbstractSchedule
 
     protected function pushScheduleToDB()
     {
+        var_dump($this->schedule->count());
+
         $this->schedule->each(function(Occupation $occupation){
             $teachers = new EloquentCollection($occupation->teachers);
             $audiences = new EloquentCollection($occupation->audiences);
@@ -299,36 +307,46 @@ class Schedule extends AbstractSchedule
      */
     protected function getOccupationTimeLine(Occupation $occupation)
     {
-        $timeLine = collect();
         $endHour = $occupation->initial_hour + $occupation->theme->duration;
 
-        for($i = $occupation->initial_hour + 1; $i < $endHour; $i++)
-        {
-            $timeLine->push($i);
-        }
-
-        return $timeLine;
+        return $this->getNumbersBetween($occupation->initial_hour, $endHour);
     }
 
     /**
-     * @param Occupation $mainOccupation
-     * @return \Illuminate\Support\Collection
+     * @param Theme $theme
+     * @param $initialHour
+     * @param Carbon $date
+     * @param Troop $troop
+     * @return Collection
      */
-    protected function getOccupationsInSameTime(Occupation $mainOccupation)
+    protected function getOccupationsInSameTime(Theme $theme, $initialHour, Carbon $date, Troop $troop)
     {
-        $timeLine = $this->getOccupationTimeLine($mainOccupation);
+        $timeLine = $this->getNumbersBetween($initialHour, $initialHour + $theme->duration);
         $inSameTime = collect();
 
-        $this->schedule->where('date_of', $mainOccupation->date_of)
-            ->each(function(Occupation $occupation) use($timeLine, &$inSameTime, $mainOccupation){
+        $this->schedule->where('date_of', $date->toDateTimeString())
+            ->each(function(Occupation $occupation) use($timeLine, &$inSameTime, $troop){
                 if(
                     $this->getOccupationTimeLine($occupation)->intersect($timeLine)->count()
-                    && $occupation->troop->id !== $mainOccupation->troop->id
+                    && $occupation->troop->id !== $troop->id
                 )
                     $inSameTime->push($occupation);
         });
 
         return $inSameTime;
+    }
+
+
+    protected function getNumbersBetween($a, $b)
+    {
+        $numbers = collect();
+
+        for($i = $a + 1; $i < $b; $i++)
+        {
+            $numbers->push($i);
+        }
+
+        return $numbers;
     }
 
 }
