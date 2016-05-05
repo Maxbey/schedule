@@ -30,13 +30,7 @@
         };
 
         vm.loadOccupations = function(troop){
-          if(troop)
-          {
-            troop.getList('occupations').then(function(occupations){
-              vm.occupations = occupations;
-              console.log(occupations);
-            });
-          }
+
         };
 
         vm.formTeachersString = function(occupation){
@@ -64,17 +58,14 @@
 
 
         vm.arrivalDayFilter = function(date){
-          return date.getDay() == vm.troop.day + 1;
+          return date.getDay() == vm.troop.day + 2;
         };
 
         $scope.$watch('vm.date', function(date){
           if(date)
           {
-            console.log(vm.occupations);
-            vm.occupations = vm.occupations.filter(function(occupation){
-              var dateOfOccupation = new Date(occupation.date_of).setHours(0, 0, 0, 0);
-
-              return vm.date === dateOfOccupation;
+            vm.troop.customGET('occupations', {date_of: date.toISOString().slice(0,10)}).then(function(occupations){
+              vm.occupations = occupations;
             });
           }
         });

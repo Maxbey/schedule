@@ -17,7 +17,20 @@ class ScheduleExportHandler
      */
     protected $occupationsRepository;
 
+    /**
+     * @var array
+     */
     protected $cellsForOccupations = ['C', 'D', 'E'];
+
+    /**
+     * @var array
+     */
+    protected $tableHeader = [
+        'Дата', 'Взвод',
+        '9:00 - 10:35',
+        '10:45 - 12:20',
+        '13:00 - 14:35'
+    ];
 
     public function __construct(OccupationsRepository $occupationsRepository)
     {
@@ -33,12 +46,7 @@ class ScheduleExportHandler
 
         return $export->sheet('Schedule', function($sheet) use($schedule){
 
-            $sheet->row(1, [
-                'Дата', 'Взвод',
-                '9:00 - 10:35',
-                '10:45 - 12:20',
-                '13:00 - 14:35'
-            ]);
+            $sheet->row(1, $this->tableHeader);
 
             $row = 2;
             $schedule->each(function($day) use(&$sheet, &$row){

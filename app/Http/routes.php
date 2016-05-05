@@ -115,7 +115,7 @@ $api->group([], function ($api) {
 
 $api->group([], function ($api) {
   $api->get('troops', 'TroopsController@index');
-  $api->get('troops/{id}/occupations', 'OccupationsController@findByTroop');
+  $api->get('troops/{id}/occupations', 'OccupationsController@findByTroopAndDate');
 });
 
 Route::get('api/schedule', 'ScheduleController@index');

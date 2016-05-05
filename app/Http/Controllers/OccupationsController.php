@@ -127,9 +127,12 @@ class OccupationsController extends Controller
     }
 
 
-    public function findByTroop($id)
+    public function findByTroopAndDate($id, Request $request)
     {
-      return $this->occupationsRepository->withRelations(['teachers', 'audiences', 'theme'])->findByTroopId($id);
+        $troop = $this->troopsRepository->find($id);
+        $date = Carbon::parse($request->input('date_of'));
+
+        return $this->occupationsRepository->withRelations(['teachers', 'audiences', 'theme'])->findByTroopAndDate($troop, $date);
     }
 
     /**

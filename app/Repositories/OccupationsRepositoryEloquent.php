@@ -52,7 +52,7 @@ class OccupationsRepositoryEloquent extends Repository implements OccupationsRep
     {
         return $this->findWhere([
             ['troop_id', '=', $troop->id],
-            ['date_of', '=', $date]
+            ['date_of', '=', $date->toDateTimeString()]
         ]);
     }
 }

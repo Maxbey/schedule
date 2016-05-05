@@ -11,7 +11,6 @@ use App\Entities\Theme;
 use App\Entities\Troop;
 use App\Repositories\DisciplinesRepository;
 use App\Repositories\OccupationsRepository;
-use App\Repositories\TeachersRepository;
 use App\Repositories\TroopsRepository;
 use App\Services\OccupationService;
 use Carbon\Carbon;
@@ -22,34 +21,20 @@ class Schedule extends AbstractSchedule
 
 {
     /*
-     * The number of academic hours per day.
+     * The number of academic hours for lessons
      * @var int
      */
-    private $dayLength = 6;
-
-    /**
-     * The term length in weeks
-     * @var int
-     */
-    private $termLength = 18;
-
-    /**
-     * @var TroopsRepository
-     */
-    private $troopsRepository;
+    private $lessonsHours = 6;
 
     /**
      * @var OccupationService
      */
     private $occupationService;
 
-
     /**
      * @var DisciplinesRepository
      */
     private $disciplinesRepository;
-
-    private $teachersRepository;
 
     /**
      * @var Collection
@@ -59,85 +44,76 @@ class Schedule extends AbstractSchedule
 
     /**
      * Schedule constructor.
+     *
      * @param TroopsRepository $troopsRepository
      * @param OccupationService $occupationService
      * @param DisciplinesRepository $disciplinesRepository
      * @param OccupationsRepository $occupationsRepository
-     * @param TeachersRepository $teachersRepository
      */
     public function __construct
     (
-        TroopsRepository $troopsRepository, OccupationService $occupationService,
-        DisciplinesRepository $disciplinesRepository, OccupationsRepository $occupationsRepository,
-        TeachersRepository $teachersRepository
+        OccupationService $occupationService,
+        DisciplinesRepository $disciplinesRepository, OccupationsRepository $occupationsRepository
     )
     {
-        $this->troopsRepository = $troopsRepository;
         $this->occupationService = $occupationService;
         $this->disciplinesRepository = $disciplinesRepository;
-        $this->teachersRepository = $teachersRepository;
 
 
         $this->schedule = $occupationsRepository->all();
     }
 
-
-    public function buildSchedule()
+    /**
+     * @param Collection $troops
+     * @param Carbon $date
+     * @param $termLength
+     * @param $term
+     */
+    public function buildSchedule(Collection $troops,Carbon $date, $termLength, $term)
     {
-        $date = Carbon::parse('2016-02-01');
-
-        for($i = 0; $i < $this->termLength; $i++, $date->addWeek())
+        for($i = 0; $i < $termLength; $i++, $date->addWeek())
         {
-            $this->troopsRepository->all()->each(function(Troop $troop) use($date){
+            $troops->each(function(Troop $troop) use($date, $term){
                 $date->startOfWeek();
                 $date->addDays($troop->day);
                 $hours = 0;
 
-                while($hours != $this->dayLength) {
+                while($hours != $this->lessonsHours) {
+                    $disciplines = $this->getPriorityDisciplinesList($troop, $term);
 
-                    $disciplines = $this->getPriorityDisciplinesList($troop);
                     $theme = null;
                     $teachers = null;
                     $audiences = null;
 
                     while(1)
                     {
-                        $discipline = $disciplines->first();
-                        if($discipline->ratio == 1)
+                        if($disciplines->first()->ratio == 1)
                             break 2;
 
-                        $theme = $discipline->themes
-                            ->sortBy('number')
-                            ->first(function ($key, Theme $theme) use ($troop, $date) {
-                                return !$this->schedule->where('theme_id', $theme->id)->contains('troop_id', $troop->id);
-                            });
+                        if(!$disciplines->count())
+                            break 2;
 
-                        if(($hours + $theme->duration) > 6)
+                        $theme = $this->getNextTheme($disciplines->first(), $troop, $term);
+
+                        var_dump($disciplines->first()->ratio);
+                        if(($hours + $theme->duration) > $this->lessonsHours)
                         {
                             $disciplines->shift();
+                            continue;
                         }
 
-                        else if($disciplines->count() === 0)
-                        {
-                            break 2;
-                        }
+
+                        $teachers = $this->findFreeTeachers($theme, $hours, $date, $troop);
+                        $teachers->splice($theme->teachers_count);
+
+                        $audiences = $this->findFreeAudiences($theme, $hours, $date, $troop);
+                        $audiences->splice($theme->audiences_count);
+
+                        if($teachers->count() < $theme->teachers_count || $audiences->count() < $theme->audiences_count)
+                            $disciplines->shift();
 
                         else
-                        {
-                            $teachers = $this->findFreeTeachers($theme, $hours, $date, $troop);
-                            $teachers->splice($theme->teachers_count);
-
-                            $audiences = $this->findFreeAudiences($theme, $hours, $date, $troop);
-                            $audiences->splice($theme->audiences_count);
-
-                            if($teachers->count() < $theme->teachers_count || $audiences->count() < $theme->audiences_count)
-                                $disciplines->shift();
-
-                            else {
-                                break;
-                            }
-                        }
-
+                            break;
                     }
 
 
@@ -154,9 +130,19 @@ class Schedule extends AbstractSchedule
                 }
             });
         }
-
-        $this->schedule->sortBy('date_of');
+        
         $this->pushScheduleToDB();
+    }
+
+    protected function getNextTheme(Discipline $discipline, Troop $troop, $term)
+    {
+        return $discipline
+            ->themes
+            ->where('term', $term)
+            ->sortBy('number')
+            ->first(function ($key, Theme $theme) use ($troop) {
+                return !$this->schedule->where('theme_id', $theme->id)->contains('troop_id', $troop->id);
+            });
     }
 
     /**
@@ -173,16 +159,19 @@ class Schedule extends AbstractSchedule
 
     /**
      * @param Troop $troop
-     * @return Collection
+     * @param $term
+     * @return mixed
      */
-    protected function getPriorityDisciplinesList(Troop $troop)
+    protected function getPriorityDisciplinesList(Troop $troop, $term)
     {
-        $disciplines = $troop->specialty
-            ->disciplines->each(function(Discipline $discipline) use($troop){
+        $disciplines = $troop
+            ->specialty
+            ->disciplines->each(function(Discipline &$discipline) use($troop, $term){
                 $totalHours = $discipline->hoursSum;
                 $currentHours = 0;
 
                 $discipline->themes
+                    ->where('term', $term)
                     ->each(function(Theme $theme) use(&$currentHours, $troop){
                         if($this->schedule->where('theme_id', $theme->id)->contains('troop_id', $troop->id))
                         {
@@ -197,8 +186,12 @@ class Schedule extends AbstractSchedule
     }
 
     /**
-     * @param Occupation $occupation
-     * @return \Illuminate\Support\Collection
+     * @param Theme $theme
+     * @param $initialHour
+     * @param Carbon $date
+     * @param Troop $troop
+     *
+     * @return Collection
      */
     protected function findFreeTeachers(Theme $theme, $initialHour, Carbon $date, Troop $troop)
     {
@@ -285,9 +278,7 @@ class Schedule extends AbstractSchedule
 
     protected function pushScheduleToDB()
     {
-        var_dump($this->schedule->count());
-
-        $this->schedule->each(function(Occupation $occupation){
+        $this->schedule->sortBy('date_of')->each(function(Occupation $occupation){
             $teachers = new EloquentCollection($occupation->teachers);
             $audiences = new EloquentCollection($occupation->audiences);
 
