@@ -16,6 +16,4 @@ interface OccupationsRepository extends RepositoryInterface
     public function findByDate($date);
 
     public function findByTroopAndDate(Troop $troop, Carbon $date);
-
-    public function findByTeacherAndPeriod(Teacher $teacher, Carbon $from, Carbon $to);
 }

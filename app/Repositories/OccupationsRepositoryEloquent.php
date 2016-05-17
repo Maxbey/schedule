@@ -56,14 +56,4 @@ class OccupationsRepositoryEloquent extends Repository implements OccupationsRep
             ['date_of', '=', $date->toDateTimeString()]
         ]);
     }
-
-    public function findByTeacherAndPeriod(Teacher $teacher, Carbon $from, Carbon $to)
-    {
-        return $this->findWhere([
-            ['date_of', '>=', $from->toDateString()],
-            ['date_of', '<=', $to->toDateString()]
-        ])->filter(function(Occupation $occupation) use ($teacher){
-            return $occupation->teachers->contains('name', $teacher->name);
-        });
-    }
 }

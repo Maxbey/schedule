@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Entities\Teacher;
 use App\Excel\ScheduleExport;
 use App\Repositories\OccupationsRepository;
+use App\Repositories\TeachersRepository;
 use App\Repositories\TroopsRepository;
 use App\Schedule\Schedule;
 use Carbon\Carbon;
@@ -20,7 +21,7 @@ class ScheduleController extends Controller
      */
     protected $troopsRepository;
 
-    protected $occupationsRepository;
+    protected $teachersRepository;
 
     /**
      * @var Schedule
@@ -29,30 +30,48 @@ class ScheduleController extends Controller
 
     /**
      * ScheduleController constructor.
+     *
      * @param Schedule $schedule
      * @param TroopsRepository $troopsRepository
+     * @param TeachersRepository $teachersRepository
      */
-    public function __construct(Schedule $schedule, TroopsRepository $troopsRepository, OccupationsRepository $occupationsRepository)
+    public function __construct(Schedule $schedule, TroopsRepository $troopsRepository, TeachersRepository $teachersRepository)
     {
         $this->troopsRepository = $troopsRepository;
-        $this->occupationsRepository = $occupationsRepository;
+        $this->teachersRepository = $teachersRepository;
 
         $this->schedule = $schedule;
     }
 
     public function index()
     {
-        $o = $this->occupationsRepository->findByTeacherAndPeriod(Teacher::find(3), Carbon::parse('2016-02-01'), Carbon::parse('2016-03-01'));
-
-        dd($o->toArray());
-        /*$troops = $this->troopsRepository->all();
+        $troops = $this->troopsRepository->all();
         $startDate = Carbon::parse('2016-02-01');
 
-        $this->schedule->buildSchedule($troops, $startDate, 20, 4);*/
+        $this->schedule->buildSchedule($troops, $startDate, 20, 4);
     }
 
     public function export(ScheduleExport $export)
     {
         $export->handleExport();
+    }
+
+    public function teachersLoadStatistics(Request $request)
+    {
+        $from = Carbon::parse($request->input('from'));
+        $to = Carbon::parse($request->input('to'));
+
+        $arr = [];
+
+        $this->teachersRepository->all()->each(function(Teacher $teacher) use (&$arr, $from, $to){
+            $sum = $teacher->getHoursForPeriod($from, $to);
+
+            $arr[$teacher->name] = [
+                'absolute' => $sum,
+                'relatively' => $sum / $teacher->work_hours_limit
+            ];
+        });
+
+        return $arr;
     }
 }

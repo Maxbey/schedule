@@ -110,8 +110,8 @@ class TeachersController extends Controller
     {
         $teacher = $this->teachersRepository->find($id);
 
-        return $this->occupationsRepository->setPresenter('App\Presenters\OccupationPresenter')
-            ->findByTeacherAndPeriod($teacher, Carbon::parse($request->input('from')), Carbon::parse($request->input('to')));
+        return $teacher
+            ->getOccupationsForPeriod(Carbon::parse($request->input('from'), $request->input('to')));
     }
 
     /**
