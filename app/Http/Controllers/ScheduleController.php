@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Teacher;
 use App\Excel\ScheduleExport;
+use App\Repositories\OccupationsRepository;
 use App\Repositories\TroopsRepository;
 use App\Schedule\Schedule;
 use Carbon\Carbon;
@@ -18,6 +20,8 @@ class ScheduleController extends Controller
      */
     protected $troopsRepository;
 
+    protected $occupationsRepository;
+
     /**
      * @var Schedule
      */
@@ -28,19 +32,23 @@ class ScheduleController extends Controller
      * @param Schedule $schedule
      * @param TroopsRepository $troopsRepository
      */
-    public function __construct(Schedule $schedule, TroopsRepository $troopsRepository)
+    public function __construct(Schedule $schedule, TroopsRepository $troopsRepository, OccupationsRepository $occupationsRepository)
     {
         $this->troopsRepository = $troopsRepository;
+        $this->occupationsRepository = $occupationsRepository;
 
         $this->schedule = $schedule;
     }
 
     public function index()
     {
-        $troops = $this->troopsRepository->all();
+        $o = $this->occupationsRepository->findByTeacherAndPeriod(Teacher::find(3), Carbon::parse('2016-02-01'), Carbon::parse('2016-03-01'));
+
+        dd($o->toArray());
+        /*$troops = $this->troopsRepository->all();
         $startDate = Carbon::parse('2016-02-01');
 
-        $this->schedule->buildSchedule($troops, $startDate, 20, 4);
+        $this->schedule->buildSchedule($troops, $startDate, 20, 4);*/
     }
 
     public function export(ScheduleExport $export)

@@ -127,6 +127,13 @@ class OccupationsController extends Controller
     }
 
 
+    /**
+     * Return json of occupations with given troop and date
+     *
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function findByTroopAndDate($id, Request $request)
     {
         $troop = $this->troopsRepository->find($id);

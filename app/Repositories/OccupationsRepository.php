@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Entities\Teacher;
 use App\Entities\Troop;
 use App\Repositories\RepositoryInterface;
 use Carbon\Carbon;
@@ -15,4 +16,6 @@ interface OccupationsRepository extends RepositoryInterface
     public function findByDate($date);
 
     public function findByTroopAndDate(Troop $troop, Carbon $date);
+
+    public function findByTeacherAndPeriod(Teacher $teacher, Carbon $from, Carbon $to);
 }

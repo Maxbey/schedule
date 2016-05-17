@@ -114,6 +114,10 @@ $api->group([], function ($api) {
 });
 
 $api->group([], function ($api) {
+    $api->get('teachers/{id}/occupations', 'TeachersController@findByTeacherAndPeriod');
+});
+
+$api->group([], function ($api) {
   $api->get('troops', 'TroopsController@index');
   $api->get('troops/{id}/occupations', 'OccupationsController@findByTroopAndDate');
 });

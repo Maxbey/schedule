@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Entities\Teacher;
 use App\Http\Requests\TeacherRequest;
+use App\Repositories\OccupationsRepository;
 use App\Repositories\TeachersRepository;
 use App\Services\TeacherService;
 use App\Services\ThemeService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -18,6 +20,11 @@ class TeachersController extends Controller
      * @var TeachersRepository
      */
     protected $teachersRepository;
+
+    /**
+     * @var OccupationsRepository
+     */
+    protected $occupationsRepository;
 
     /**
      * @var TeacherService
@@ -35,18 +42,21 @@ class TeachersController extends Controller
      * @param TeachersRepository $teachersRepository
      * @param TeacherService $teacherService
      * @param ThemeService $themeService
+     * @param OccupationsRepository $occupationsRepository\
      */
     public function __construct
     (
         TeachersRepository $teachersRepository,
         TeacherService $teacherService,
-        ThemeService $themeService
+        ThemeService $themeService,
+        OccupationsRepository $occupationsRepository
     )
     {
         $this->teacherService = $teacherService;
         $this->themeService = $themeService;
 
         $this->teachersRepository = $teachersRepository;
+        $this->occupationsRepository = $occupationsRepository;
         $this->teachersRepository->setPresenter('App\Presenters\TeacherPresenter');
     }
 
@@ -63,7 +73,7 @@ class TeachersController extends Controller
     /**
      * Store a newly created Teacher in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param TeacherRequest
      * @return \Illuminate\Http\Response
      */
     public function store(TeacherRequest $request)
@@ -90,11 +100,24 @@ class TeachersController extends Controller
     }
 
     /**
-     * Update the specified resource in Teacher.
+     * Return json of occupations by given teacher and date period
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param $id
+     * @param Request $request
      * @return \Illuminate\Http\Response
+     */
+    public function findByTeacherAndPeriod($id, Request $request)
+    {
+        $teacher = $this->teachersRepository->find($id);
+
+        return $this->occupationsRepository->setPresenter('App\Presenters\OccupationPresenter')
+            ->findByTeacherAndPeriod($teacher, Carbon::parse($request->input('from')), Carbon::parse($request->input('to')));
+    }
+
+    /**
+     * @param TeacherRequest $request
+     * @param $id
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function update(TeacherRequest $request, $id)
     {

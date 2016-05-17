@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Entities\Discipline;
+use App\Entities\Teacher;
 use App\Entities\Troop;
 use App\Repositories\Additions\Restore;
 use App\Repositories\Additions\RestoreFunctionality;
@@ -54,5 +55,15 @@ class OccupationsRepositoryEloquent extends Repository implements OccupationsRep
             ['troop_id', '=', $troop->id],
             ['date_of', '=', $date->toDateTimeString()]
         ]);
+    }
+
+    public function findByTeacherAndPeriod(Teacher $teacher, Carbon $from, Carbon $to)
+    {
+        return $this->findWhere([
+            ['date_of', '>=', $from->toDateString()],
+            ['date_of', '<=', $to->toDateString()]
+        ])->filter(function(Occupation $occupation) use ($teacher){
+            return $occupation->teachers->contains('name', $teacher->name);
+        });
     }
 }
