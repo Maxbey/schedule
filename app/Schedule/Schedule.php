@@ -85,6 +85,7 @@ class Schedule extends AbstractSchedule
                     $teachers = null;
                     $audiences = null;
 
+
                     while(1)
                     {
                         if($disciplines->first()->ratio == 1)
@@ -95,8 +96,25 @@ class Schedule extends AbstractSchedule
 
                         $theme = $this->getNextTheme($disciplines->first(), $troop, $term);
 
-                        var_dump($disciplines->first()->ratio);
+                        if(!$theme)
+                        {
+                            $disciplines->shift();
+                            continue;
+                        }
+
                         if(($hours + $theme->duration) > $this->lessonsHours)
+                        {
+                            $disciplines->shift();
+                            continue;
+                        }
+
+                        if(!$this->checkPrevThemes($theme, $troop))
+                        {
+                            $disciplines->shift();
+                            continue;
+                        }
+
+                        if($this->getOccupationsInSameTime($theme, $hours, $date, $troop)->contains('theme_id', $theme->id))
                         {
                             $disciplines->shift();
                             continue;
@@ -143,6 +161,24 @@ class Schedule extends AbstractSchedule
             ->first(function ($key, Theme $theme) use ($troop) {
                 return !$this->schedule->where('theme_id', $theme->id)->contains('troop_id', $troop->id);
             });
+    }
+
+    protected function checkPrevThemes(Theme $theme, Troop $troop)
+    {
+        $result = true;
+        $allOccupations = $this->schedule->where('troop_id', $troop->id);
+
+        $prevThemes = $theme->prevThemes;
+
+        if(!$prevThemes->count())
+            return true;
+
+        $prevThemes->each(function(Theme $prevTheme) use($allOccupations, &$result){
+            if(!$allOccupations->contains('theme_id', $prevTheme->id))
+                $result = false;
+        });
+
+        return $result;
     }
 
     /**

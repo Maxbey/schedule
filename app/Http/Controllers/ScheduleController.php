@@ -40,7 +40,7 @@ class ScheduleController extends Controller
         $troops = $this->troopsRepository->all();
         $startDate = Carbon::parse('2016-02-01');
 
-        $this->schedule->buildSchedule($troops, $startDate, 18, 4);
+        $this->schedule->buildSchedule($troops, $startDate, 20, 4);
     }
 
     public function export(ScheduleExport $export)
