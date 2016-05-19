@@ -1,5 +1,22 @@
 <md-content class="Page-Container" ng-controller="ManagementDashController as vm">
-  <h1>Management dashboard</h1>
+    <h1 class="md-title" layout-padding>Статистика нагрузки</h1>
+    <md-subheader>Временной диапазон</md-subheader>
+    <md-datepicker ng-model="vm.from" md-placeholder="Начиная с"></md-datepicker>
+    <md-datepicker ng-model="vm.to" md-placeholder="По"></md-datepicker>
+  <div layout="row" ng-if="vm.chartsReady">
+    <div flex="49" class="">
+    <h1 class="md-title" layout-padding>Суммарное количество часов</h1>
+    <canvas id="ba" class="chart chart-bar"
+      chart-data="vm.absolute.data" chart-labels="vm.absolute.labels">
+    </canvas>
+    </div>
 
-  
+    <div flex="49" class="">
+      <h1 class="md-title" layout-padding>Коэффициент нагрузки</h1>
+      <canvas id="ba" class="chart chart-bar"
+        chart-data="vm.relatively.data" chart-labels="vm.relatively.labels">
+      </canvas>
+    </div>
+  </div>
+
 </md-content>

@@ -66,12 +66,13 @@ class ScheduleController extends Controller
         $this->teachersRepository->all()->each(function(Teacher $teacher) use (&$arr, $from, $to){
             $sum = $teacher->getHoursForPeriod($from, $to);
 
-            $arr[$teacher->name] = [
+            $arr[] = [
+                'name' => $teacher->name,
                 'absolute' => $sum,
-                'relatively' => $sum / $teacher->work_hours_limit
+                'relatively' => round($sum / $teacher->work_hours_limit, 3)
             ];
         });
 
-        return $arr;
+        return ['data' => $arr];
     }
 }

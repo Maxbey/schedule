@@ -46,7 +46,8 @@
 		'ui.router', 'ngMaterial', 'ngStorage',
 		'restangular', 'angular-loading-bar',
 		'ngMessages', 'materialCalendar',
-		'angular-locker', 'validation.match'
+		'angular-locker', 'validation.match',
+		'chart.js'
 	]);
 	angular.module('app.filters', []);
 	angular.module('app.services', []);
