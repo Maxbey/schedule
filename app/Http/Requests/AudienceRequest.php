@@ -24,7 +24,7 @@ class AudienceRequest extends Request
     public function rules()
     {
         return [
-            'location' => 'required|string|min:3|unique:audiences,location',
+            'location' => 'required|string|min:3',
             'purpose'  => 'required|string|min:3'
         ];
     }

@@ -3,11 +3,13 @@
 
     angular.module('app.controllers').controller('ManagementDashController', ManagementDashController);
 
-    function ManagementDashController(API, $scope, $timeout){
+    function ManagementDashController(API, $scope, $timeout, ToastService){
         var vm = this;
         vm.chartsReady = false;
+        vm.loading = false;
 
         var loadCharts = function(dateFrom, dateTo){
+          vm.loading = true;
           API.all('schedule/teachers-stat').getList({
             from: dateFrom,
             to: dateTo
@@ -41,17 +43,22 @@
 
             $timeout(function() {
               $scope.$apply();
-              console.log("here");
             });
 
             vm.chartsReady = true;
+            vm.loading = false;
           });
         };
 
-        $scope.$watchGroup(['vm.from', 'vm.to'], function(dates){
-          if(angular.isDefined(dates[0]) && angular.isDefined(dates[1]))
+        vm.loadCharts = function(){
+          if(angular.isDefined(vm.from) && angular.isDefined(vm.to))
             loadCharts(vm.from.toISOString().split('T')[0], vm.to.toISOString().split('T')[0]);
-        });
+          else {
+            {
+              ToastService.show("Укажите временной диапазон");
+            }
+          }
+        };
 
 
 

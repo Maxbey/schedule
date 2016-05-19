@@ -3,6 +3,7 @@
     <md-subheader>Временной диапазон</md-subheader>
     <md-datepicker ng-model="vm.from" md-placeholder="Начиная с"></md-datepicker>
     <md-datepicker ng-model="vm.to" md-placeholder="По"></md-datepicker>
+    <md-button class="md-raised" ng-disabled="vm.loading" ng-click="vm.loadCharts()">Загрузить данные</md-button>
   <div layout="row" ng-if="vm.chartsReady">
     <div flex="49" class="">
     <h1 class="md-title" layout-padding>Суммарное количество часов</h1>

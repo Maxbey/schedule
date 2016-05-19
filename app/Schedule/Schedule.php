@@ -120,11 +120,12 @@ class Schedule extends AbstractSchedule
                             continue;
                         }
 
+                        $inSameTime = $this->getOccupationsInSameTime($theme, $hours, $date, $troop);
 
-                        $teachers = $this->findFreeTeachers($theme, $hours, $date, $troop);
+                        $teachers = $this->findFreeTeachers($theme, $inSameTime);
                         $teachers->splice($theme->teachers_count);
 
-                        $audiences = $this->findFreeAudiences($theme, $hours, $date, $troop);
+                        $audiences = $this->findFreeAudiences($theme, $inSameTime);
                         $audiences->splice($theme->audiences_count);
 
                         if($teachers->count() < $theme->teachers_count || $audiences->count() < $theme->audiences_count)
@@ -223,15 +224,11 @@ class Schedule extends AbstractSchedule
 
     /**
      * @param Theme $theme
-     * @param $initialHour
-     * @param Carbon $date
-     * @param Troop $troop
-     *
+     * @param Collection $inSameTime
      * @return Collection
      */
-    protected function findFreeTeachers(Theme $theme, $initialHour, Carbon $date, Troop $troop)
+    protected function findFreeTeachers(Theme $theme, Collection $inSameTime)
     {
-        $inSameTime = $this->getOccupationsInSameTime($theme, $initialHour, $date, $troop);
         $freeTeachers = collect();
 
         $theme->teachers->each(function(Teacher $teacher) use(&$freeTeachers, $inSameTime){
@@ -265,12 +262,12 @@ class Schedule extends AbstractSchedule
     }
 
     /**
-     * @param Occupation $occupation
+     * @param Theme $theme
+     * @param Collection $inSameTime
      * @return Collection
      */
-    protected function findFreeAudiences(Theme $theme, $initialHour, Carbon $date, Troop $troop)
+    protected function findFreeAudiences(Theme $theme, Collection $inSameTime)
     {
-        $inSameTime = $this->getOccupationsInSameTime($theme, $initialHour, $date, $troop);
         $freeAudiences = collect();
 
         $theme->audiences->each(function(Audience $audience) use(&$freeAudiences, $inSameTime){
