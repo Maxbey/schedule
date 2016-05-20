@@ -6,6 +6,7 @@ use App\Entities\Teacher;
 use App\Excel\ScheduleExport;
 use App\Repositories\OccupationsRepository;
 use App\Repositories\TeachersRepository;
+use App\Repositories\TermsRepository;
 use App\Repositories\TroopsRepository;
 use App\Schedule\Schedule;
 use Carbon\Carbon;
@@ -21,7 +22,12 @@ class ScheduleController extends Controller
      */
     protected $troopsRepository;
 
+    /**
+     * @var TeachersRepository
+     */
     protected $teachersRepository;
+
+    protected $termsRepository;
 
     /**
      * @var Schedule
@@ -30,21 +36,32 @@ class ScheduleController extends Controller
 
     /**
      * ScheduleController constructor.
-     *
      * @param Schedule $schedule
      * @param TroopsRepository $troopsRepository
      * @param TeachersRepository $teachersRepository
+     * @param TermsRepository $termsRepository
      */
-    public function __construct(Schedule $schedule, TroopsRepository $troopsRepository, TeachersRepository $teachersRepository)
+    public function __construct
+    (
+        Schedule $schedule,
+        TroopsRepository $troopsRepository,
+        TeachersRepository $teachersRepository,
+        TermsRepository $termsRepository
+    )
     {
         $this->troopsRepository = $troopsRepository;
         $this->teachersRepository = $teachersRepository;
+        $this->termsRepository = $termsRepository;
+
+        $this->termsRepository->setPresenter('App\Presenters\TermPresenter');
 
         $this->schedule = $schedule;
     }
 
-    public function index()
+    public function createSchedule(Request $request)
     {
+        $this->termsRepository->create($request->all());
+
         $troops = $this->troopsRepository->all();
         $startDate = Carbon::parse('2016-02-01');
 
