@@ -15,9 +15,9 @@
 		'$rootScope', '$state', '$stateParams', 'AuthService',
 		function($rootScope, $state, $stateParams, AuthService){
 			$rootScope.$state = $state;
-    	$rootScope.$stateParams = $stateParams;
+			$rootScope.$stateParams = $stateParams;
 
-			$rootScope.$on('$stateChangeStart',
+			var deregistrationCallback = $rootScope.$on('$stateChangeStart',
       function(event, toState){
 				if(!toState.data || !toState.data.noLogin)
 				{
@@ -37,6 +37,8 @@
 				}
       }
     );
+
+		$rootScope.$on('$destroy', deregistrationCallback);
 
 		}
 	]);

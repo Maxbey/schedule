@@ -3,13 +3,22 @@
 
     angular.module('app.controllers').controller('ManagementDashController', ManagementDashController);
 
-    function ManagementDashController(API, $scope, $timeout, ToastService){
+    function ManagementDashController(API, TroopService, $window, $scope, $timeout, ToastService, SelectHelpersService){
         var vm = this;
+
         vm.chartsReady = false;
         vm.loading = false;
+        vm.troopsForExport = [];
+
+        var loadTroops = function(){
+          TroopService.all().then(function(troops){
+            vm.troops = troops;
+          });
+        };
 
         var loadCharts = function(dateFrom, dateTo){
           vm.loading = true;
+
           API.all('schedule/teachers-stat').getList({
             from: dateFrom,
             to: dateTo
@@ -60,8 +69,41 @@
           }
         };
 
+        function troopsQuerySearch(criteria){
+          return SelectHelpersService.querySearch(vm.troops, createFilterForTroops, criteria);
+        }
 
+        function createFilterForTroops(query) {
+          return SelectHelpersService.createFilter(query, 'code', vm.troopsForExport);
+        }
 
+        vm.troopsSearch = function(criteria){
+          if(!criteria)
+            return vm.troops.filter(SelectHelpersService.notAlreadySelectedFilter(vm.troopsForExport));
+
+          return troopsQuerySearch(criteria);
+        };
+
+        vm.export = function(){
+          if(vm.troopsForExport.length === 0)
+            return;
+
+          var troopsString = "";
+
+          angular.forEach(vm.troopsForExport, function(troop){
+            troopsString += troop.id + '|'
+          });
+
+          troopsString = troopsString.substring(0, troopsString.length - 1);
+
+            $window.open('api/schedule/export?troops=' + troopsString);
+        }
+
+        loadTroops();
     }
+
+
+
+
 
 })();

@@ -97,7 +97,7 @@ class ScheduleExportHandler
                 $row++;
             });
 
-        })->download('xls');
+        })->export('xlsx');
     }
 
     protected function formAudiencesString(Occupation $occupation)

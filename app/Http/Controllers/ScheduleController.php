@@ -10,6 +10,7 @@ use App\Repositories\TermsRepository;
 use App\Repositories\TroopsRepository;
 use App\Schedule\Schedule;
 use Carbon\Carbon;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;

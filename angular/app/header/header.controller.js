@@ -3,7 +3,7 @@
 
     angular.module('app.controllers').controller('HeaderController', HeaderController);
 
-    function HeaderController($state, $rootScope){
+    function HeaderController($state){
       var vm = this;
 
       vm.scheduleMenuItems = [

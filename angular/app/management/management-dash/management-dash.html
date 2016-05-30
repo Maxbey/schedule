@@ -14,10 +14,35 @@
 
     <div flex="49" class="">
       <h1 class="md-title" layout-padding>Коэффициент нагрузки</h1>
-      <canvas id="ba" class="chart chart-bar"
+      <canvas id="bar" class="chart chart-bar"
         chart-data="vm.relatively.data" chart-labels="vm.relatively.labels">
       </canvas>
     </div>
   </div>
+
+  <div layout="column" flex="50">
+    <h1 class="md-title" layout-padding>Экспорт расписания в Excell</h1>
+
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Для взводов</label>
+      <md-chips ng-model="vm.troopsForExport" md-autocomplete-snap md-require-match="true">
+          <md-autocomplete
+                           md-search-text="vm.troopQuery"
+                           md-items="troop in vm.troopsSearch(vm.troopQuery)"
+                           md-item-text="troop.code"
+                           md-min-length="0"
+                           md-no-cache="true"
+                           md-require-match="true">
+              <span md-highlight-text="vm.troopQuery">{{ troop.code }}</span>
+          </md-autocomplete>
+          <md-chip-template>
+              <span>{{ $chip.code}}</span>
+          </md-chip-template>
+      </md-chips>
+    </md-input-container>
+      <md-button class="md-raised" ng-click="vm.export()">Экспорт</md-button>
+
+  </div>
+
 
 </md-content>

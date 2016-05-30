@@ -11,7 +11,7 @@ use App\Entities\Term;
  * Class TermRepositoryEloquent
  * @package namespace App\Repositories;
  */
-class TermsRepositoryEloquent extends BaseRepository implements TermsRepository
+class TermsRepositoryEloquent extends Repository implements TermsRepository
 {
     /**
      * Specify Model class name

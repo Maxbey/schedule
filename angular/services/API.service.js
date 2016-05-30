@@ -14,9 +14,15 @@
 				.setBaseUrl('/api/')
 				.setDefaultHeaders(headers)
 				.addResponseInterceptor(function(data) {
-					var extractedData = data.data;
+					if(angular.isString(data))
+					{
+						var arr = [];
+						arr['data'] = data;
 
-					return extractedData;
+						return arr;
+					}
+
+					return data.data;
 				})
 				.setErrorInterceptor(function(response) {
 					if (response.status === 422
