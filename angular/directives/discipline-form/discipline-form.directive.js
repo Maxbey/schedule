@@ -3,7 +3,7 @@
 
     angular.module('app.controllers').controller('DisciplineFormController', DisciplineFormController);
 
-    function DisciplineFormController($scope, $state, SpecialtyService, DisciplineService, CollectionHelpersService, ToastService, DialogService){
+    function DisciplineFormController($scope, $state, SpecialtyService, DisciplineService, SelectHelpersService, ToastService, DialogService){
         var vm = this;
 
         vm.discipline = $scope.discipline;
@@ -51,26 +51,16 @@
           });
         };
 
-        function notAlreadySelectedFilter(){
-          return function filterFn(specialty) {
-            var notAlreadySelected = CollectionHelpersService.exists(vm.discipline.specialties.data, specialty.id) === false;
-            return notAlreadySelected;
-          };
-        }
 
         function createFilterFor(query) {
-          return function filterFn(specialty) {
-            var matchTheCode = specialty.code.indexOf(query) != -1;
-            var notAlreadySelected = CollectionHelpersService.exists(vm.discipline.specialties.data, specialty.id) === false;
-            return (matchTheCode && notAlreadySelected);
-          };
+          return SelectHelpersService.createFilter(query, 'code', vm.discipline.specialties.data);
         }
 
         vm.querySearch = function (criteria) {
           if(!criteria)
-            return vm.specialties.filter(notAlreadySelectedFilter());
-          var cachedQuery = cachedQuery || criteria;
-          return cachedQuery ? vm.specialties.filter(createFilterFor(cachedQuery)) : [];
+            return vm.specialties.filter(SelectHelpersService.notAlreadySelectedFilter(vm.discipline.specialties.data));
+
+          return vm.specialties.filter(createFilterFor(criteria));
         }
     }
 

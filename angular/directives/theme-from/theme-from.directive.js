@@ -3,7 +3,7 @@
 
     angular.module('app.controllers').controller('ThemeFromController', ThemeFromController);
 
-    function ThemeFromController($scope, $state, $stateParams, CollectionHelpersService, TeacherService, AudienceService, ThemeService, ToastService, DialogService){
+    function ThemeFromController($scope, $state, $stateParams, SelectHelpersService, TeacherService, AudienceService, ThemeService, ToastService, DialogService){
         var vm = this;
 
         vm.theme = $scope.theme;
@@ -26,46 +26,30 @@
 
         vm.teachersSearch = function(criteria){
           if(!criteria)
-            return vm.teachers.filter(notAlreadySelectedFilter(vm.theme.teachers.data));
-          return querySearch(criteria, 0);
+            return vm.teachers.filter(SelectHelpersService.notAlreadySelectedFilter(vm.theme.teachers.data));
+          return teachersQuerySearch(criteria);
         };
 
         vm.audiencesSearch = function(criteria){
           if(!criteria)
-            return vm.audiences.filter(notAlreadySelectedFilter(vm.theme.audiences.data));
-          return querySearch(criteria, 1);
+            return vm.audiences.filter(SelectHelpersService.notAlreadySelectedFilter(vm.theme.audiences.data));
+          return audiencesQuerySearch(criteria);
         };
 
-        function notAlreadySelectedFilter(collection){
-          return function filterFn(item) {
-            var notAlreadySelected = CollectionHelpersService.exists(collection, item.id) === false;
-            return notAlreadySelected;
-          };
-        }
-
         function createFilterForTeachers(query){
-          return function filterFn(teacher){
-            var matchTheName = teacher.name.indexOf(query) != -1;
-            var notAlreadySelected = CollectionHelpersService.exists(vm.theme.teachers.data, teacher.id) === false;
-            return (matchTheName && notAlreadySelected);
-          };
+          SelectHelpersService.createFilter(query, 'name', vm.theme.teachers.data);
         }
 
         function createFilterForAudiences(query){
-          return function filterFn(audience){
-            var matchTheLocation = audience.location.indexOf(query) != -1;
-            var notAlreadySelected = CollectionHelpersService.exists(vm.theme.audiences.data, audience.id) === false;
-            return (matchTheLocation && notAlreadySelected);
-          };
+          SelectHelpersService.createFilter(query, 'location', vm.theme.audiences.data);
         }
 
-        function querySearch(criteria, type){
-          var cachedQuery = cachedQuery || criteria;
+        function audiencesQuerySearch(criteria){
+          return SelectHelpersService.querySearch(vm.audiences, createFilterForAudiences, criteria);
+        }
 
-          if(type === 0)
-            return cachedQuery ? vm.teachers.filter(createFilterForTeachers(cachedQuery)) : [];
-          else
-            return cachedQuery ? vm.audiences.filter(createFilterForAudiences(cachedQuery)) : [];
+        function teachersQuerySearch(criteria){
+          return SelectHelpersService.querySearch(vm.teachers, createFilterForTeachers, criteria);
         }
 
         function checkTeachersAdequacy(){

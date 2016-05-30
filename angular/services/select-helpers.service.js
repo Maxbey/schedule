@@ -8,11 +8,10 @@
     function SelectHelpersService(CollectionHelpersService){
 
       this.createFilter = function(query, property, model){
-        var lowercaseQuery = angular.lowercase(query);
 
         return function filterFn(entity) {
             var notAlreadySelected = CollectionHelpersService.exists(model, entity.id) === false;
-            var match = entity[property].indexOf(lowercaseQuery) === 0;
+            var match = angular.lowercase(entity[property]).indexOf(angular.lowercase(query)) === 0;
 
           return (match && notAlreadySelected);
         };

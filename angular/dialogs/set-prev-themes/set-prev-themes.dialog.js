@@ -4,7 +4,7 @@
     angular.module('app.controllers').controller('SetPrevThemesController', SetPrevThemesController);
 
 
-    function SetPrevThemesController(DialogService, DisciplineService, $scope, CollectionHelpersService){
+    function SetPrevThemesController(DialogService, DisciplineService, $scope, SelectHelpersService){
         var vm = this;
 
         vm.loading = true;
@@ -16,9 +16,7 @@
         });
 
         function disciplinesQuerySearch(criteria){
-          var cachedQuery = cachedQuery || criteria;
-
-          return cachedQuery ? vm.disciplines.filter(createFilterForDisciplines(cachedQuery)) : [];
+          return SelectHelpersService.querySearch(vm.disciplines, createFilterForDisciplines, criteria);
         }
 
         function themesQuerySearch(criteria){
@@ -28,28 +26,11 @@
         }
 
         function createFilterForDisciplines(query) {
-          var lowercaseQuery = angular.lowercase(query);
-          return function filterFn(discipline) {
-            return (discipline.full_name.indexOf(lowercaseQuery) === 0);
-          };
+          return SelectHelpersService.createFilter(query, 'full_name', []);
         }
 
         function createFilterForThemes(query){
-
-          return function filterFn(theme){
-            var matchTheName = theme.name.indexOf(query) != -1;
-            var notAlreadySelected = CollectionHelpersService.exists(vm.prevThemes, theme.id) === false;
-
-            return (matchTheName && notAlreadySelected);
-          };
-        }
-
-        function notAlreadySelectedFilter(){
-          return function filterFn(theme) {
-            var notAlreadySelected = CollectionHelpersService.exists(vm.prevThemes, theme.id) === false;
-
-            return notAlreadySelected;
-          };
+          return SelectHelpersService.createFilter(query, 'name', vm.prevThemes);
         }
 
         vm.disciplinesSearch = function(criteria){
@@ -60,7 +41,7 @@
 
         vm.themesSearch = function(criteria){
           if(!criteria)
-            return vm.avaliableThemes.filter(notAlreadySelectedFilter());
+            return vm.avaliableThemes.filter(SelectHelpersService.notAlreadySelectedFilter(vm.prevThemes));
           return themesQuerySearch(criteria);
         };
 

@@ -3,7 +3,7 @@
 
     angular.module('app.controllers').controller('SpecialtyFormController', SpecialtyFormController);
 
-    function SpecialtyFormController($scope, $state, DisciplineService, DialogService, CollectionHelpersService, ToastService, SpecialtyService){
+    function SpecialtyFormController($scope, $state, DisciplineService, DialogService, SelectHelpersService, ToastService, SpecialtyService){
         var vm = this;
 
         vm.specialty = $scope.specialty;
@@ -51,26 +51,15 @@
           });
         };
 
-        function notAlreadySelectedFilter(){
-          return function filterFn(discipline) {
-            var notAlreadySelected = CollectionHelpersService.exists(vm.specialty.disciplines.data, discipline.id) === false;
-            return notAlreadySelected;
-          };
-        }
-
         function createFilterFor(query) {
-          return function filterFn(discipline) {
-            var matchTheShortName = discipline.short_name.indexOf(query) != -1;
-            var notAlreadySelected = CollectionHelpersService.exists(vm.specialty.disciplines.data, discipline.id) === false;
-            return (matchTheShortName && notAlreadySelected);
-          };
+          return SelectHelpersService.createFilter(query, 'short_name', vm.specialty.disciplines.data);
         }
 
         vm.querySearch = function (criteria) {
           if(!criteria)
-            return vm.disciplines.filter(notAlreadySelectedFilter());
-          var cachedQuery = cachedQuery || criteria;
-          return cachedQuery ? vm.disciplines.filter(createFilterFor(cachedQuery)) : [];
+            return vm.disciplines.filter(SelectHelpersService.notAlreadySelectedFilter(vm.specialty.disciplines.data));
+
+          return vm.disciplines.filter(createFilterFor(criteria));
         }
     }
 
