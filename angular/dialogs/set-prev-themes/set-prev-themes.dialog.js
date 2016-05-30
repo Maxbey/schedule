@@ -7,10 +7,12 @@
     function SetPrevThemesController(DialogService, DisciplineService, $scope, CollectionHelpersService){
         var vm = this;
 
+        vm.loading = true;
         vm.prevThemes = $scope.prevThemes;
 
         DisciplineService.all().then(function(disciplines){
           vm.disciplines = disciplines;
+          vm.loading = false;
         });
 
         function disciplinesQuerySearch(criteria){
@@ -65,8 +67,10 @@
         vm.loadDisciplineThemes = function(discipline){
           if(!discipline)
             return;
+            vm.loading = true;
           DisciplineService.get(discipline.id).then(function(discipline){
             vm.avaliableThemes = discipline.themes.data;
+            vm.loading = false;
           });
         };
 

@@ -5,9 +5,11 @@
 
     function UserDashController($scope, TroopService){
         var vm = this;
+        vm.loading = true;
 
         TroopService.all().then(function(troops){
           vm.troops = troops;
+          vm.loading = false;
         });
 
         function themesQuerySearch(criteria){
@@ -27,10 +29,6 @@
           if(!criteria)
             return vm.troops;
           return themesQuerySearch(criteria);
-        };
-
-        vm.loadOccupations = function(troop){
-
         };
 
         vm.formTeachersString = function(occupation){
@@ -64,8 +62,10 @@
         $scope.$watch('vm.date', function(date){
           if(date)
           {
+            vm.loading = true;
             vm.troop.customGET('occupations', {date_of: date.toISOString().slice(0,10)}).then(function(occupations){
               vm.occupations = occupations;
+              vm.loading = false;
             });
           }
         });

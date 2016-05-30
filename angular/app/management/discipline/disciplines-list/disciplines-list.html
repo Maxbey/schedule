@@ -1,5 +1,12 @@
-<md-content class="Page-Container" ng-controller="DisciplinesListController as vm">
-  <h1 class="md-title" layout-padding>Администрирование учебных дисциплин</h1>
+<md-content flex layout="column" class="Page-Container" ng-controller="DisciplinesListController as vm">
+  <div layout="row">
+    <h1 class="md-title" layout-padding>Администрирование учебных дисциплин</h1>
+    <span flex="50"></span>
+    <md-input-container flex="15">
+        <label>Поиск дисциплин</label>
+       <input ng-model="vm.search">
+    </md-input-container>
+  </div>
 
   <md-toolbar class="md-theme-light">
     <div class="md-toolbar-tools">
@@ -10,9 +17,9 @@
       <md-button ng-href="management/disciplines/create" class="md-raised">Добавить</md-button>
     </div>
   </md-toolbar>
-  <md-content>
+  <md-content >
     <md-list>
-      <md-list-item class="secondary-button-padding" ng-repeat="discipline in vm.disciplines" ng-click="vm.details(discipline)">
+      <md-list-item class="secondary-button-padding" ng-repeat="discipline in vm.disciplines | filter:vm.search" ng-click="vm.details(discipline)">
         <div class="md-list-item-text">
           <h3 class="md-subhead">{{discipline.full_name}}</h3>
         </div>

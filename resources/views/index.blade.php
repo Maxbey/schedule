@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="app" ng-strict-di>
+<html ng-app="app">
 <head>
     <base href="/"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
@@ -11,10 +11,10 @@
     <script type="text/javascript">document.location.href = '/unsupported-browser'</script>
     <![endif]-->
 </head>
-<body layout="column" ng-cloak>
+<body layout="column" layout-fill>
 
     <div ui-view="header"></div>
-    <div ui-view="main"></div>
+    <md-content ui-view="main"></md-content>
 
     <script src="{!! asset('js/vendor.js') !!}"></script>
     <script src="{!! asset('js/partials.js') !!}"></script>

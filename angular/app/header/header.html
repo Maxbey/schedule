@@ -13,10 +13,8 @@
 				<h2 class="md-subhead">Расписание</h2>
 			</div>
 		</md-toolbar>
-
 		<md-subheader>Панели</md-subheader>
 		<md-divider></md-divider>
-		<md-content>
 			<md-list>
 				<md-list-item class="secondary-button-padding" ng-repeat="item in vm.dashboardsMenuItems" ng-click="vm.toggle();vm.go(item)">
 					<h4 class="md-subhead">{{ item.text }}</h4>
@@ -25,7 +23,7 @@
 
 		<md-subheader>Управление данными</md-subheader>
 		<md-divider></md-divider>
-		<md-content>
+
 			<md-list>
 				<md-list-item class="secondary-button-padding" ng-repeat="item in vm.scheduleMenuItems" ng-click="vm.toggle();vm.go(item)">
 					<h4 class="md-subhead">{{ item.text }}</h4>
@@ -39,6 +37,5 @@
 				<h4 class="md-subhead">{{ item.text }}</h4>
 			</md-list-item>
 		</md-list>
-		</md-content>
 	</md-sidenav>
 </div>

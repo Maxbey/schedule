@@ -62,5 +62,10 @@ class RepositoriesServiceProvider extends ServiceProvider
             'App\\Repositories\\UsersRepository',
             'App\\Repositories\\UsersRepositoryEloquent'
         );
+
+        $this->app->bind(
+            'App\\Repositories\\TermsRepository',
+            'App\\Repositories\\TermsRepositoryEloquent'
+        );
     }
 }

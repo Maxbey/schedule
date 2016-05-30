@@ -9,6 +9,7 @@
            md-items="discipline in vm.disciplinesSearch(vm.disciplineQuery)"
            md-item-text="discipline.full_name"
            md-min-length="0"
+           ng-disabled="vm.loading"
            placeholder="Фильтр дисциплин">
          <md-item-template>
            <span md-highlight-text="vm.disciplineQuery" md-highlight-flags="^i">{{discipline.full_name}}</span>
@@ -19,6 +20,7 @@
        <label>Выберите предшествующие темы</label>
        <md-chips ng-model="vm.prevThemes" md-autocomplete-snap md-require-match="true">
            <md-autocomplete
+                            ng-disabled="vm.loading"
                             md-search-text="vm.themeQuery"
                             md-items="theme in vm.themesSearch(vm.themeQuery)"
                             md-item-text="theme.name"

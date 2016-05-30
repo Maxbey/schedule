@@ -17,7 +17,9 @@
                   md-selected-item-change="vm.loadOccupations(vm.troop)"
                   md-item-text="troop.code"
                   md-min-length="0"
+                  ng-disabled="vm.loading"
                   placeholder="Укажите номер учебного взвода">
+
                   <span md-highlight-text="vm.troopQuery">{{ troop.code }}</span>
                 <md-not-found>
                   Учебный взвод с данным номером не найден

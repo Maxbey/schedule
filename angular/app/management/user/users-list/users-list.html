@@ -1,4 +1,4 @@
-<md-content class="Page-Container" ng-controller="UsersListController as vm">
+<md-content flex layout="column" class="Page-Container" ng-controller="UsersListController as vm">
   <h1 class="md-title" layout-padding>Администрирование пользователей системы</h1>
 
   <md-toolbar class="md-theme-light">
@@ -10,9 +10,9 @@
       <md-button ng-href="management/users/create" class="md-raised">Добавить</md-button>
     </div>
   </md-toolbar>
-  <md-content>
+  <md-content layout="column">
     <md-list>
-      <md-list-item class="secondary-button-padding" ng-repeat="user in vm.users">
+      <md-list-item class="secondary-button-padding" ng-repeat="user in vm.users" ng-click="null">
         <div class="md-list-item-text">
           <h3 class="md-subhead">{{ user.name }}</h3>
           <h4 class="md-subhead">{{ user.email }}</h4>
