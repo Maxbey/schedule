@@ -23,7 +23,7 @@
         <div class="md-list-item-text">
           <h3 class="md-subhead">{{troop.code}}</h3>
           <h4 class="md-subhead">{{troop.specialty}}</h4>
-          <p class="md-caption">{{ troop.day | DayOfWeek}}</p>
+          <p class="md-caption">{{ troop.term }} семестр, {{ troop.day | DayOfWeek}}</p>
         </div>
         <md-button class="md-secondary md-primary" ng-click="vm.edit(troop)">Редактировать</md-button>
 

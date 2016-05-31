@@ -34,6 +34,7 @@ class TroopTransformer extends TransformerAbstract
             'code' => $model->code,
             'day' => (int) $model->day,
             'specialty' => $model->specialtyCode,
+            'term' => $model->term,
             'specialty_id' => $model->specialty->id,
             'links' => [
                 'show' => route('api.troops.show', ['id' => $model->id]),

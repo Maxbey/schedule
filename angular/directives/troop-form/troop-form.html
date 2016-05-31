@@ -25,13 +25,26 @@
   <md-input-container class="md-block" flex-gt-sm>
     <label>День прихода</label>
     <md-select name="troopDay" required ng-model="vm.troop.day">
-            <md-option ng-repeat="day in vm.daysOfWeek" value="{{day.value}}">
-              {{ day.name }}
+            <md-option ng-repeat="day in [0, 1, 2, 3, 4]" value="{{ day }}">
+              {{ day | DayOfWeek }}
             </md-option>
     </md-select>
     <div ng-messages="troopForm.troopDay.$error" role="alert">
       <div ng-message-exp="['required']">
         Обязательно должен быть указан день прихода взвода
+      </div>
+    </div>
+  </md-input-container>
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Текущий семестр обучения</label>
+    <md-select required name="troopTerm" ng-model="vm.troop.term">
+            <md-option ng-repeat="term in [1, 2, 3, 4, 5, 6, 7]" ng-value="term">
+              {{ term }}
+            </md-option>
+    </md-select>
+    <div ng-messages="troopForm.troopTerm.$error" role="alert">
+      <div ng-message="required">
+        Выберете семестр
       </div>
     </div>
   </md-input-container>
