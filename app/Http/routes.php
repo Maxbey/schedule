@@ -122,7 +122,7 @@ $api->group([], function ($api) {
   $api->get('troops/{id}/occupations', 'OccupationsController@findByTroopAndDate');
 });
 
-Route::get('api/schedule', 'ScheduleController@index');
+Route::get('api/schedule', 'ScheduleController@createSchedule');
 
 Route::get('api/schedule/export', 'ScheduleController@export');
 Route::get('api/schedule/teachers-stat', 'ScheduleController@teachersLoadStatistics');

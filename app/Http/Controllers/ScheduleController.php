@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Entities\Teacher;
 use App\Excel\ScheduleExport;
+use App\Excel\ScheduleExportHandler;
 use App\Repositories\OccupationsRepository;
 use App\Repositories\TeachersRepository;
 use App\Repositories\TermsRepository;
@@ -28,7 +29,15 @@ class ScheduleController extends Controller
      */
     protected $teachersRepository;
 
+    /**
+     * @var TermsRepository
+     */
     protected $termsRepository;
+
+    /**
+     * @var ScheduleExportHandler
+     */
+    protected $exportHandler;
 
     /**
      * @var Schedule
@@ -37,17 +46,20 @@ class ScheduleController extends Controller
 
     /**
      * ScheduleController constructor.
+     *
      * @param Schedule $schedule
      * @param TroopsRepository $troopsRepository
      * @param TeachersRepository $teachersRepository
      * @param TermsRepository $termsRepository
+     * @param ScheduleExportHandler $scheduleExportHandler
      */
     public function __construct
     (
         Schedule $schedule,
         TroopsRepository $troopsRepository,
         TeachersRepository $teachersRepository,
-        TermsRepository $termsRepository
+        TermsRepository $termsRepository,
+        ScheduleExportHandler $scheduleExportHandler
     )
     {
         $this->troopsRepository = $troopsRepository;
@@ -55,23 +67,25 @@ class ScheduleController extends Controller
         $this->termsRepository = $termsRepository;
 
         $this->termsRepository->setPresenter('App\Presenters\TermPresenter');
+        $this->exportHandler = $scheduleExportHandler;
 
         $this->schedule = $schedule;
     }
 
     public function createSchedule(Request $request)
     {
-        $this->termsRepository->create($request->all());
-
         $troops = $this->troopsRepository->all();
         $startDate = Carbon::parse('2016-02-01');
 
         $this->schedule->buildSchedule($troops, $startDate, 20, 4);
     }
 
-    public function export(ScheduleExport $export)
+    public function export(Request $request)
     {
-        $export->handleExport();
+        $troops = $this->troopsRepository
+            ->findByIds(explode('|', $request->input('troops')));
+
+        $this->exportHandler->handle($troops);
     }
 
     public function teachersLoadStatistics(Request $request)

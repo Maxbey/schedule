@@ -8,6 +8,7 @@ use App\Entities\Occupation;
 use App\Entities\Teacher;
 use App\Repositories\OccupationsRepository;
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Files\ExportHandler;
 
 class ScheduleExportHandler
@@ -23,6 +24,11 @@ class ScheduleExportHandler
     protected $cellsForOccupations = ['C', 'D', 'E'];
 
     /**
+     * @var ScheduleExport
+     */
+    protected $export;
+
+    /**
      * @var array
      */
     protected $tableHeader = [
@@ -32,19 +38,32 @@ class ScheduleExportHandler
         '13:00 - 14:35'
     ];
 
-    public function __construct(OccupationsRepository $occupationsRepository)
-    {
-        $this->occupationsRepository = $occupationsRepository;
-    }
-
     /**
+     * ScheduleExportService constructor.
+     * @param OccupationsRepository $occupationsRepository
      * @param ScheduleExport $export
      */
-    public function handle(ScheduleExport $export)
+    public function __construct(OccupationsRepository $occupationsRepository, ScheduleExport $export)
     {
-        $schedule = $this->occupationsRepository->with(['teachers', 'audiences', 'theme', 'troop'])->all()->sortBy('date_of')->groupBy('date_of');
+        $this->occupationsRepository = $occupationsRepository;
+        $this->export = $export;
+    }
 
-        return $export->sheet('Schedule', function($sheet) use($schedule){
+
+    /**
+     * @param Collection $troops
+     */
+    public function handle(Collection $troops)
+    {
+        $schedule = $this->occupationsRepository->with(['teachers', 'audiences', 'theme', 'troop'])
+            ->all()
+            ->filter(function(Occupation $occupation) use($troops){
+                return $troops->contains('id', $occupation->troop_id);
+            })
+            ->sortBy('date_of')
+            ->groupBy('date_of');
+
+        return $this->export->sheet('Schedule', function($sheet) use($schedule){
 
             $sheet->row(1, $this->tableHeader);
 
