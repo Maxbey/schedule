@@ -16,7 +16,8 @@ class TroopServiceTest extends ServiceTestCase
     {
         $attributes = [
             'code' => '231',
-            'day' => 3
+            'day' => 3,
+            'term' => 1
         ];
 
         $specialty = factory(App\Entities\Specialty::class)->create();

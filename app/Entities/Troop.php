@@ -13,7 +13,7 @@ class Troop extends Model
 
     protected $table = 'troops';
 
-    protected $fillable = ['code', 'day'];
+    protected $fillable = ['code', 'day', 'term'];
 
     public function specialty()
     {

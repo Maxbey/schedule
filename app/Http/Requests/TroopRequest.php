@@ -25,6 +25,7 @@ class TroopRequest extends Request
     {
         return [
             'code' => 'required|string|min:3|max:100',
+            'term' => 'required|integer',
             'day'  => 'required|integer|min:1|max:5',
             'specialty_id' => 'required|integer'
         ];
