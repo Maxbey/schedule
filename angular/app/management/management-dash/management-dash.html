@@ -20,7 +20,7 @@
     </div>
   </div>
 
-  <div layout="column" flex="50" layout-padding="">
+  <div layout="column" flex="40" layout-padding>
     <h1 class="md-title" layout-padding>Экспорт расписания в Excell</h1>
 
     <md-input-container class="md-block" flex-gt-sm>
@@ -40,8 +40,18 @@
           </md-chip-template>
       </md-chips>
     </md-input-container>
+    <div layout="row">
       <md-button class="md-raised" ng-click="vm.export()">Экспорт</md-button>
+    </div>
 
+
+  </div>
+
+  <div layout="column" flex="40" layout-padding>
+    <h1 class="md-title" layout-padding>Генерация расписания</h1>
+    <div layout="row">
+      <md-button class="md-raised md-warn" ng-click="vm.generate()">Запуск</md-button>
+    </div>
   </div>
 
 

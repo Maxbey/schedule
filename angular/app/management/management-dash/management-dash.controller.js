@@ -3,7 +3,7 @@
 
     angular.module('app.controllers').controller('ManagementDashController', ManagementDashController);
 
-    function ManagementDashController(API, TroopService, $window, $scope, $timeout, ToastService, SelectHelpersService){
+    function ManagementDashController(API, TroopService, $window, $http, $scope, $timeout, ToastService, SelectHelpersService, DialogService){
         var vm = this;
 
         vm.chartsReady = false;
@@ -98,6 +98,14 @@
 
             $window.open('api/schedule/export?troops=' + troopsString);
         }
+
+        vm.generate = function(){
+          DialogService.fromTemplate('generation');
+          $http.get('api/schedule/', {}).then(function(){
+            DialogService.hide();
+            ToastService.show("Расписание сгенерировано");
+          });
+        };
 
         loadTroops();
     }

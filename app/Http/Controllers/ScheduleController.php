@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Occupation;
 use App\Entities\Teacher;
 use App\Excel\ScheduleExport;
 use App\Excel\ScheduleExportHandler;
@@ -74,10 +75,14 @@ class ScheduleController extends Controller
 
     public function createSchedule(Request $request)
     {
+        DB::statement('SET foreign_key_checks=0');
+        Occupation::truncate();
+        DB::statement('SET foreign_key_checks=1');
+
         $troops = $this->troopsRepository->all();
         $startDate = Carbon::parse('2016-02-01');
 
-        $this->schedule->buildSchedule($troops, $startDate, 20, 4);
+        $this->schedule->buildSchedule($troops, $startDate, 20);
     }
 
     public function export(Request $request)

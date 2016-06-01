@@ -69,32 +69,32 @@ class Schedule extends AbstractSchedule
      * @param $termLength
      * @param $term
      */
-    public function buildSchedule(Collection $troops,Carbon $date, $termLength, $term)
+    public function buildSchedule(Collection $troops,Carbon $date, $termLength)
     {
         for($i = 0; $i < $termLength; $i++, $date->addWeek())
         {
-            $troops->each(function(Troop $troop) use($date, $term){
+            $troops->each(function(Troop $troop) use($date){
                 $date->startOfWeek();
                 $date->addDays($troop->day);
                 $hours = 0;
 
                 while($hours != $this->lessonsHours) {
-                    $disciplines = $this->getPriorityDisciplinesList($troop, $term);
+                    $disciplines = $this->getPriorityDisciplinesList($troop);
 
                     $theme = null;
                     $teachers = null;
                     $audiences = null;
 
-
                     while(1)
                     {
-                        if($disciplines->first()->ratio == 1)
-                            break 2;
 
                         if(!$disciplines->count())
                             break 2;
 
-                        $theme = $this->getNextTheme($disciplines->first(), $troop, $term);
+                        if($disciplines->first()->ratio == 1)
+                            break 2;
+
+                        $theme = $this->getNextTheme($disciplines->first(), $troop);
 
                         if(!$theme)
                         {
@@ -153,11 +153,11 @@ class Schedule extends AbstractSchedule
         $this->pushScheduleToDB();
     }
 
-    protected function getNextTheme(Discipline $discipline, Troop $troop, $term)
+    protected function getNextTheme(Discipline $discipline, Troop $troop)
     {
         return $discipline
             ->themes
-            ->where('term', $term)
+            ->where('term', $troop->term)
             ->sortBy('number')
             ->first(function ($key, Theme $theme) use ($troop) {
                 return !$this->schedule->where('theme_id', $theme->id)->contains('troop_id', $troop->id);
@@ -199,16 +199,16 @@ class Schedule extends AbstractSchedule
      * @param $term
      * @return mixed
      */
-    protected function getPriorityDisciplinesList(Troop $troop, $term)
+    protected function getPriorityDisciplinesList(Troop $troop)
     {
         $disciplines = $troop
             ->specialty
-            ->disciplines->each(function(Discipline &$discipline) use($troop, $term){
+            ->disciplines->each(function(Discipline &$discipline) use($troop){
                 $totalHours = $discipline->hoursSum;
                 $currentHours = 0;
 
                 $discipline->themes
-                    ->where('term', $term)
+                    ->where('term', $troop->term)
                     ->each(function(Theme $theme) use(&$currentHours, $troop){
                         if($this->schedule->where('theme_id', $theme->id)->contains('troop_id', $troop->id))
                         {
