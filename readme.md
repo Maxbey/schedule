@@ -2,7 +2,7 @@
 
 - Clone the repository
 
-  `$ git clone https://github.com/Maxbey/schedule
+  $ git clone https://github.com/Maxbey/schedule
   
 - Install Laravel dependencies
 
